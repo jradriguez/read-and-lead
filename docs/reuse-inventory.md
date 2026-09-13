@@ -19,3 +19,33 @@ read for extraction nor changed. Atlas's unrelated skill edit remains untouched.
 Highest-value future reuse is the pure learning/progress/content boundary, which can
 support a later math game without importing infrastructure. Do not copy financial,
 authentication, publishing, purchasing or agent execution systems into the child app.
+
+## Project instruction curation — 2026-09-12
+
+Source: AI-OS committed tree `c3f0bed7f68faa8dc452a5cf9358969d470549b3`.
+The inspected instruction files match that tree; unrelated runtime edits were
+excluded. This is an original project-specific adaptation of workflow concepts,
+not a wholesale document or runtime import. No root AI-OS redistribution license
+was established; this work adds no license grant or third-party assets.
+
+| AI-OS source paths | Read and Lead destination and adaptation |
+| --- | --- |
+| `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` | Compact root routing and thin host entry points for the mobile app |
+| `AI_AGENT_POLICY.md`, `docs/templates/tool-approval-matrix.md` | `AI_AGENT_POLICY.md`: authorized local work, explicit external actions, human curriculum approval, inline execution |
+| `CODING_GUIDELINES.md` | `CODING_GUIDELINES.md`: strict TypeScript, Expo adapters, real SQLite, native QA; no Python/provider setup |
+| `COMPANY_CONTEXT.md` | `COMPANY_CONTEXT.md`: product, learner/parent roles, M1 scope, owner authority; no invented company identity |
+| `CONTRIBUTING.md` | `CONTRIBUTING.md` and existing PR template: npm gates and one initial commit before review |
+| `STYLE_GUIDE.md` | `STYLE_GUIDE.md`: Read and Lead vocabulary, accessible workshop UI, truthful learning copy, concise handoffs |
+| `SECURITY.md`, `docs/templates/security-review.md` | `SECURITY.md`, `docs/engineering-review.md`: child-data boundaries, content integrity, persistence, native evidence |
+| `MEMORY.md` | `MEMORY.md`: durable non-sensitive project decisions with links; no copied operational or personal memory |
+
+AI-OS's agent-pack `SYSTEM_PROMPT`, `TOOLS`, `DATA`, `RUNBOOK`, and `EVALS`
+templates, runtime specifications, provider/gateway setup, and historical plans
+are not needed for M1. Existing content-review, privacy-map, device-validation,
+and implementation-status docs serve the app's corresponding responsibilities.
+No new agent framework, service, hook, or dependency is introduced.
+
+Verification for this adaptation uses source-tree comparison, local Markdown
+link and npm-command checks, `npm run validate:code`, `npm run security:check`,
+and Git diff hygiene. These checks validate repository guidance and code health,
+not teaching approval or native/device readiness.

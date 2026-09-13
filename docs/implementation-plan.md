@@ -2,7 +2,12 @@
 
 Original approved plan. See [implementation status](implementation-status.md) for current completion evidence and remaining gates.
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Current execution policy:** Follow [AGENTS.md](../AGENTS.md) and
+> [CONTRIBUTING.md](../CONTRIBUTING.md). Work inline unless delegation is authorized.
+> Steps use checkbox (`- [ ]`) syntax as implementation checkpoints, not commit
+> boundaries. Keep the complete initial implementation in one commit before review;
+> a few focused review-fix commits may follow. Historical command/interface examples
+> below must be checked against current code and `package.json` before use.
 
 **Goal:** Create a new mobile repository and deliver two reviewed, offline robot-workshop mini-lessons with native interaction, audio, local progress, and a parent area.
 
@@ -181,8 +186,9 @@ test('a non-reader can find the lesson entry action', () => {
   Python runtime. Verify any later literal extraction against a committed tree.
 - [ ] Run `npm run lint`, `npm run typecheck`, `npm run test:ui`, `npm run repo:check`,
   and one simulator build when tooling permits. Confirm no microphone prompt.
-  Commit only this completed foundation. The full content gate becomes required
-  in Task 2, when content exists; do not weaken it to make Task 1 look complete.
+  Treat the completed foundation as a validation checkpoint. The full content gate
+  becomes required in Task 2, when content exists; do not weaken it to make Task 1
+  look complete.
 
 ## Task 2: Establish the content contract and reviewed mini-lessons
 
@@ -273,8 +279,8 @@ test('drafts are useful locally but cannot become a release pack', () => {
 - [ ] Run `npm run test:unit`, `npm run content:check`, and `npm run validate`.
   If human review is unavailable, domain work may continue with fixtures, but
   record the blocked child-test/release gate instead of claiming a green content pack.
-  Commit the reviewed contract and safe content; keep private reviewer contact
-  information outside git.
+  Include the reviewed contract and safe content in the initial implementation;
+  keep private reviewer contact information outside git.
 
 ## Task 3: Implement a deterministic lesson and feedback engine
 
@@ -326,8 +332,9 @@ test('a correct response after a hint is assisted', () => {
 - [ ] Prevent repeated submit taps while an answer/save is in flight in the UI,
   while retaining repository-level attempt-ID idempotency in Task 4. Generate IDs
   in the adapter, passing them into the deterministic layer.
-- [ ] Run focused unit tests, then `npm run validate`. Commit the engine separately
-  from native interactions so its logic can be reviewed and reused for later games.
+- [ ] Run focused unit tests, then `npm run validate`. Keep the engine separate
+  from native interactions in code so its logic can be reviewed and reused; include
+  both in the single initial implementation commit.
 
 ## Task 4: Save attempts and progress without losing or duplicating rewards
 
@@ -395,7 +402,7 @@ test('replayed saves cannot inflate progress', async () => {
   if this requires a native config plugin, isolate it and test generated config.
 - [ ] Run SQL tests and a native open/save/reopen check. Inject a failed save and
   verify the child sees a retry message while their current activity remains usable.
-  Run `npm run validate` and commit this storage boundary.
+  Run `npm run validate` and record the storage validation checkpoint.
 
 ## Task 5: Deliver equivalent touch interactions and controlled audio
 
@@ -446,7 +453,8 @@ test('placement changes only the addressed slot', () => {
   fallback message and an adult diagnostic without exposing personal data.
 - [ ] Measure readability and touch layout on iPad portrait/landscape and a narrow
   phone layout; capture only synthetic-data evidence under ignored outputs.
-  Run unit/UI/content checks plus a native gesture/audio pass; commit the playable activities.
+  Run unit/UI/content checks plus a native gesture/audio pass; record the
+  playable-activity checkpoint.
 
 ## Task 6: Connect the workshop, completion and parent controls
 
@@ -487,7 +495,8 @@ test('cancelling reset preserves saved progress', async () => {
 
 - [ ] Define `makeParentTestRepository` with Jest mocks of all ProgressRepository
   methods; include a separate confirmed-reset success/failure test. Add an end-to-end
-  UI flow from start to earned part to reopen. Run `npm run validate`; commit.
+  UI flow from start to earned part to reopen. Run `npm run validate`; record
+  the checkpoint.
 
 ## Task 7: Prove installed offline behavior and hand off the first playable
 
@@ -532,7 +541,8 @@ appId: com.readandlead.prototype
   pass. Use synthetic progress for captures; do not retain real child audio.
 - [ ] Run `npm run validate`, `npm run security:check`, `npm run test:native` and
   `git diff --check`. Document exact versions, build SHA, devices and outcomes.
-  Ensure content review passed before child use. Commit the validated handoff.
+  Ensure content review passed before child use. Prepare one initial implementation
+  commit containing the completed scope and truthful handoff evidence before review.
 
 ## Acceptance coverage and next increments
 

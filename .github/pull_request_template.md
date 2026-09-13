@@ -2,6 +2,9 @@
 
 Describe the problem and resulting behavior.
 
+Explain why this change is needed. Keep the initial implementation in one commit
+before review; a few focused review-fix commits may follow.
+
 ## Validation
 
 List checks actually run and any unavailable device evidence. A green prototype
@@ -11,3 +14,8 @@ code check does not approve curriculum or authorize a store release.
 
 Identify teaching-content, asset-rights, data-flow or permission changes. Keep
 child data, recordings, device databases and credentials out of this PR.
+
+## Risks and reviewer focus
+
+Call out affected behavior, assumptions, and remaining blockers. Use
+the engineering review checklist in `docs/engineering-review.md` for this change.

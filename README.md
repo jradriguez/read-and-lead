@@ -65,3 +65,16 @@ licenses remain applicable. The public development repository is
 [jradriguez/read-and-lead](https://github.com/jradriguez/read-and-lead).
 See [contributing](CONTRIBUTING.md) and [GitHub setup](docs/github-setup.md).
 No store submission has been created.
+
+## Working in this repository
+
+Start with [AGENTS.md](AGENTS.md) for the instruction map. The project guidance
+covers [agent authority](AI_AGENT_POLICY.md), [coding](CODING_GUIDELINES.md),
+[product context](COMPANY_CONTEXT.md), [contribution workflow](CONTRIBUTING.md),
+[style](STYLE_GUIDE.md), [security](SECURITY.md), and [durable decisions](MEMORY.md).
+[Engineering review](docs/engineering-review.md) routes the applicable evidence.
+
+Keep each initial implementation in one commit before review; a few focused
+review-fix commits may follow. These instructions are tailored from AI-OS's
+general working concepts; [the reuse inventory](docs/reuse-inventory.md) records
+the source and deliberate exclusions.
