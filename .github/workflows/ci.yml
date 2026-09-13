@@ -1,0 +1,49 @@
+name: Prototype CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: prototype-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  code:
+    name: Prototype code checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:code
+      - run: npm audit --audit-level=high
+      - run: git diff --exit-code
+      - name: Record the release boundary
+        run: echo 'Prototype checks do not approve teaching content or native releases. See docs/implementation-status.md.' >> "$GITHUB_STEP_SUMMARY"
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install pinned Gitleaks
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl --fail --silent --show-error --location --output gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  gitleaks.tar.gz' | sha256sum --check --strict
+          tar -xzf gitleaks.tar.gz gitleaks
+      - name: Scan history and working tree
+        run: |
+          "$RUNNER_TEMP/gitleaks" git --redact
+          "$RUNNER_TEMP/gitleaks" dir . --redact

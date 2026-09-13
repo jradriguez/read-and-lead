@@ -1,0 +1,12 @@
+# Gate smoke only. No fixed arithmetic answer or release bypass.
+appId: com.readandlead.prototype
+---
+- launchApp:
+    clearState: false
+- tapOn: "Parent area"
+- assertVisible: "Grown-up time"
+- tapOn: "Open parent area"
+- assertVisible: "Try this new question."
+- tapOn: "Back to workshop"
+- assertVisible:
+    id: workshop

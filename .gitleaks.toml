@@ -1,0 +1,13 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated dependencies, local outputs, and native build products only"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)outputs/''',
+  '''(^|/)ios/''',
+  '''(^|/)android/''',
+  '''(^|/)\.expo/''',
+  '''(^|/)\.git/'''
+]
