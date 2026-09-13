@@ -76,7 +76,8 @@ not a pass. Source sections refer to the companion research report.
 ### Implementation checkpoint
 
 Authorized local implementation has begun. P0's reviewer brief is prepared below;
-P1's environment proposal and input-inventory command are in [toolchain](toolchain.md).
+P1's authorized native setup, successful debug builds and input-inventory command
+are in [toolchain](toolchain.md).
 P2's backup, release permission, deletion and parent-information controls are
 implemented; their device acceptance is still open. Android Back has regression
 coverage and parent text has phone/tablet simulator layout evidence. See
@@ -85,9 +86,9 @@ No full P0–P5 package or child/store gate is declared complete by these change
 
 | Register update | Evidence now available | Still open |
 | --- | --- | --- |
-| PRI-01, PRI-03–05 | Expanded data map, embedded parent notice, native backup/resource generation, release permission directives, raw SQLite page tests on separate connections | Actual binary/traffic/transfer and deletion sidecars; legal retention rationale |
-| SEC-01–04 | Concrete threat assessment and incident handoff in SECURITY.md; input hashes and npm CycloneDX capture | Independent native review, native SBOM/license notices, signing, named responders/tabletop |
-| QUA-01–02, A11Y-01 | Android Back/gate regression; iPhone portrait and iPad landscape parent-text inspection | Android runtime, physical gestures/assistive technology, large text, measured performance |
+| PRI-01, PRI-03–05 | Expanded data map, embedded parent notice, native backup/resource generation, release permission directives, raw SQLite page tests on separate connections | Final release binary/traffic/transfer and deletion sidecars; legal retention rationale |
+| SEC-01–04 | Threat assessment and incident handoff; input hashes/npm CycloneDX, Pod/Gradle resolutions and debug binary hashes | Independent native review, license notices, signing and incident rehearsal |
+| QUA-01–02, A11Y-01 | Android Back/gate regression; phone/tablet text inspection; native iOS/Android lesson/restart/gate smoke checks | Physical gestures/assistive technology, large text and measured performance |
 | EDU-01–02, PIL-01, REL-01 | Human recording/review brief and pilot procedure prepared | Qualified approvals, complete narration, authorized pilot and release scope |
 
 ### Prepared counsel, literacy and rights brief

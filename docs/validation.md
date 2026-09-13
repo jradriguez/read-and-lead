@@ -78,8 +78,46 @@ experimental SQLite warning and Expo's color-environment warning remain non-fail
 Expo also warns that Android theme integration needs expo-system-ui; no dependency
 was added solely to remove the warning.
 
-Standalone CocoaPods/Android compilation and Maestro/device checks await the
-specific tooling authorization in [toolchain](toolchain.md). No toolchain, schema,
-CI/CD, signing-account, store, publication or paid-service changes were made.
+At that earlier checkpoint, native compilation awaited tooling authorization.
+The subsequent authorized installation and native builds are recorded in
+[toolchain](toolchain.md#authorized-native-build-setup) and
+[device validation](device-validation.md#custom-native-development-build-checkpoint).
+No schema, CI/CD, signing-account, store, publication or paid-service changes were made.
 Human content/recording/rights and legal approvals, physical-device acceptance,
 independent review and the later pilot/store packages remain incomplete.
+
+## Authorized native toolchain follow-up
+
+The owner authorized the proposed local tools and Android SDK license acceptance.
+CocoaPods/JDK/Android SDK/Maestro are installed; [toolchain](toolchain.md) records
+versions, download integrity, locations, effects and commands. No npm dependency set,
+schema, CI/CD, signing-account or store change was needed. The native test command
+now selects an ordered smoke journey instead of unordered directory discovery.
+
+Fresh follow-up checks:
+
+| Check | Result / scope |
+| --- | --- |
+| `npm run validate:code` | Passed: lint, strict types, 47 unit and 20 component tests, repository boundary check |
+| `npm run security:check` | Passed: zero npm audit vulnerabilities; no leaks in history/directory scans |
+| `npm run content:check` | Failed as expected: UNAPPROVED_LESSON, UNAPPROVED_ASSET and REVIEW_DIGEST for both lessons. Full release validation remains blocked |
+| `sh -n scripts/native-tools.sh`, wrapper help and Java invocation | Passed |
+| `maestro check-syntax .maestro/smoke.yaml` | Passed, including nested flows |
+| iOS Debug simulator build / Android ARM64 Debug APK | Both compiled successfully; actual outputs and native inspection limits are in device-validation.md |
+| iOS native ordered smoke | Passed with Maestro 2.10.0 on dedicated iPad simulator: both lessons, connected sentence, one/two-part persistence across restart, invalid parent-gate rejection and return to workshop |
+| Android native ordered smoke | Passed with Maestro 2.10.0 on API 36 ARM64 Pixel Tablet emulator: same full journey, including scrolling to the second-lesson finish control and retaining both parts after restart |
+
+Earlier failed/interrupted runs are retained: development launcher/deep-link setup,
+iOS keyboard dismissal, developer menu dismissal, Android finish control below the
+landscape viewport, and a diagnostic driver collision. Startup now uses the visible
+manual URL controls and conditional developer-menu handling; the second-lesson flow
+scrolls to the finish button. No lesson, storage, parent-gate or review condition
+was weakened. Diagnostics against the same device must wait for its test to end.
+
+Local evidence: `outputs/native-build-evidence/`, `outputs/maestro-ios-scroll.log`
+and `outputs/maestro-android-scroll.log` with their corresponding artifact folders.
+App code is from `1f42e31`, with ignored local draft media (49 recorded input
+hashes matched the isolated build copy); this
+follow-up changes tooling, tests, npm test routing and documentation. Debug builds
+require Metro and do not establish offline/no-egress release behavior. No release
+archive/AAB or physical-device testing was performed. Child/store gates remain blocked.

@@ -3,8 +3,7 @@ appId: com.readandlead.prototype
 ---
 - launchApp:
     clearState: true
-- assertVisible:
-    id: workshop
+- runFlow: helpers/connect.yaml
 - tapOn:
     id: start-lesson
 - tapOn: "Ready to build"

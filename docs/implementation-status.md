@@ -6,13 +6,13 @@ boxes in the original approved implementation plan, which remains a design refer
 
 | Plan task | Current evidence | Remaining acceptance |
 | --- | --- | --- |
-| 1. Native foundation | Separate Git root and feature branch; Expo 57 template; strict TS; native workspace generated; iPad/phone Expo Go UI | Standalone compilation; final icon/art |
+| 1. Native foundation | Separate Git root and feature branch; Expo 57 template; strict TS; native workspace generated; unsigned iOS simulator and Android debug compilation passed | Final icon/art and release acceptance |
 | 2. Content contract | Cumulative patterns, word/answer checks, prereq cycles, connected text, asset bytes/path checks and review digests | Human literacy review, human phoneme recordings, asset rights |
 | 3. Learning engine | Ordered evaluation, hints, supported retry, demonstration and skip; deterministic unit tests | Child usability observation after review |
-| 4. Local progress | Shared real SQLite queries; rollback, serialization, duplicate saves, pruning and reset tests; native iPad first-lesson save | Force-close/reopen, physical backup exclusion and error recovery |
+| 4. Local progress | Shared real SQLite queries; rollback, serialization, duplicate saves, pruning and reset tests; both native lessons and one/two-part persistence across restart on iOS/Android | Physical backup exclusion and error recovery |
 | 5. Touch and audio | Tap builds and automatic prompt transitions; audio cancellation tests; bounded native playback adapter; gesture/drop implementation | Drag could not be verified through the available simulator automation; playback quality, interruption and physical gesture checks |
 | 6. Workshop and parent controls | First-lesson reward in simulator; parent gate/phone screen; reset cancellation/error UI tests; OS reduced motion | Full navigation narration; persistent preferences if required; both-lesson replay and confirmed native reset |
-| 7. Native/offline handoff | Expo Go iPad portrait/landscape and phone screenshots; native source/config generation; draft Maestro flows | CocoaPods/Ruby toolchain; Android SDK/JDK/Maestro; standalone offline builds and physical devices |
+| 7. Native/offline handoff | Expo Go iPad portrait/landscape and phone screenshots; native source/config generation; native tools/debug builds and verified both-lesson/restart/gate smoke flows | Standalone offline release and physical-device acceptance |
 
 ## Deliberate implementation adjustments
 
@@ -39,8 +39,8 @@ boxes in the original approved implementation plan, which remains a design refer
    a tile without producing pan callbacks; the cause is not established.
 2. Complete spoken navigation and curriculum/audio review. Replace development-only
    speech with licensed recordings; validate its bound review digest.
-3. Install a compatible native build toolchain. Build a custom development client,
-   verify backup behavior and denied-save handling, then a reviewed offline release.
+3. Use the installed native toolchain and custom development builds to complete
+   backup/transfer and denied-save acceptance, then a reviewed offline release.
 4. Run the full first-lesson and second-lesson loops on physical iPad and Android
    tablet, including interrupted playback, rotation, VoiceOver/TalkBack, reset and
    force-close/reopen. Record synthetic evidence only.
@@ -74,6 +74,5 @@ and an npm inventory without adding dependencies or services.
 See [validation](validation.md#mobile-readiness-implementation-checkpoint) for this
 change's results. Generated native configuration and Expo Go layout checks do not
 close standalone, transfer, network or physical-device acceptance. The
-[tooling proposal](toolchain.md#native-build-setup-proposal--awaiting-authorization)
-awaits specific authorization; human literacy/audio/rights and legal decisions
-remain open. No M1 child-use or store-release gate has been marked complete.
+[native setup](toolchain.md#authorized-native-build-setup) is authorized and installed;
+human literacy/audio/rights and legal decisions remain open. No M1 child-use or store-release gate has been marked complete.

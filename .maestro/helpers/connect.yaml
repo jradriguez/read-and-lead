@@ -1,0 +1,39 @@
+# Local development client only; never used by a release build.
+appId: com.readandlead.prototype
+---
+- runFlow:
+    when:
+      visible: "Enter URL manually"
+    commands:
+      - tapOn: "Enter URL manually"
+- runFlow:
+    when:
+      visible: "http://"
+    commands:
+      - tapOn: "http://"
+      - inputText: "http://127.0.0.1:8081"
+      - runFlow:
+          when:
+            visible: "Allow Android Keyboard.*contacts.*"
+          commands:
+            - tapOn: "(?i)don.t allow"
+      - runFlow:
+          when:
+            platform: Android
+          commands:
+            - hideKeyboard
+      - tapOn: "Connect"
+- runFlow:
+    when:
+      visible: "This is the developer menu.*"
+    commands:
+      - tapOn: "Continue"
+- runFlow:
+    when:
+      visible: "Reload"
+    commands:
+      - tapOn: "Close"
+- extendedWaitUntil:
+    visible:
+      id: workshop
+    timeout: 120000

@@ -44,7 +44,7 @@
     "validate:code": "npm run lint && npm run typecheck && npm run test:unit && npm run test:ui && npm run repo:check",
     "validate": "npm run validate:code && npm run content:check",
     "security:check": "npm audit --audit-level=high && gitleaks git --redact && gitleaks dir . --redact",
-    "test:native": "maestro test .maestro",
+    "test:native": "maestro test .maestro/smoke.yaml",
     "draft:audio": "tsx scripts/create-draft-audio.ts",
     "format": "prettier --write App.tsx src scripts tests plugins"
   },

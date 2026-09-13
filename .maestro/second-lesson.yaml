@@ -1,0 +1,53 @@
+# Run after lesson and resume on the same disposable synthetic install.
+appId: com.readandlead.prototype
+---
+- assertVisible: "1 of 2 robot parts collected"
+- tapOn:
+    id: start-lesson
+- tapOn: "Ready to build"
+- tapOn:
+    id: tile-t
+- tapOn:
+    id: check-answer
+- tapOn:
+    id: tile-m
+- tapOn:
+    id: slot-0
+- tapOn:
+    id: tile-short-a
+- tapOn:
+    id: slot-1
+- tapOn:
+    id: tile-t
+- tapOn:
+    id: slot-2
+- tapOn:
+    id: check-answer
+- tapOn:
+    id: tile-s
+- tapOn:
+    id: slot-0
+- tapOn:
+    id: tile-short-a
+- tapOn:
+    id: slot-1
+- tapOn:
+    id: tile-t
+- tapOn:
+    id: slot-2
+- tapOn:
+    id: check-answer
+- assertVisible: "You built it!"
+- assertVisible: "Sam sat."
+- scrollUntilVisible:
+    element:
+      id: finish-lesson
+    direction: DOWN
+- tapOn:
+    id: finish-lesson
+- assertVisible: "2 of 2 robot parts collected"
+- stopApp
+- launchApp:
+    clearState: false
+- runFlow: helpers/connect.yaml
+- assertVisible: "2 of 2 robot parts collected"
