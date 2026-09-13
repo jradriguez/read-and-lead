@@ -21,7 +21,7 @@ The current application is an adult prototype; M1 child-use acceptance is pendin
 | UI, narration, or teaching copy | [Style guide](STYLE_GUIDE.md), [vocabulary](docs/context.md), [content review](docs/content-review.md) for instruction/media |
 | Storage, reset, or permissions | [Privacy map](docs/privacy-data-map.md), [device validation](docs/device-validation.md) |
 | Native APIs or device work | [Toolchain](docs/toolchain.md), [device validation](docs/device-validation.md), [Expo SDK 57](https://docs.expo.dev/versions/v57.0.0/) before native API changes |
-| Review or release planning | [Engineering review](docs/engineering-review.md); [release requirements](docs/design.md#validation-and-decision-gates) for applicable release work |
+| Review or release planning | [Engineering review](docs/engineering-review.md); [mobile readiness plan](docs/mobile-readiness-plan.md) for applicable release work |
 | Prior decisions or external reuse | [Repository memory](MEMORY.md) or [reuse inventory](docs/reuse-inventory.md), as needed |
 
 This file owns routing and essential guardrails. Detailed rules belong in their

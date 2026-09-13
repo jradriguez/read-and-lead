@@ -39,7 +39,7 @@ revision. A previous green run is not evidence for new code.
 ## Release evidence
 
 For separately authorized release work, apply the contribution validation contract
-and the applicable [release requirements](design.md#validation-and-decision-gates). Human
+and the applicable [mobile readiness gates](mobile-readiness-plan.md). Human
 curriculum/rights review and installed offline/device checks remain necessary.
 Record build revision, platform, date, actual outcomes, and pending evidence using
 synthetic data. Mark unavailable hardware or native

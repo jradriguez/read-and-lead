@@ -3,6 +3,7 @@ appId: com.readandlead.prototype
 ---
 - launchApp:
     clearState: false
+- runFlow: helpers/connect.yaml
 - tapOn: "Parent area"
 - assertVisible: "Grown-up time"
 - tapOn: "Open parent area"

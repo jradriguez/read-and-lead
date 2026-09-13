@@ -34,9 +34,9 @@ work and keep the affected child-use gate blocked.
 
 M2 expands the reviewed curriculum and family pilot; M3 addresses commercial
 readiness. Accounts, cloud services, live AI, ads, analytics, microphone practice,
-billing, broader curricula, and new platforms are not additions to M1. Later
-work follows the [design](docs/design.md) and a separately scoped implementation
-plan. Proposed markets, budgets, and distribution choices are not commitments.
+billing, broader curricula, and new platforms are not additions to M1. The
+[mobile readiness plan](docs/mobile-readiness-plan.md) informs separately scoped
+work; its recommended markets, budgets, and distribution order are not commitments.
 
 ## Decision ownership
 

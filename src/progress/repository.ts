@@ -24,6 +24,14 @@ export const emptySummary = (): ProgressSummary => ({
   skipped: 0,
   completedLessonIds: [],
 });
+async function requireSecureDelete(db: Sql) {
+  await db.run("PRAGMA secure_delete = ON");
+  if (
+    (await db.all<{ secure_delete: number }>("PRAGMA secure_delete"))[0]
+      ?.secure_delete !== 1
+  )
+    throw new Error("SECURE_DELETE_UNAVAILABLE");
+}
 export async function openProgressRepository(
   db: Sql,
 ): Promise<ProgressRepository> {
@@ -31,6 +39,9 @@ export async function openProgressRepository(
     await db.all<{ user_version: number }>("PRAGMA user_version")
   )[0].user_version;
   if (version > 1) throw new Error("NEWER_SCHEMA");
+  // Scrub deleted ordinary-table content; backups, WAL and flash remnants still
+  // require separate native acceptance. This does not change the schema version.
+  await requireSecureDelete(db);
   if (version === 0)
     await db.transaction(async (tx) => {
       for (const statement of schema) await tx.run(statement);
@@ -98,6 +109,8 @@ export async function openProgressRepository(
     reset(learner) {
       return serial(() =>
         db.transaction(async (tx) => {
+          // Expo opens a new connection for each exclusive transaction.
+          await requireSecureDelete(tx);
           for (const table of ["attempts", "totals", "completions"])
             await tx.run(`DELETE FROM ${table} WHERE learner_id=?`, [learner]);
         }),
@@ -106,6 +119,7 @@ export async function openProgressRepository(
     prune(before) {
       return serial(() =>
         db.transaction(async (tx) => {
+          await requireSecureDelete(tx);
           await tx.run(
             "INSERT INTO totals SELECT learner_id,outcome,COUNT(*) FROM attempts WHERE created_at < ? GROUP BY learner_id,outcome ON CONFLICT(learner_id,outcome) DO UPDATE SET count=totals.count+excluded.count",
             [before],

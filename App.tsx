@@ -6,7 +6,13 @@ import {
 } from "./src/progress/native";
 import { nativeAudio } from "./src/audio/native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AccessibilityInfo, AppState, ScrollView, Text } from "react-native";
+import {
+  AccessibilityInfo,
+  AppState,
+  BackHandler,
+  ScrollView,
+  Text,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { WorkshopScreen } from "./src/features/workshop/WorkshopScreen";
 import { LessonScreen } from "./src/features/lesson/LessonScreen";
@@ -149,6 +155,15 @@ export default function App({
     [audioEnabled, dependencies],
   );
   const home = useCallback(() => setScreen("workshop"), []);
+  useEffect(() => {
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (screen === "workshop") return false;
+      audio.stop();
+      home();
+      return true;
+    });
+    return () => sub.remove();
+  }, [screen, audio, home]);
   const lesson = catalog.lessons.find((l) => l.id === activeLessonId)!;
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

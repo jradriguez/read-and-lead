@@ -6,6 +6,7 @@ import {
   waitFor,
 } from "@testing-library/react-native";
 import App from "../../App";
+import { BackHandler } from "react-native";
 import { catalog } from "../../src/content/catalog";
 import {
   emptySummary,
@@ -168,4 +169,53 @@ test("confirmed recovery reopens progress and permits a lesson", async () => {
   );
   await fireEvent.press(screen.getByTestId("start-lesson"));
   expect(screen.getByTestId("lesson-screen")).toBeTruthy();
+});
+
+test("Android Back exits lessons and locks the parent area before returning home", async () => {
+  let back: () => boolean | null | undefined = () => false;
+  const listener = jest
+    .spyOn(BackHandler, "addEventListener")
+    .mockImplementation((_event, handler) => {
+      back = () => handler({ type: "hardwareBackPress", timeStamp: 100 });
+      return { remove() {} };
+    });
+  const stop = jest.fn();
+  const repository: ProgressRepository = {
+    async record() {},
+    async reset() {},
+    async prune() {},
+    async summary() {
+      return emptySummary();
+    },
+  };
+  try {
+    await render(
+      <App
+        load={async () => ({ repository, audio: { async play() {}, stop } })}
+      />,
+    );
+    expect(back()).toBe(false);
+    await fireEvent.press(screen.getByTestId("start-lesson"));
+    await act(async () => {
+      expect(back()).toBe(true);
+    });
+    expect(screen.getByTestId("workshop")).toBeTruthy();
+    expect(stop).toHaveBeenCalled();
+    await openParents();
+    await fireEvent.press(
+      screen.getByRole("button", { name: "Reset progress" }),
+    );
+    await act(async () => {
+      expect(back()).toBe(true);
+    });
+    expect(screen.queryByText("Delete local progress")).toBeNull();
+    await fireEvent.press(screen.getByRole("button", { name: "Parent area" }));
+    expect(screen.getByLabelText("Grown-up answer")).toBeTruthy();
+    await act(async () => {
+      expect(back()).toBe(true);
+    });
+    expect(screen.getByTestId("workshop")).toBeTruthy();
+  } finally {
+    listener.mockRestore();
+  }
 });

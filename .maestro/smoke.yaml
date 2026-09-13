@@ -1,0 +1,7 @@
+# Ordered synthetic-data journey. A failed lesson stops dependent resume checks.
+appId: com.readandlead.prototype
+---
+- runFlow: lesson.yaml
+- runFlow: resume.yaml
+- runFlow: parent.yaml
+- runFlow: second-lesson.yaml

@@ -4,4 +4,5 @@ appId: com.readandlead.prototype
 - stopApp
 - launchApp:
     clearState: false
+- runFlow: helpers/connect.yaml
 - assertVisible: "1 of 2 robot parts collected"
