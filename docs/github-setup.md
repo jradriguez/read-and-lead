@@ -13,7 +13,9 @@ not an App Store release. Original code's redistribution license remains undecid
   approve their own PR. Independent agent review is recorded in the PR evidence.
 - Protect `main` for administrators too: PR required, current-base status checks,
   resolved conversations, linear history, no forced pushes or branch deletion.
-- Required checks: `Prototype code checks`, `Secret scan`, `CodeQL analysis`.
+- Required checks: `Prototype code checks`, `Secret scan`, `CodeQL analysis`,
+  and the separate `CodeQL` alert-result check. Required checks are bound to their
+  GitHub Actions/code-scanning integration IDs.
 - Dependabot alerts, security updates and weekly package/action update PRs.
   Expo native packages still need compatibility review; no automatic dependency merge.
 - Secret scanning, push protection and private vulnerability reporting.
