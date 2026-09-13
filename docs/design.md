@@ -3,7 +3,10 @@
 Date: 2026-09-12. Status: approved design baseline. Current delivery evidence is in
 [implementation status](implementation-status.md). This document contains product requirements,
 not private family observations. The name is a placeholder, not a cleared brand.
-See the [product vocabulary](context.md) for terms used here.
+See the [product vocabulary](context.md) for terms used here. Architecture and
+product requirements remain the design baseline; planning-time checkout/toolchain
+observations below are historical. Use current implementation status and live
+verification for execution decisions, and read only the sections relevant to the task.
 
 ## Purpose and decision authority
 
