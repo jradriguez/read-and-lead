@@ -1,4 +1,4 @@
-# Read and Lead: product and first-playable design
+# Read to Lead: product and first-playable design
 
 Date: 2026-09-12. Status: approved design baseline. Current delivery evidence is in
 [implementation status](implementation-status.md). This document contains product requirements,
@@ -58,7 +58,9 @@ keep the Expo-selected compatible package set in one lockfile.
 
 ## Global constraints
 
-- Name: Read and Lead; repository directory: read-and-lead.
+- Provisional display name: Read to Lead; repository directory: read-and-lead.
+  [Naming conflicts](product-name-review.md) block final adoption pending clearance
+  or a new name. Native identifiers remain unchanged.
 - Language: English only, with US English model recordings.
 - Primary layout/test target: iPad; retain Android and phone layouts.
 - Framework baseline: stable Expo SDK 57, Node 24 LTS, npm, strict TypeScript.

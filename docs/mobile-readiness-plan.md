@@ -6,6 +6,12 @@ It adds release planning to the existing [product design](design.md) and
 [implementation status](implementation-status.md); it does not approve teaching
 content, new infrastructure, spending, external outreach, or distribution.
 
+Execution status refreshed on **2026-09-13 UTC** against
+[merged PR #11](https://github.com/jradriguez/read-and-lead/pull/11).
+The [product excellence roadmap](product-excellence-roadmap.md) supplies the next
+experience/performance work packages; this plan retains ownership of release gates.
+The provisional **Read to Lead** name has [material naming conflicts](product-name-review.md).
+
 **Recommended sequence:** close M1's child-use blockers; conduct an authorized
 family pilot; develop the M3 release scope from evidence; launch US iOS/iPadOS;
 then launch Google Play on tested Samsung/Pixel devices. Reuse the same application
@@ -47,22 +53,22 @@ not a pass. Source sections refer to the companion research report.
 | --- | --- | --- | --- | --- |
 | GOV-01 | Entity, ownership and geographic scope / legal-business | Open | Written publisher/rights/territory decision; actual legal and public contact identity; no imported company assumptions | Owner + counsel / before enrollment and pilot |
 | GOV-02 | Legal applicability / law | Open | Per-jurisdiction assessment: trigger, provision/version, effective date, enforcement/court status, applicable control, evidence and reviewer; US state survey included | Counsel / before affected use/distribution |
-| GOV-03 | Trademark, contractor and asset rights / law-store | Blocked for final audio | Brand clearance; exact asset inventory with creator/license, signed grants stored privately, public-safe rights reference and file hash | Owner + rights reviewer / before child use of assets; brand before listing |
+| GOV-03 | Trademark, contractor and asset rights / law-store | Blocked for final audio and final brand adoption | Resolve documented name conflicts; exact asset inventory with creator/license, signed grants stored privately, public-safe rights reference and file hash | Owner + rights reviewer / before child use of assets; brand before listing |
 | PRI-01 | Actual data flows and disclosures / law-store | Partial | Extend existing privacy map to native SDKs, diagnostics, OS backups, support/website, retention and access; compare with binary and disclosures | Engineering + privacy / before pilot |
 | PRI-02 | COPPA determination and consent if required / law | Open | Written no-covered-collection rationale or compliant notice/consent/parent-rights implementation for every covered flow; no gate-as-consent claim | Counsel / before child use |
-| PRI-03 | No unexpected egress or permissions / product-store | Source controls only | Release-binary permission/entitlement report plus app-attributed traffic tests in connected/offline modes; no unexpected traffic or microphone prompt | Engineering + QA / before pilot |
+| PRI-03 | No unexpected egress or permissions / product-store | Native configuration and debug evidence; release traffic unverified | Release-binary permission/entitlement report plus app-attributed traffic tests in connected/offline modes; no unexpected traffic or microphone prompt | Engineering + QA / before pilot |
 | PRI-04 | Backup and device transfer / product-security | Partial | Real iOS backup checks and Android cloud/D2D exclusions including Samsung transfer; all DB sidecars covered; unsupported behavior resolved | Engineering + QA / before pilot |
-| PRI-05 | Retention and deletion / law-product | Logical tests exist | Justify 90-day details and aggregate lifetime; measure pruning, reset and residual files/WAL behavior; accurate local-loss and deletion wording | Privacy + engineering / before pilot |
+| PRI-05 | Retention and deletion / law-product | Separate-connection SQLite deletion tests and parent notice implemented | Justify 90-day details and aggregate lifetime; measure device pruning, reset and residual files/WAL behavior; verify accurate local-loss and deletion wording | Privacy + engineering / before pilot |
 | PRI-06 | Regional age assurance / conditional law | Open | Current applicability; if required, tested age/approval adapter, offline/unknown states, significant changes and revocation; store-specific support | Counsel + engineering / before affected distribution |
-| SEC-01 | Mobile threat assessment / recommended standard | Open | Proportionate MASVS/MASTG mapping with evidence or justified exclusions; privacy, storage, platform, code and supply-chain review | Security reviewer / before pilot; renew for launch |
-| SEC-02 | Dependencies and licenses / security-law | JS lockfile and scanners exist | JS/native/build SBOM; purpose, license, advisories, permissions, privacy behavior, maintained version; third-party notices; reviewed override | Engineering + rights / before release |
-| SEC-03 | Signing and build provenance / store-security | Open | Owner-controlled signing, MFA/least privilege and private recovery procedure; final IDs; release artifacts bound to source, lockfiles and content hashes | Owner + release engineering / before signed distribution |
-| SEC-04 | Incident and vulnerability operations / law-recommendation | Private report route exists | Named responder, private intake, triage/remediation targets, jurisdiction-specific notification procedure, tabletop exercise and update recovery | Owner + security + counsel / before public release |
+| SEC-01 | Mobile threat assessment / recommended standard | Assessment drafted; independent native review open | Proportionate MASVS/MASTG mapping with evidence or justified exclusions; privacy, storage, platform, code and supply-chain review | Security reviewer / before pilot; renew for launch |
+| SEC-02 | Dependencies and licenses / security-law | Input hashes, npm inventory and Pod/Gradle resolutions recorded | Complete license/notices review, native privacy behavior and release inventory; purpose, advisories, maintained versions and reviewed override | Engineering + rights / before release |
+| SEC-03 | Signing and build provenance / store-security | Debug provenance recorded; release signing open | Owner-controlled signing, MFA/least privilege and private recovery procedure; final IDs; release artifacts bound to source, lockfiles and content hashes | Owner + release engineering / before signed distribution |
+| SEC-04 | Incident and vulnerability operations / law-recommendation | Report route and incident handoff drafted | Named responder, private intake, triage/remediation targets, jurisdiction-specific notification procedure, tabletop exercise and update recovery | Owner + security + counsel / before public release |
 | EDU-01 | Human-reviewed teaching and media / product | Blocked | Final recordings, cumulative lesson review and rights; approved current semantic digests and exact native assets; strict content gate passes | Literacy + rights reviewers / before child use |
 | EDU-02 | Honest assessment and child well-being / product-consumer law | Partial | Assisted/independent/skip verified; narration and safe feedback reviewed; no unsubstantiated efficacy claims, shame, pressure or unsafe activities | Product + literacy + QA / before pilot |
 | A11Y-01 | Native accessibility / recommended baseline, conditional law | Partial | Reviewed WCAG 2.2 AA mobile mapping, VoiceOver/TalkBack/switch/keyboard, focus, contrast, scaling, replay and non-drag completion evidence | Accessibility reviewer / before pilot; full audit before public release |
 | QUA-01 | Lifecycle and local-data reliability / product-store | Partial | Physical restart/upgrade/interrupt/low-storage tests; no false saves, duplicated rewards, silent destructive recovery or overlapping audio | QA + engineering / before pilot |
-| QUA-02 | Supported devices and performance / product-store | Expo Go simulator only | Exact device/OS matrix; two-lesson native core flow; performance measurements, orientation/back/insets and accessibility results | QA / before each platform claim |
+| QUA-02 | Supported devices and performance / product-store | iOS simulator and Android API 36 emulator native tap/restart/gate smoke passed | Exact physical device/OS matrix; native drag/audio/assistive core flow; performance measurements, orientation/back/insets and accessibility results | QA / before each platform claim |
 | QUA-03 | First launch offline / product | Unverified | Installed release completes all bundled content without prior runtime download; connected test also proves no hidden traffic | QA / before pilot |
 | APP-01 | Apple readiness / store | Open | Correct Kids band and rating, SDK/manifest/reason API/export checks, metadata, functional support/privacy pages, final archive and review notes | Release engineering + owner / before Apple submission |
 | AND-01 | Google Play readiness / store | Open | API 36+, 64-bit/16 KB checks, AAB/signing, Families/audience/rating/Data safety, verification and account-specific testing prerequisites | Release engineering + owner / before Play submission |
@@ -174,7 +180,16 @@ approval remains blocked. No child testing begins at this exit alone.
 
 ### P1 — Establish reproducible native builds and dependency evidence
 
-**Estimate:** 3–5 engineering days after toolchain authorization.
+**Delivered locally in PR #11:** tool installation, native debug builds, input
+capture and debug artifact/resolution records. The steps below remain the full
+package definition; continue with physical-device/release evidence and final
+signing/identity decisions, rather than repeating completed setup. Regenerate
+native metadata for the provisional display rename before claiming the new label
+was tested in a binary.
+
+**Original package allowance:** 3–5 engineering days after toolchain authorization;
+this included the now-delivered setup/build work. Re-estimate only the remaining
+device/release evidence after the hardware floor and approved content are available.
 **Dependencies:** publisher decisions before permanent signing/IDs, but local
 adult development can proceed. **Requirements:** SEC-02–03, APP-01, AND-01.
 
@@ -205,7 +220,14 @@ on EDU-01. Do not call the development artifact store-ready.
 
 ### P2 — Close storage and privacy gaps
 
-**Estimate:** 4–7 engineering days. **Dependencies:** P1 for native verification;
+**Implemented in PR #11:** explicit native backup/permission controls, SQLite
+deletion handling/tests and parent retention/reset information. Continue with
+actual backup/transfer, sidecar, traffic and physical lifecycle acceptance; do not
+reimplement those controls without a concrete finding.
+
+**Original package allowance:** 4–7 engineering days, including the implemented
+controls. Remaining device acceptance overlaps EX-07 in the excellence roadmap;
+do not add both allowances as separate work. **Dependencies:** P1 for native verification;
 PRI-01/02 decisions for any collection changes. **Requirements:** PRI-03–06,
 SEC-01, QUA-01.
 
@@ -321,13 +343,16 @@ platform does not complete another platform's gate.
 
 ## Critical path, cost control and capacity
 
-P0–P3 total roughly **14–24 engineering days for the foundation**, plus
-human review/recording, toolchain and hardware availability. P4 and each P5 add
-their own work and external lead times. This is not a total public-launch estimate:
-M2/M3 curriculum volume and findings may dominate it. Re-estimate after P0/P1.
+The original P0–P3 allowance was **14–24 engineering days for the foundation**,
+including setup and controls now delivered in PR #11. It is not the remaining-work
+estimate. Re-estimate the open register items after selecting physical hardware and
+reviewers, counting EX-01/03/07 work only once across these plans. Human review and
+recording, hardware access, P4 and each P5 have separate work and lead times; M2/M3
+curriculum volume and findings may dominate the eventual public-launch schedule.
 
-Content/rights review and the legal applicability brief can progress while native
-tooling is prepared. Keep implementation changes focused and sequential in the
+Content/rights review, name resolution and the legal applicability brief can progress
+while physical-device baselines and gesture reliability are addressed using the
+installed native toolchain. Keep implementation changes focused and sequential in the
 shared checkout; parallel workstreams here describe scheduling opportunities,
 not authorization to dispatch agents.
 
@@ -363,11 +388,14 @@ requires the relevant local asset files. `test:native` requires Maestro and a
 prepared installed build/device. Run narrow affected tests first, then the repo's
 required checks. Never weaken the strict gate because reviewed content is missing.
 
-**Proposed checks, not implemented npm scripts:** native permission/entitlement
-diff; required-reason/privacy-manifest audit; JS/native SBOM and license review;
-artifact digest capture; target-SDK and 16 KB alignment checks; complete backup/
-network/device acceptance. Add only small focused scripts when their actual build
-inputs and repeated use justify them. CI changes need explicit authorization.
+**Existing additional evidence:** `scripts/capture-build-inputs.ts` records input
+hashes and the npm inventory. PR #11 captured native resolutions, debug artifact
+digests, privacy configuration and Android alignment checks. See [toolchain](toolchain.md)
+for the actual command and evidence boundary. Complete release permissions/privacy
+and license review, app-attributed traffic, backup/transfer and physical-device
+acceptance remain open. Add automation only when repeated use justifies it; these
+manual/native checks are not all implemented npm scripts. CI changes need explicit
+authorization.
 
 ### Go/no-go conditions
 
@@ -405,21 +433,30 @@ Tie approval to exact inputs rather than a permanently green spreadsheet cell.
 This is a proposed operating schedule, not an installed automation or a promise
 of background monitoring. Name actual people and support hours before launch.
 
-## First implementation task to authorize
+## Next bounded implementation work
 
-Begin with **P0/P1: the legal/content evidence brief and reproducible standalone
-build foundation**. The concrete environment proposal should address the existing
-CocoaPods/Ruby and Android tooling blockers, name install locations and versions,
-and preserve the current Expo stack. In parallel, the owner can secure final
-recording rights and the necessary human reviewers. These unblock the highest-risk
-proofs before spending on additional features or stores.
+Use **EX-02: responsive, reliable letter placement** in the
+[excellence roadmap](product-excellence-roadmap.md), supported by EX-01 physical
+device selection/baselining and EX-03 final teaching/audio planning. Reuse PR #11's
+installed tools, native debug clients, smoke suite and privacy controls. Verify
+drag, interruption, assistive access and physical performance; debug tap smoke
+does not establish those results. Final recordings and applicable approvals remain
+prerequisites for standalone release/offline acceptance and child use.
+
+The P0 reviewer brief is already prepared. The owner can resolve publisher/market
+decisions, the provisional name conflict, reviewer availability and final recording
+rights while the independent engineering work proceeds. Native setup is no longer
+the next blocker; additional installs require a concrete new need.
 
 Keep each bounded implementation's initial change in one commit before review,
 with a few focused review fixes if needed. Follow [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-## Planning handoff validation
+## Original planning handoff validation
 
-Checked on 2026-09-12 for this documentation change:
+Historical checks from the initial 2026-09-12 planning change, before PR #11's
+native implementation. Current integration checks are in the
+[excellence roadmap](product-excellence-roadmap.md#validation-and-provenance);
+native execution evidence remains in [validation](validation.md).
 
 | Check | Result |
 | --- | --- |
@@ -431,4 +468,4 @@ Checked on 2026-09-12 for this documentation change:
 | Native builds, device tests, store-account review, legal opinions, human content/accessibility review | Not performed by this documentation work; remain explicit gates |
 
 No runtime, dependency, environment, CI, signing, account or publication changes
-are included in this planning handoff.
+were included in that original planning handoff.

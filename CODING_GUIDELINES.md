@@ -1,4 +1,4 @@
-# Read and Lead coding guidelines
+# Read to Lead coding guidelines
 
 This file owns application structure, implementation conventions, and test design.
 Use the existing Expo SDK 57, React Native, strict TypeScript, Node 24 LTS, and

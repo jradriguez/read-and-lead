@@ -1,4 +1,4 @@
-# Read and Lead style guide
+# Read to Lead style guide
 
 This file owns app presentation, teaching copy, and contributor communication.
 Use [product vocabulary](docs/context.md) consistently; code conventions

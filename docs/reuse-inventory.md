@@ -28,14 +28,14 @@ excluded. This is an original project-specific adaptation of workflow concepts,
 not a wholesale document or runtime import. No root AI-OS redistribution license
 was established; this work adds no license grant or third-party assets.
 
-| AI-OS source paths | Read and Lead destination and adaptation |
+| AI-OS source paths | Read to Lead destination and adaptation |
 | --- | --- |
 | `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` | Compact root routing and thin host entry points for the mobile app |
 | `AI_AGENT_POLICY.md`, `docs/templates/tool-approval-matrix.md` | `AI_AGENT_POLICY.md`: authorized local work, explicit external actions, human curriculum approval, inline execution |
 | `CODING_GUIDELINES.md` | `CODING_GUIDELINES.md`: strict TypeScript, Expo adapters, real SQLite, native QA; no Python/provider setup |
 | `COMPANY_CONTEXT.md` | `COMPANY_CONTEXT.md`: product, learner/parent roles, M1 scope, owner authority; no invented company identity |
 | `CONTRIBUTING.md` | `CONTRIBUTING.md` and existing PR template: npm gates and one initial commit before review |
-| `STYLE_GUIDE.md` | `STYLE_GUIDE.md`: Read and Lead vocabulary, accessible workshop UI, truthful learning copy, concise handoffs |
+| `STYLE_GUIDE.md` | `STYLE_GUIDE.md`: Read to Lead vocabulary, accessible workshop UI, truthful learning copy, concise handoffs |
 | `SECURITY.md`, `docs/templates/security-review.md` | `SECURITY.md`, `docs/engineering-review.md`: child-data boundaries, content integrity, persistence, native evidence |
 | `MEMORY.md` | `MEMORY.md`: durable non-sensitive project decisions with links; no copied operational or personal memory |
 

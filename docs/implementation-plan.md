@@ -1,4 +1,4 @@
-# Read and Lead First Playable Implementation Plan
+# Read to Lead First Playable Implementation Plan
 
 Original approved plan. See [implementation status](implementation-status.md) for current completion evidence and remaining gates.
 
@@ -15,13 +15,14 @@ Original approved plan. See [implementation status](implementation-status.md) fo
 
 **Tech Stack:** Stable Expo SDK 57, React Native, TypeScript, Node 24 LTS, npm; expo-audio, expo-sqlite, expo-asset; compatible gesture/reanimated packages only for drag; Node test runner through tsx, Jest/React Native Testing Library, Maestro.
 
-**Spec:** [Read and Lead design](design.md), especially M1 and its ten acceptance criteria.
+**Spec:** [Read to Lead design](design.md), especially M1 and its ten acceptance criteria.
 
 **Execution boundary:** This is a plan, not a generated application. Use inline execution by default; do not dispatch agents without authorization. M2 microphone/song/library expansion and M3 billing/public release require separate implementation plans informed by M1 results. Package additions below are design recommendations to apply when implementation is authorized, not installed dependencies.
 
 ## Global Constraints
 
-- Name: Read and Lead; repository directory: read-and-lead.
+- Provisional display name: Read to Lead; repository directory: read-and-lead.
+  See the current [name review](product-name-review.md) before final identity work.
 - Language: English only, with US English model recordings.
 - Primary layout/test target: iPad; retain Android and phone layouts.
 - Framework baseline: stable Expo SDK 57, Node 24 LTS, npm, strict TypeScript.
@@ -122,7 +123,7 @@ test suite is not a passed feature test.
 **Files:** root scaffold/configuration, `App.tsx`, `src/ui/Robot.tsx`, `src/ui/tokens.ts`, `scripts/check-repo.ts`, `tests/ui/lesson.test.tsx`, `docs/{toolchain,reuse-inventory,design,implementation-plan}.md`.
 
 **Interfaces:** produces a native root screen with `testID="workshop"`, accessible
-"Read and Lead" title, and `testID="start-lesson"` action. No network/data APIs yet.
+"Read to Lead" title, and `testID="start-lesson"` action. No network/data APIs yet.
 
 - [ ] Inspect the parent instructions, existing destination, source repository
   committed trees, Node, npm, Xcode and Android tooling. Record versions and the

@@ -1,4 +1,4 @@
-# Read and Lead repository instructions
+# Read to Lead repository instructions
 
 Build an English reading adventure where beginning readers help a friendly robot
 in its workshop: hear/read → assemble → test → celebrate → finish. Prioritize

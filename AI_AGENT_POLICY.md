@@ -1,4 +1,4 @@
-# Read and Lead AI agent policy
+# Read to Lead AI agent policy
 
 This file owns action authority for development assistants. The app's authored
 robot is not an AI agent. Use [AGENTS.md](AGENTS.md) for task routing and

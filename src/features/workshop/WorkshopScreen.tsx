@@ -38,7 +38,7 @@ export function WorkshopScreen({
     >
       <View style={[ui.row, { justifyContent: "space-between" }]}>
         <Text accessibilityRole="header" style={[ui.title, { fontSize: 26 }]}>
-          Read and Lead
+          Read to Lead
         </Text>
         <Pressable
           accessibilityRole="button"

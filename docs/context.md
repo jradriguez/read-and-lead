@@ -1,6 +1,6 @@
-# Read and Lead
+# Read to Lead
 
-Read and Lead is an English reading adventure for beginning readers. These terms
+Read to Lead is an English reading adventure for beginning readers. These terms
 keep instruction, game progress, and evidence of learning distinct.
 
 ## Language

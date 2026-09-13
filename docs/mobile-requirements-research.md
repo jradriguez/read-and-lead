@@ -1,6 +1,6 @@
 # Mobile application requirements and risk assessment
 
-Read and Lead should progress through a reviewed family pilot, an iOS/iPadOS
+Read to Lead should progress through a reviewed family pilot, an iOS/iPadOS
 release, and then a Google Play release on explicitly tested Android devices.
 Samsung phones and tablets do not require a separate application architecture:
 Google Play can serve them. Galaxy Store is an optional additional distribution
@@ -346,7 +346,9 @@ technology E&O, cyber/privacy and media/IP coverage based on actual exposures,
 including exclusions for minors and content. This is a recommendation to scope
 professional review, not a purchase authorization.[^43]
 
-Perform trademark clearance for Read and Lead before final branding. A federal
+The [2026-09-13 UTC name review](product-name-review.md) found material conflicts
+for the provisional Read to Lead name and its numeral variants. Resolve those
+before final branding. A federal
 database search alone is only part of comprehensive clearance; evaluate similar
 names, relevant goods/services and unregistered use. The current name and
 prototype package IDs are not evidence of ownership.[^44]

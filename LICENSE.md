@@ -1,6 +1,6 @@
 # Licensing status
 
-Original Read and Lead application code and curriculum are not licensed for public
+Original Read to Lead application code and curriculum are not licensed for public
 redistribution at this stage. The owner has not selected a public license.
 
 The Expo-generated template portions retain their MIT license and copyright notice
