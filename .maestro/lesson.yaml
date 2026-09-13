@@ -1,0 +1,50 @@
+# Synthetic custom-development-build smoke flow; never run against real learner data.
+appId: com.readandlead.prototype
+---
+- launchApp:
+    clearState: true
+- assertVisible:
+    id: workshop
+- tapOn:
+    id: start-lesson
+- tapOn: "Ready to build"
+- tapOn:
+    id: tile-m
+- tapOn:
+    id: check-answer
+- tapOn:
+    id: tile-short-a
+- tapOn:
+    id: check-answer
+- tapOn:
+    id: tile-s
+- tapOn:
+    id: check-answer
+- tapOn:
+    id: tile-short-a
+- tapOn:
+    id: slot-0
+- tapOn:
+    id: tile-m
+- tapOn:
+    id: slot-1
+- tapOn:
+    id: check-answer
+- tapOn:
+    id: tile-s
+- tapOn:
+    id: slot-0
+- tapOn:
+    id: tile-short-a
+- tapOn:
+    id: slot-1
+- tapOn:
+    id: tile-m
+- tapOn:
+    id: slot-2
+- tapOn:
+    id: check-answer
+- assertVisible: "You built it!"
+- tapOn:
+    id: finish-lesson
+- assertVisible: "1 of 2 robot parts collected"

@@ -1,0 +1,337 @@
+{
+  "patterns": [
+    {
+      "id": "m",
+      "grapheme": "m",
+      "modelAudioId": "m"
+    },
+    {
+      "id": "short-a",
+      "grapheme": "a",
+      "modelAudioId": "short-a"
+    },
+    {
+      "id": "s",
+      "grapheme": "s",
+      "modelAudioId": "s"
+    },
+    {
+      "id": "t",
+      "grapheme": "t",
+      "modelAudioId": "t"
+    }
+  ],
+  "words": [
+    {
+      "id": "am",
+      "text": "am",
+      "segments": [
+        {
+          "text": "a",
+          "patternId": "short-a"
+        },
+        {
+          "text": "m",
+          "patternId": "m"
+        }
+      ],
+      "modelAudioId": "am"
+    },
+    {
+      "id": "sam",
+      "text": "Sam",
+      "segments": [
+        {
+          "text": "s",
+          "patternId": "s"
+        },
+        {
+          "text": "a",
+          "patternId": "short-a"
+        },
+        {
+          "text": "m",
+          "patternId": "m"
+        }
+      ],
+      "modelAudioId": "sam"
+    },
+    {
+      "id": "mat",
+      "text": "mat",
+      "segments": [
+        {
+          "text": "m",
+          "patternId": "m"
+        },
+        {
+          "text": "a",
+          "patternId": "short-a"
+        },
+        {
+          "text": "t",
+          "patternId": "t"
+        }
+      ],
+      "modelAudioId": "mat"
+    },
+    {
+      "id": "sat",
+      "text": "sat",
+      "segments": [
+        {
+          "text": "s",
+          "patternId": "s"
+        },
+        {
+          "text": "a",
+          "patternId": "short-a"
+        },
+        {
+          "text": "t",
+          "patternId": "t"
+        }
+      ],
+      "modelAudioId": "sat"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "first-sounds",
+      "title": "Wake up the workshop",
+      "version": 1,
+      "introducedPatternIds": [
+        "m",
+        "short-a",
+        "s"
+      ],
+      "prerequisiteLessonIds": [],
+      "activities": [
+        {
+          "id": "match-m",
+          "kind": "sound-match",
+          "promptAudioId": "m",
+          "answer": [
+            "m"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s"
+          ]
+        },
+        {
+          "id": "match-short-a",
+          "kind": "sound-match",
+          "promptAudioId": "short-a",
+          "answer": [
+            "short-a"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s"
+          ]
+        },
+        {
+          "id": "match-s",
+          "kind": "sound-match",
+          "promptAudioId": "s",
+          "answer": [
+            "s"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s"
+          ]
+        },
+        {
+          "id": "build-am",
+          "kind": "word-build",
+          "promptAudioId": "am",
+          "answer": [
+            "short-a",
+            "m"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s"
+          ],
+          "wordId": "am"
+        },
+        {
+          "id": "build-sam",
+          "kind": "word-build",
+          "promptAudioId": "sam",
+          "answer": [
+            "s",
+            "short-a",
+            "m"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s"
+          ],
+          "wordId": "sam"
+        }
+      ],
+      "connectedText": "",
+      "connectedWordIds": [],
+      "connectedTextAudioId": "",
+      "review": {
+        "state": "draft",
+        "reviewer": "",
+        "digest": ""
+      }
+    },
+    {
+      "id": "first-words",
+      "title": "Build a robot seat",
+      "version": 1,
+      "introducedPatternIds": [
+        "t"
+      ],
+      "prerequisiteLessonIds": [
+        "first-sounds"
+      ],
+      "activities": [
+        {
+          "id": "match-t",
+          "kind": "sound-match",
+          "promptAudioId": "t",
+          "answer": [
+            "t"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s",
+            "t"
+          ]
+        },
+        {
+          "id": "build-mat",
+          "kind": "word-build",
+          "promptAudioId": "mat",
+          "answer": [
+            "m",
+            "short-a",
+            "t"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s",
+            "t"
+          ],
+          "wordId": "mat"
+        },
+        {
+          "id": "build-sat",
+          "kind": "word-build",
+          "promptAudioId": "sat",
+          "answer": [
+            "s",
+            "short-a",
+            "t"
+          ],
+          "choices": [
+            "m",
+            "short-a",
+            "s",
+            "t"
+          ],
+          "wordId": "sat"
+        }
+      ],
+      "connectedText": "Sam sat.",
+      "connectedWordIds": [
+        "sam",
+        "sat"
+      ],
+      "connectedTextAudioId": "sentence",
+      "review": {
+        "state": "draft",
+        "reviewer": "",
+        "digest": ""
+      }
+    }
+  ],
+  "assets": [
+    {
+      "id": "m",
+      "file": "draft/m.wav",
+      "sha256": "1e484824e68e7070a28b740abed6da510484d05bd433eb66049fa00613296ca6",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "short-a",
+      "file": "draft/short-a.wav",
+      "sha256": "f74fb0e6cf0e4642e653d78a27cc4b154ad87bcc14cc98356f56663101cda84e",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "s",
+      "file": "draft/s.wav",
+      "sha256": "c72949a542d2165dab24524a5948e6fe9f8f5b1baffc3b22bd18e84598386eb6",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "t",
+      "file": "draft/t.wav",
+      "sha256": "934cb2e684e932bb6c14359151b92874adc8b0b47915940061eb8165b5bbfa45",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "am",
+      "file": "draft/am.wav",
+      "sha256": "f123df5e75f86425781ae083ee828f0f3295603643334b67fd677a65b55c7954",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "sam",
+      "file": "draft/sam.wav",
+      "sha256": "939c4803573251a979ebdf396ce88b5d1862a6cbf22c0d7a8bee43d438be9871",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "mat",
+      "file": "draft/mat.wav",
+      "sha256": "59ff4a871f6b0dab07398434753c5fd9aa95751b4e6021e67f65ec1d03a22f0f",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "sat",
+      "file": "draft/sat.wav",
+      "sha256": "938033871280a1f74540e5a7669a610b9915efbfc73b5903b98355ee9a065e95",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    },
+    {
+      "id": "sentence",
+      "file": "draft/sentence.wav",
+      "sha256": "da7211b060084775efcbfe675e24daaee866796943f529d739200c1376667285",
+      "creator": "Local macOS system speech, development only",
+      "rights": "Pending: no redistribution permission established",
+      "reviewed": false
+    }
+  ]
+}

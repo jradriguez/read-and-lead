@@ -1,0 +1,7 @@
+# Run after lesson.yaml on the same synthetic custom-development-build install.
+appId: com.readandlead.prototype
+---
+- stopApp
+- launchApp:
+    clearState: false
+- assertVisible: "1 of 2 robot parts collected"
