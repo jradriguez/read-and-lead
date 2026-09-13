@@ -28,7 +28,11 @@ export function isPrivatePath(file: string): boolean {
 export function privateTextFindings(text: string): string[] {
   const findings: string[] = [];
   // High-signal checks only. These do not classify all personal data or IP.
-  if (/(?:\/Users\/|\/home\/|[A-Z]:\\Users\\)[\w.-]+[\/\\]/i.test(text))
+  if (
+    /(?:\/Users\/|\/home\/|[A-Z]:\\Users\\)[\p{L}\p{N}_.-][^/\\\r\n"'`<>|]*/iu.test(
+      text,
+    )
+  )
     findings.push("PERSONAL_HOME_PATH");
   if (
     /[\w.%+-]+@(?:gmail|googlemail|outlook|hotmail|live|yahoo|icloud|me|aol|protonmail)\.com\b|[\w.%+-]+@proton\.me\b/i.test(

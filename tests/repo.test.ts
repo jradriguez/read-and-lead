@@ -14,6 +14,7 @@ import {
   checkRepo,
   isPrivatePath,
   checkPublicationIdentity,
+  privateTextFindings,
 } from "../scripts/check-repo.ts";
 test("repository checker rejects tracked runtime data while allowing manifests", () => {
   const root = mkdtempSync(join(tmpdir(), "read-lead-repo-"));
@@ -169,5 +170,26 @@ test("publication identity rejects personal email without printing it", () => {
       else process.env[key] = saved[key];
     }
     rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("home-path checks cover bare roots and spaced usernames while allowing placeholders", () => {
+  for (const text of [
+    ["", "Users", "synthetic-person"].join("/"),
+    ["", "home", "synthetic-person"].join("/"),
+    ["C:", "Users", "Synthetic Person", "project"].join("\\"),
+    ["", "Users", "Synthetic Person", "project"].join("/"),
+    ["", "home", "synthetic-\u00e9", "project"].join("/"),
+  ]) {
+    assert.deepEqual(privateTextFindings(text), ["PERSONAL_HOME_PATH"]);
+  }
+  for (const text of [
+    "/home/",
+    "/Users/<user>/project",
+    "/Applications/Tool.app",
+    "docs/professional-review-plan.md",
+    "synthetic@users.noreply.github.com",
+  ]) {
+    assert.deepEqual(privateTextFindings(text), []);
   }
 });
