@@ -343,13 +343,16 @@ platform does not complete another platform's gate.
 
 ## Critical path, cost control and capacity
 
-P0–P3 total roughly **14–24 engineering days for the foundation**, plus
-human review/recording, toolchain and hardware availability. P4 and each P5 add
-their own work and external lead times. This is not a total public-launch estimate:
-M2/M3 curriculum volume and findings may dominate it. Re-estimate after P0/P1.
+The original P0–P3 allowance was **14–24 engineering days for the foundation**,
+including setup and controls now delivered in PR #11. It is not the remaining-work
+estimate. Re-estimate the open register items after selecting physical hardware and
+reviewers, counting EX-01/03/07 work only once across these plans. Human review and
+recording, hardware access, P4 and each P5 have separate work and lead times; M2/M3
+curriculum volume and findings may dominate the eventual public-launch schedule.
 
-Content/rights review and the legal applicability brief can progress while native
-tooling is prepared. Keep implementation changes focused and sequential in the
+Content/rights review, name resolution and the legal applicability brief can progress
+while physical-device baselines and gesture reliability are addressed using the
+installed native toolchain. Keep implementation changes focused and sequential in the
 shared checkout; parallel workstreams here describe scheduling opportunities,
 not authorization to dispatch agents.
 
@@ -385,11 +388,14 @@ requires the relevant local asset files. `test:native` requires Maestro and a
 prepared installed build/device. Run narrow affected tests first, then the repo's
 required checks. Never weaken the strict gate because reviewed content is missing.
 
-**Proposed checks, not implemented npm scripts:** native permission/entitlement
-diff; required-reason/privacy-manifest audit; JS/native SBOM and license review;
-artifact digest capture; target-SDK and 16 KB alignment checks; complete backup/
-network/device acceptance. Add only small focused scripts when their actual build
-inputs and repeated use justify them. CI changes need explicit authorization.
+**Existing additional evidence:** `scripts/capture-build-inputs.ts` records input
+hashes and the npm inventory. PR #11 captured native resolutions, debug artifact
+digests, privacy configuration and Android alignment checks. See [toolchain](toolchain.md)
+for the actual command and evidence boundary. Complete release permissions/privacy
+and license review, app-attributed traffic, backup/transfer and physical-device
+acceptance remain open. Add automation only when repeated use justifies it; these
+manual/native checks are not all implemented npm scripts. CI changes need explicit
+authorization.
 
 ### Go/no-go conditions
 
@@ -427,21 +433,30 @@ Tie approval to exact inputs rather than a permanently green spreadsheet cell.
 This is a proposed operating schedule, not an installed automation or a promise
 of background monitoring. Name actual people and support hours before launch.
 
-## First implementation task to authorize
+## Next bounded implementation work
 
-Begin with **P0/P1: the legal/content evidence brief and reproducible standalone
-build foundation**. The concrete environment proposal should address the existing
-CocoaPods/Ruby and Android tooling blockers, name install locations and versions,
-and preserve the current Expo stack. In parallel, the owner can secure final
-recording rights and the necessary human reviewers. These unblock the highest-risk
-proofs before spending on additional features or stores.
+Use **EX-02: responsive, reliable letter placement** in the
+[excellence roadmap](product-excellence-roadmap.md), supported by EX-01 physical
+device selection/baselining and EX-03 final teaching/audio planning. Reuse PR #11's
+installed tools, native debug clients, smoke suite and privacy controls. Verify
+drag, interruption, assistive access and physical performance; debug tap smoke
+does not establish those results. Final recordings and applicable approvals remain
+prerequisites for standalone release/offline acceptance and child use.
+
+The P0 reviewer brief is already prepared. The owner can resolve publisher/market
+decisions, the provisional name conflict, reviewer availability and final recording
+rights while the independent engineering work proceeds. Native setup is no longer
+the next blocker; additional installs require a concrete new need.
 
 Keep each bounded implementation's initial change in one commit before review,
 with a few focused review fixes if needed. Follow [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-## Planning handoff validation
+## Original planning handoff validation
 
-Checked on 2026-09-12 for this documentation change:
+Historical checks from the initial 2026-09-12 planning change, before PR #11's
+native implementation. Current integration checks are in the
+[excellence roadmap](product-excellence-roadmap.md#validation-and-provenance);
+native execution evidence remains in [validation](validation.md).
 
 | Check | Result |
 | --- | --- |
@@ -453,4 +468,4 @@ Checked on 2026-09-12 for this documentation change:
 | Native builds, device tests, store-account review, legal opinions, human content/accessibility review | Not performed by this documentation work; remain explicit gates |
 
 No runtime, dependency, environment, CI, signing, account or publication changes
-are included in this planning handoff.
+were included in that original planning handoff.
