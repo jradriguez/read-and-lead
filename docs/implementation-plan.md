@@ -4,10 +4,10 @@ Original approved plan. See [implementation status](implementation-status.md) fo
 
 > **Current execution policy:** Follow [AGENTS.md](../AGENTS.md) and
 > [CONTRIBUTING.md](../CONTRIBUTING.md). Work inline unless delegation is authorized.
-> Steps use checkbox (`- [ ]`) syntax as implementation checkpoints, not commit
-> boundaries. Keep the complete initial implementation in one commit before review;
-> a few focused review-fix commits may follow. Historical command/interface examples
-> below must be checked against current code and `package.json` before use.
+> Read only the task relevant to the requested work. Checkboxes are historical
+> implementation checkpoints, not commit boundaries or evidence of current gaps.
+> Current code and `package.json` supersede scaffold/interface/command examples;
+> the contribution workflow governs commits and checks.
 
 **Goal:** Create a new mobile repository and deliver two reviewed, offline robot-workshop mini-lessons with native interaction, audio, local progress, and a parent area.
 
@@ -565,6 +565,6 @@ song, optional ephemeral recording/playback, multiple local slots and review que
 Automatic speech scoring remains a separate capability experiment. Public beta,
 billing, restore, legal/privacy checks and store assets belong to M3.
 
-Planning documents do not authorize purchases, account creation, external
-communications, a remote push or app submission. Begin implementation with the
-normal bounded execution authorization; the user has requested the plan first.
+This historical plan does not authorize purchases, account creation, external
+communications, a remote push, or app submission. The current user request and
+repository policy determine the authorized scope of subsequent implementation.

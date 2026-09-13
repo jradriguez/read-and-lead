@@ -1,21 +1,23 @@
 # Read and Lead engineering review
 
-Use this checklist for the affected scope, with [CONTRIBUTING.md](../CONTRIBUTING.md).
-It adapts AI-OS's security-review concept to a local learning app. Existing
+This file owns the evidence questions for reviewing a scoped change. Use the
+[contribution workflow](../CONTRIBUTING.md) for commands and commit rules. Existing
 [content review](content-review.md) and [device validation](device-validation.md)
 remain the detailed acceptance procedures; completing this checklist does not
 replace them or grant release authority.
 
 ## Initial handoff
 
+- The change addresses a named behavior, acceptance gap, or maintenance need
+  within the authorized milestone; later-stage ideas have not expanded its scope.
 - One initial implementation commit contains the scoped code, tests, and docs.
   Unrelated edits and generated/private artifacts are excluded.
 - The description explains the problem, resulting behavior, reason, actual
   validation results, and remaining risks. Assumptions are explicit.
 - Documented commands and links resolve to the current project. Historical plans,
   implementation status, and host instruction shims agree with current policy.
-- `npm run validate:code`, `npm run security:check`, `git diff --check`, and
-  `git diff --cached --check` passed, or their failures/unavailability are reported.
+- The applicable [validation contract](../CONTRIBUTING.md#validation-contract)
+  ran on the current revision; failures and unavailable evidence are reported.
 
 ## Affected behavior
 
@@ -36,9 +38,10 @@ revision. A previous green run is not evidence for new code.
 
 ## Release evidence
 
-Before any separately authorized release, require `npm run validate` and
-`npm run security:check`, human curriculum/rights review, and applicable installed
-offline/device checks. Record build revision, platform, date, actual outcomes,
-and pending evidence using synthetic data. Mark unavailable hardware or native
+For separately authorized release work, apply the contribution validation contract
+and the applicable [mobile readiness gates](mobile-readiness-plan.md). Human
+curriculum/rights review and installed offline/device checks remain necessary.
+Record build revision, platform, date, actual outcomes, and pending evidence using
+synthetic data. Mark unavailable hardware or native
 tooling explicitly. Expo Go, a Metro export, unit tests, and screenshots each
 provide limited evidence; none establishes physical-device acceptance alone.

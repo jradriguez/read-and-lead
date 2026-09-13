@@ -1,9 +1,15 @@
 # Read and Lead coding guidelines
 
+This file owns application structure, implementation conventions, and test design.
 Use the existing Expo SDK 57, React Native, strict TypeScript, Node 24 LTS, and
 npm toolchain. [package.json](package.json) and its lockfile define the installed
 commands and package set. Consult the versioned Expo docs before native API
 changes; do not silently change the SDK to work around a failure.
+
+Start from the current implementation, not the historical plan's scaffold or sample
+interfaces. Define an observable acceptance condition for the requested behavior.
+Keep feature work within the [product scope](COMPANY_CONTEXT.md); add abstractions
+only for demonstrated reuse or to clarify an existing responsibility.
 
 ## Boundaries and conventions
 

@@ -74,13 +74,8 @@ they do not establish approval to use the prototype with children or publish it.
 
 ## Working in this repository
 
-Start with [AGENTS.md](AGENTS.md) for the instruction map. The project guidance
-covers [agent authority](AI_AGENT_POLICY.md), [coding](CODING_GUIDELINES.md),
-[product context](COMPANY_CONTEXT.md), [contribution workflow](CONTRIBUTING.md),
-[style](STYLE_GUIDE.md), [security](SECURITY.md), and [durable decisions](MEMORY.md).
-[Engineering review](docs/engineering-review.md) routes the applicable evidence.
-
-Keep each initial implementation in one commit before review; a few focused
-review-fix commits may follow. These instructions are tailored from AI-OS's
-general working concepts; [the reuse inventory](docs/reuse-inventory.md) records
-the source and deliberate exclusions.
+Start with [AGENTS.md](AGENTS.md) for required reading, task-specific references,
+and the M1 scope boundary. [CONTRIBUTING.md](CONTRIBUTING.md) owns validation and
+the one-initial-commit workflow. Use current implementation status to choose work;
+load historical plans only for the relevant task. Instruction provenance is in
+[the reuse inventory](docs/reuse-inventory.md).

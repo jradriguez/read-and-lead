@@ -1,11 +1,14 @@
 # Read and Lead style guide
 
-Use [product vocabulary](docs/context.md) consistently. This guide covers app
-presentation, teaching copy, and contributor communication; code conventions
+This file owns app presentation, teaching copy, and contributor communication.
+Use [product vocabulary](docs/context.md) consistently; code conventions
 live in [CODING_GUIDELINES.md](CODING_GUIDELINES.md).
 
 ## App voice and teaching copy
 
+- Keep implementation details, review digests, policy language, and developer
+  diagnostics out of learner flows. Parent messages explain actionable choices
+  and data loss plainly; developer evidence belongs in development records.
 - Be warm, concrete, and brief. Give one action at a time and let the learner
   replay spoken instructions. Do not rely on a beginning reader decoding navigation.
 - Separate narrator vocabulary from text the learner is expected to decode.

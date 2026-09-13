@@ -1,49 +1,50 @@
-# Read and Lead product and operating context
+# Read and Lead product context
 
-This file supplies the durable, non-secret context that AI-OS's company template
-calls for. Read and Lead is an application project; this repository does not
-establish a legal entity, cleared trademark, store listing, or commercial launch.
-Do not import another project's company identity, customers, or private context.
+This file owns product identity, priorities, and scope decisions. The detailed
+[design](docs/design.md) defines requirements; [implementation status](docs/implementation-status.md)
+tracks delivery. Read and Lead is a working application name, not an established
+legal entity, cleared trademark, or approved store listing.
 
-## Product and users
+## Vision
 
-Read and Lead helps beginning English readers practice sound-spelling patterns,
-blending, and word building in a friendly robot workshop. The design targets
-roughly ages 4-7, with placement by skill readiness. Spoken guidance supports
-guided independence; a parent handles setup and local data controls.
+Beginning English readers help a friendly robot invent, assemble, and test things.
+Reading gives each mission a purpose. Spoken guidance and demonstrations support
+guided independence, with optional parent participation and a natural stopping
+point. Teach explicit, cumulative sound-spelling patterns and blending; preserve
+curiosity and confidence without pressure to keep playing.
 
-Use **Read and Lead** in display copy and **read-and-lead** for repository/package
-naming. The working name is not a trademark-clearance claim. English-only content
-with US English model recordings and iPad priority are the approved design baseline;
-phone and Android layouts remain in scope. See [design](docs/design.md).
+The design targets roughly ages 4–7, with placement by skill readiness. Use English
+content and US English model recordings, prioritize iPad, and retain phone/Android
+layouts. Use **Read and Lead** in display copy and **read-and-lead** for repository
+and package names. Use the [vocabulary](docs/context.md) for learning concepts.
 
-## Stage and priorities
+## Scope decisions
 
-The application is an adult development prototype with two draft mini-lessons.
-Prioritize accurate instruction, accessible interaction, truthful progress, local
-data integrity, and a complete offline lesson loop. Follow
-[implementation status](docs/implementation-status.md) for current evidence and
-the next bounded work; do not treat the longer milestone plan as delivered scope.
+M1 proves two reviewed offline mini-lessons, equivalent tap/drag controls, authored
+robot feedback, reliable local progress, and gated parent controls. It is an adult
+prototype until the applicable content and device gates pass. Consult current
+implementation status before choosing work; do not rebuild completed plan tasks.
 
-M1 has one anonymous local learner slot, bundled content, local SQLite progress,
-and a gated parent area. There is no server, account system, analytics service,
-microphone, advertising, billing, remote lesson download, or live AI in M1.
-Later microphone practice, expanded curriculum, and commercial features need
-separate scoped work. Prices and budgets in the design are hypotheses, not offers
-or spending authorization.
+Accept a proposed feature when it addresses an observed learner/parent need or a
+specific acceptance gap, fits the current milestone, and has a testable outcome.
+Maintenance should address a concrete reliability, security, or development need.
+Prefer the smallest complete lesson loop over more screens or infrastructure.
+If content or device review is blocked, continue independent authorized engineering
+work and keep the affected child-use gate blocked.
 
-## Ownership and decisions
+M2 expands the reviewed curriculum and family pilot; M3 addresses commercial
+readiness. Accounts, cloud services, live AI, ads, analytics, microphone practice,
+billing, broader curricula, and new platforms are not additions to M1. The
+[mobile readiness plan](docs/mobile-readiness-plan.md) informs separately scoped
+work; its recommended markets, budgets, and distribution order are not commitments.
 
-The repository owner sets scope and authorizes external actions, spending, and
-release work. Authorized human reviewers assess literacy content and asset rights.
-Agents can implement, draft, check, and prepare evidence within the requested
-scope; they cannot approve their own teaching material or infer publication rights.
+## Decision ownership
 
-Prefer maintainable, small changes and one initial implementation commit before
-review. Optimize for useful progress and owner time saved without expanding scope
-or weakening safeguards. Report exactly what was tested and what remains unknown.
+The owner decides scope, publishing identity, spending, markets, and release.
+Authorized human reviewers assess literacy and asset rights. Engineering provides
+reproducible behavior and evidence; it does not grant teaching approval or infer
+learning gains from rewards. Follow [agent policy](AI_AGENT_POLICY.md) for authority.
 
-The source repository is [jradriguez/read-and-lead](https://github.com/jradriguez/read-and-lead).
-Original app code has no public redistribution license yet; see [LICENSE.md](LICENSE.md).
-Public source visibility, a working simulator, and green CI do not establish child
-readiness, validated learning outcomes, or permission to release.
+The repository is [jradriguez/read-and-lead](https://github.com/jradriguez/read-and-lead).
+See [LICENSE.md](LICENSE.md) for redistribution status. Keep other projects'
+company identities, branding, customer information, and private context separate.

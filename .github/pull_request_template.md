@@ -2,8 +2,9 @@
 
 Describe the problem and resulting behavior.
 
-Explain why this change is needed. Keep the initial implementation in one commit
-before review; a few focused review-fix commits may follow.
+Name the milestone, acceptance gap, or maintenance need this addresses. Keep the
+initial implementation in one commit before review; a few focused review-fix
+commits may follow.
 
 ## Validation
 

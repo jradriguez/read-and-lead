@@ -1,8 +1,9 @@
 # Read and Lead security and privacy policy
 
-This policy covers application code, lesson/media authoring, development tools,
-tests, documentation, and review artifacts. See [the agent policy](AI_AGENT_POLICY.md)
-for action authority and [the privacy map](docs/privacy-data-map.md) for storage
+This file owns data protection, untrusted-input handling, and private reporting
+across application code, authoring, tools, tests, and review artifacts. See
+[the agent policy](AI_AGENT_POLICY.md) for action authority and
+[the privacy map](docs/privacy-data-map.md) for storage
 and retention. These are engineering boundaries, not a compliance certification.
 
 ## Data and runtime boundaries
@@ -38,16 +39,16 @@ Record source and rights for reused material in [the reuse inventory](docs/reuse
 Review content approval/digest code, persistence/reset paths, native permissions,
 `app.json`, `plugins/`, dependency manifests/lockfiles, and `.github/` controls
 especially carefully. Do not add broad scanner exclusions or weaken checks.
-Changes to CI/CD, auth, infrastructure, environment, or schema require explicit
-authorization. Keep dependencies justified and Expo-compatible; do not run a
-forced dependency upgrade merely to remove an audit finding.
+Follow the agent policy for changes requiring additional authority. Keep dependencies
+justified and Expo-compatible; do not run a forced dependency upgrade merely to
+remove an audit finding.
 
-Run `npm run validate:code` and `git diff --check` for changes, plus
-`npm run security:check` before review and authorized push. The security command
-runs npm audit at the high threshold and Gitleaks history/directory scans; it is
-not a comprehensive personal-data audit. Review the staged diff manually for
-private material. Missing tools or failed scans are unresolved checks, not passes.
-Before release, also run `npm run validate` and the applicable native checks.
+Apply the [validation contract](CONTRIBUTING.md#validation-contract). The security
+command runs npm audit at the high threshold and Gitleaks history/directory scans;
+it is not a comprehensive personal-data audit. Review staged content manually for
+private material. Missing tools or failed scans remain unresolved. For release
+work, use the applicable [mobile readiness gates](docs/mobile-readiness-plan.md);
+refresh dated legal/store research before making release decisions.
 
 Keep real credentials out of source, output, and examples. If exposure is found,
 stop further disclosure, report privately, and arrange revocation/rotation with
