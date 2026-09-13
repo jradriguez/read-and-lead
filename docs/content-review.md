@@ -2,6 +2,10 @@
 
 Status: **draft; adult development only**. No lesson or voice asset is human-approved.
 
+For reviewer sourcing and recording handoffs, use the
+[professional review plan](professional-review-plan.md). This file remains the
+owner of actual approval; a contractor plan is not approval.
+
 Current authoring source is `content/catalog.json`. Keeping the small pack together
 makes cross-references and review easy; splitting into many lesson files is deferred
 until the library grows. `content/audio-scripts.json` is development narration input,

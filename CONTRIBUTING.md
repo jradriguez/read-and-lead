@@ -28,6 +28,7 @@ repeat or broaden checks only after relevant changes or unresolved failures.
 | --- | --- |
 | Every change | `npm run validate:code`, `git diff --check` |
 | Before commit/review and authorized push | Above, plus `npm run security:check`; inspect staged content and run `git diff --cached --check` before committing |
+| Immediately before a publication-bound local commit | `npm run publication:check` on the exact index and identity; use the verified GitHub noreply address for both author and committer |
 | Markdown instructions | Verify local links, npm command references, policy consistency, and document ownership |
 | Content/media | Relevant content tests and `npm run content:check:draft` against actual files; [human approval](docs/content-review.md) before child use |
 | Native, storage, touch, or audio behavior | Affected automated tests and [device checklist](docs/device-validation.md); report unavailable evidence |

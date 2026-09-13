@@ -72,6 +72,8 @@ responsive letter placement, reviewed narration, a polished workshop mission and
 physical-device acceptance. Its [learning and experience research](docs/learning-and-experience-research.md)
 records teaching evidence and comparison apps; [development tools and workflows](docs/development-tools-and-workflows.md)
 records the installed Codex plugins, dependency decisions and specialist assignments.
+The [professional review plan](docs/professional-review-plan.md) records sourcing
+options, staged hiring scopes, review inputs and acceptance deliverables.
 
 Original app code has no public redistribution license yet; template and dependency
 licenses remain applicable. The public development repository is
