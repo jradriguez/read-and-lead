@@ -38,3 +38,27 @@ No real learner observations or child audio were captured.
   OS traffic.
 - Run `npm run validate`, `npm run security:check`, and verified Maestro flows against
   the reviewed build. Record the tested commit and binary; use synthetic data only.
+
+## Readiness implementation observations
+
+Checked the changed parent information in Expo Go on the existing iPhone 17 Pro
+portrait and iPad Pro 11-inch (M5) landscape simulators (iOS 26.5). The workshop,
+gate, counts/preferences and embedded privacy text rendered. The notice wrapped
+without observed horizontal clipping; lower text and the reset control could be
+brought into view. Parent inactivity returned to the workshop. No real child data
+or destructive reset was used. This was visual and accessibility-tree inspection,
+not a VoiceOver, large-text, physical touch or Android Back acceptance test.
+
+In an isolated ignored copy, current Expo prebuild completed for both platforms
+with `--no-install`, then repeated successfully with `--no-clean`. Assertions on
+the generated files confirmed the iOS exclusion block before React, no microphone
+usage-description key, Android references to the backup/extraction resources,
+nine exclusions in each cloud/D2D section, and seven release permission removal
+directives plus cleartext disabled. Existing native directories were preserved.
+The generated Info.plist still contains development-launcher local-network keys;
+final release plist/entitlements and traffic need inspection after compilation.
+
+Android Back has component regression coverage for lesson exit, parent reset
+confirmation exit, re-entry through the gate and default home behavior. Actual
+Android navigation, native manifest merging, startup offline, backup/transfer,
+16 KB compatibility, audio quality and storage sidecars remain unverified.

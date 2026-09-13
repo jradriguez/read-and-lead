@@ -206,10 +206,38 @@ export function ParentScreen({
           These two preferences apply until the app closes.
         </Text>
       </View>
-      <Text style={ui.small}>
-        Progress stays on this device. There is no account or sync. Detailed
-        attempts are retained for 90 days, then kept as totals.
-      </Text>
+      <View style={ui.panel}>
+        <Text accessibilityRole="header" style={ui.body}>
+          Privacy and saved progress
+        </Text>
+        <Text style={ui.small}>
+          Lessons and sounds are bundled in the app. There are no accounts, ads,
+          analytics, microphone recordings or app-provided sync.
+        </Text>
+        <Text style={ui.small}>
+          One learner uses this app on this device. We save practice responses,
+          hints, dates and completed lessons locally. We do not ask for a name,
+          birth date or contact details.
+        </Text>
+        <Text style={ui.small}>
+          When progress opens, responses older than 90 days become totals.
+          Totals, completed lessons and earned parts remain until you reset
+          progress. Reset removes them from this installation and cannot be
+          undone. It cannot erase a copy previously made outside the app.
+        </Text>
+        <Text style={ui.small}>
+          The grown-up check helps keep these controls separate from play. It is
+          not identity verification or parental consent.
+        </Text>
+        {__DEV__ ? (
+          <Text style={ui.small}>
+            Adult prototype: use made-up practice data only. Standalone backup
+            and device-transfer protection still need device verification. This
+            notice describes the prototype; it is not a reviewed release privacy
+            policy.
+          </Text>
+        ) : null}
+      </View>
       {message ? (
         <Text
           accessibilityLiveRegion="polite"

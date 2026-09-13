@@ -1,6 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
   openProgressRepository,
   type Sql,
@@ -113,4 +116,58 @@ test("invalid attempt constraints cannot silently award a part", async () => {
     repo.record({ ...sample, hints: -1 }, { id: "first", version: 1 }),
   );
   assert.deepEqual((await repo.summary("local")).completedLessonIds, []);
+});
+
+for (const separateConnection of [false, true]) {
+  for (const action of ["reset", "prune"] as const) {
+    test(`${action} scrubs SQLite pages with ${separateConnection ? "separate" : "shared"} transaction connections`, async () => {
+      const root = mkdtempSync(join(tmpdir(), "read-lead-delete-"));
+      const path = join(root, "progress.sqlite");
+      const db = new DatabaseSync(path);
+      try {
+        db.exec("PRAGMA secure_delete=OFF; PRAGMA journal_mode=DELETE");
+        const sql = adapter(db);
+        if (separateConnection)
+          sql.transaction = async (fn) => {
+            // Expo exclusive transactions open a fresh connection, so PRAGMAs
+            // on the reader connection do not protect writes automatically.
+            const tx = new DatabaseSync(path);
+            try {
+              tx.exec("PRAGMA secure_delete=OFF");
+              return await adapter(tx).transaction(fn);
+            } finally {
+              tx.close();
+            }
+          };
+        const repo = await openProgressRepository(sql);
+        const marker = "SYNTHETIC-PRIVATE-DETAIL-".repeat(20);
+        await repo.record({ ...sample, activityId: marker });
+        assert.ok(readFileSync(path).includes(Buffer.from(marker)));
+        if (action === "reset") await repo.reset("local");
+        else await repo.prune(200);
+        assert.equal(readFileSync(path).includes(Buffer.from(marker)), false);
+      } finally {
+        db.close();
+        rmSync(root, { recursive: true, force: true });
+      }
+    });
+  }
+}
+
+test("unavailable secure deletion fails before schema creation", async () => {
+  const sql = adapter();
+  const all = sql.all.bind(sql);
+  sql.all = async <T>(q: string, p?: (string | number)[]) =>
+    q === "PRAGMA secure_delete"
+      ? ([{ secure_delete: 0 }] as T[])
+      : all<T>(q, p);
+  await assert.rejects(
+    openProgressRepository(sql),
+    /SECURE_DELETE_UNAVAILABLE/,
+  );
+  assert.equal(
+    (await all<{ user_version: number }>("PRAGMA user_version"))[0]
+      .user_version,
+    0,
+  );
 });

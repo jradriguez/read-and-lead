@@ -60,3 +60,44 @@ history as an unapproved cleanup action.
 Use [private vulnerability reporting](https://github.com/jradriguez/read-and-lead/security/advisories/new)
 for security reports, or an already trusted private channel if GitHub is unavailable.
 Do not open a public issue containing child information, device databases or secrets.
+
+## M1 threat assessment — implementation review
+
+The trust boundaries are bundled teaching material, app-private progress, parent
+controls, native OS/services and the development/release supply chain. A local
+anonymous key does not make response history public data. This is an engineering
+self-assessment; independent native review remains required before release.
+
+| Threat | Implemented control / test evidence | Remaining acceptance |
+| --- | --- | --- |
+| Local learning details copied through backup or migration | iOS pre-start directory exclusion; Android explicit cloud/D2D rules; changed-template and conflicting-file rejection tests | Physical iOS restore and Samsung/Android transfer, sidecars, cross-platform transfer |
+| Deleted response details remain in SQLite pages | Verified secure deletion on the actual deletion connection; file-backed shared/separate-connection regression tests | WAL/journals, OS snapshots, flash remnants and storage protection classes |
+| Child enters destructive controls or returns to an unlocked area | Arithmetic gate, timeout/background exit, explicit reset confirmation; Android Back returns home and reopening requires the gate | Native accessibility and lifecycle review; gate is neither authentication nor consent |
+| Retry/error inflates rewards or silently erases progress | Transactional writes, stable attempt IDs, safe newer-schema rejection, serialized recovery and reset tests | Physical failed writes, process death, upgrade and low-storage checks |
+| Unreviewed or modified lesson reaches children | Human-review state and semantic digest in release runtime; media hashes and exact import map in strict pre-bundle check | Qualified human teaching/audio/rights approval is absent; build remains blocked |
+| Dependency introduces networking, recording or unsafe build code | Minimal pinned Expo stack, existing audit/secret scans, release Android permission removals, npm input inventory | Final merged permissions, native resolutions/license notices, connected traffic inspection and signing/build review |
+| Evidence or support intake exposes personal data | Synthetic test fixtures; tracked-file boundaries and secret scans; capture only curated source/media hashes and package metadata | Named support operator, private access/retention and final notice/processor review before publishing |
+
+No server authentication, API abuse controls or cloud tenancy exist in M1 because
+there is no application backend. Adding one reopens this assessment. A compromised
+OS, stolen unlocked device or privileged development host is not contained by the
+parent gate; do not claim encryption or device-compromise resistance without proof.
+
+## Incident handoff before launch
+
+Before distribution the owner must assign a primary responder and backup, reviewed
+private intake, counsel contact and signing/update recovery. These are unassigned
+launch gates, not an active managed-response service. Rehearse with synthetic data:
+
+1. Receive a private report without requesting child recordings or a full learner
+   database. Record affected app/build, platform, time and minimal reproduction.
+2. Classify possible exposure, harmful instruction, data loss or signing/dependency
+   compromise. Preserve minimum restricted evidence and notify the owner promptly.
+3. Contain the affected use: stop a pilot, prepare a corrected build, or present a
+   scoped store pause/credential action for authorization. An offline installed
+   app cannot be remotely disabled; removing a listing does not erase installations.
+4. Counsel determines applicable notice recipients/deadlines from actual facts;
+   engineering must not invent a universal notification window.
+5. Verify the fix and affected content/device gates, retain the tested source and
+   artifact hashes, obtain release authorization, then verify the shipped update.
+   Record cause, scope and follow-up without public personal-data details.

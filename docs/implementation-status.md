@@ -60,3 +60,20 @@ Completed lessons have individual replay controls and keep existing rewards.
 Release content validation rejects missing or modified native audio import maps.
 These behaviors have regression coverage; native recovery and physical-device
 acceptance remain separate checks. See [GitHub setup](github-setup.md).
+
+## Mobile readiness controls
+
+The first readiness implementation adds explicit Android cloud/device-transfer
+exclusions and release permission removal, verifies iOS backup code integrity,
+and verifies SQLite secure deletion on both reader and exclusive-transaction
+connections. Parent information describes local retention/reset boundaries;
+Android Back leaves lessons/parent controls and requires the gate again.
+The [build-input command](toolchain.md#build-input-evidence-command) captures hashes
+and an npm inventory without adding dependencies or services.
+
+See [validation](validation.md#mobile-readiness-implementation-checkpoint) for this
+change's results. Generated native configuration and Expo Go layout checks do not
+close standalone, transfer, network or physical-device acceptance. The
+[tooling proposal](toolchain.md#native-build-setup-proposal--awaiting-authorization)
+awaits specific authorization; human literacy/audio/rights and legal decisions
+remain open. No M1 child-use or store-release gate has been marked complete.

@@ -73,6 +73,74 @@ not a pass. Source sections refer to the companion research report.
 
 ## Work packages
 
+### Implementation checkpoint
+
+Authorized local implementation has begun. P0's reviewer brief is prepared below;
+P1's environment proposal and input-inventory command are in [toolchain](toolchain.md).
+P2's backup, release permission, deletion and parent-information controls are
+implemented; their device acceptance is still open. Android Back has regression
+coverage and parent text has phone/tablet simulator layout evidence. See
+[current validation](validation.md#mobile-readiness-implementation-checkpoint).
+No full P0–P5 package or child/store gate is declared complete by these changes.
+
+| Register update | Evidence now available | Still open |
+| --- | --- | --- |
+| PRI-01, PRI-03–05 | Expanded data map, embedded parent notice, native backup/resource generation, release permission directives, raw SQLite page tests on separate connections | Actual binary/traffic/transfer and deletion sidecars; legal retention rationale |
+| SEC-01–04 | Concrete threat assessment and incident handoff in SECURITY.md; input hashes and npm CycloneDX capture | Independent native review, native SBOM/license notices, signing, named responders/tabletop |
+| QUA-01–02, A11Y-01 | Android Back/gate regression; iPhone portrait and iPad landscape parent-text inspection | Android runtime, physical gestures/assistive technology, large text, measured performance |
+| EDU-01–02, PIL-01, REL-01 | Human recording/review brief and pilot procedure prepared | Qualified approvals, complete narration, authorized pilot and release scope |
+
+### Prepared counsel, literacy and rights brief
+
+This is ready for owner review and later authorized private sharing; no outside
+reviewer has been contacted. Use [product context](../COMPANY_CONTEXT.md),
+[the data map](privacy-data-map.md), [content review](content-review.md),
+[the threat assessment](../SECURITY.md#m1-threat-assessment--implementation-review),
+the current input inventory and the [primary-source research](mobile-requirements-research.md).
+
+**Product facts:** beginning English readers, design ages roughly 4–7, two bundled
+draft lessons, one anonymous local slot, local response/timestamp history and
+90-day aggregation on open. No runtime accounts, ads, analytics, microphone,
+billing, remote lessons or application backend. The parent gate is arithmetic
+friction. Development uses Expo Go/Metro and must use synthetic data. Publisher,
+cleared brand, final support contact, monetization and territories are undecided;
+do not borrow another repository's legal entity. US iPad first remains a recommendation.
+
+| Decision for authorized human | Required written finding | When it blocks |
+| --- | --- | --- |
+| Owner / counsel | Publisher, ownership chain, age positioning, chosen pilot locations and distribution territories, business model, public/private contact details | Before recruitment, enrollment or public notices |
+| Children's privacy counsel | Actual COPPA collection analysis including native diagnostics, future support/site and observations; parental notice/consent/rights if triggered; retention justification | Before any child use |
+| Counsel for each chosen state/country | Provision/version, commencement, court/enforcement status, age-assurance or consent trigger, offline/unknown signal treatment and required controls; exclusions with reasons | Before affected pilot/distribution; US-wide availability is not assumed |
+| Literacy specialist | Exact two-lesson sequence, sound models, blending, capital Sam, connected sentence and all navigation/feedback; accessible participation without misleading assessment cues | Before approving current catalog digest or using it with a child |
+| Rights reviewer / owner | Trademark review; ownership/license of robot/icon/art/code; speaker and recording distribution rights; exact asset hash and restricted grant reference | Before affected assets are approved/distributed |
+| Privacy/accessibility reviewer | Final parent notice, support/website data handling, usable notice/reset/withdrawal and assistive-technology paths on selected devices | Before pilot and public release |
+
+For each finding record reviewer, date, evidence reference, applicability/rationale,
+required change and the exact affected product inputs. Reviewer identifiers in
+Git must be public-safe; contracts, family identities and consent records stay in
+restricted storage. Unassigned reviewers and unanswered legal questions remain
+open; the owner chooses reviewers/budget and authorizes any outreach.
+
+**Pilot procedure draft, not recruitment authorization:** after content, legal,
+privacy and device gates pass, use an owner-selected small supervised cohort.
+Obtain adult participation permission and age-appropriate child assent under the
+reviewed process; keep required processing consent separate. State that prototype
+practice counts do not establish reading level or educational efficacy. The adult
+remains present; the child may pause or stop immediately without pressure or loss
+of already-earned progress. Use questions about understanding spoken directions,
+tap/drag access, sound clarity, frustration and ability to finish/leave.
+
+Record only coded, minimal observations outside Git: tested build/device, task,
+observed difficulty and proposed correction. No names, birthdays, contact lists,
+voice/video or screenshots containing identifying data by default. Propose removal
+of raw notes within 30 days of the review decision and retain only de-identified
+issue summaries; counsel/owner must approve the actual storage, access, withdrawal
+and retention procedure before recruitment. A withdrawal request stops participation
+and routes any processing-rights request through that reviewed procedure. Stop the
+affected pilot for distress, misleading instruction, unexpected collection,
+inaccessible essential actions or unreliable reset/data loss. Resolve and reverify
+the affected gates before an authorized restart.
+
 Estimates below are engineering planning ranges for closing the present foundation
 gaps, not quotes or a promised launch date. They assume one experienced engineer,
 available hardware and timely reviewers. They exclude recording production, legal

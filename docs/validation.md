@@ -51,3 +51,35 @@ The first GitHub run passed prototype tests, secret scanning and the CodeQL job,
 but the CodeQL alert check flagged Math.random-derived session identifiers.
 Session IDs now use expo-crypto UUIDs, separate from choice shuffling. A fixed-clock
 regression verifies distinct session/attempt IDs across lesson re-entry.
+
+## Mobile readiness implementation checkpoint
+
+Fresh local checks for the readiness controls on 2026-09-12:
+
+| Check | Result / scope |
+| --- | --- |
+| `npm run validate:code` | Passed: lint, strict TypeScript, 47 unit tests, 20 UI tests across five suites, repository boundary check |
+| Regression evidence | Reproduced then fixed: stale iOS protection marker, Android resource/permission gaps and redirected directory writes, readable deleted SQLite details (including Expo-style separate transaction connections), Android Back leaving parent/lesson navigation unresolved |
+| Jest discovery | A concurrent nested checkout reproduced duplicate-project/native-module failures. Discovery now starts at this project's `tests/ui`; all five intended suites run, nested checkout preserved |
+| `npm run content:check:draft` | Passed against local synthetic audio files |
+| `npm run content:check` | Failed: `UNAPPROVED_LESSON`, `UNAPPROVED_ASSET`, `REVIEW_DIGEST:first-sounds`, `REVIEW_DIGEST:first-words`; release remains blocked |
+| `npm run validate` | Not run as a separate wrapper in this implementation; its code and strict-content components were run above. Full release validation cannot pass with the current content |
+| `npm run security:check` | Passed: npm audit reported zero vulnerabilities; Gitleaks history and directory scans reported no leaks |
+| `expo prebuild ... --no-install` and repeat `--no-clean` | Passed in a task-owned ignored copy; actual generated-source assertions passed. Existing native workspaces preserved; no native package/tool installation |
+| `expo export --platform ios --dev --output-dir outputs/readiness-dev-ios --max-workers 2` | Passed; development JS and nine local draft sound files bundled |
+| Equivalent Android development export | Passed to `outputs/readiness-dev-android`; this is not an APK/AAB, native compilation or release content approval |
+| `tsx scripts/capture-build-inputs.ts` | Passed; 49 source/config/media input hashes and an 816-component npm CycloneDX inventory captured; native SBOM and binary evidence explicitly absent |
+| Simulator UI | iPhone portrait and iPad landscape parent notice inspected without observed text clipping; see device validation for limits |
+
+The generated native-source copy is under `outputs/native-config-os7JKT` and input
+snapshots use `outputs/build-inputs-*`. These are local ignored development artifacts,
+not public evidence bundles. Recreate them after changing their inputs. Node's
+experimental SQLite warning and Expo's color-environment warning remain non-failing.
+Expo also warns that Android theme integration needs expo-system-ui; no dependency
+was added solely to remove the warning.
+
+Standalone CocoaPods/Android compilation and Maestro/device checks await the
+specific tooling authorization in [toolchain](toolchain.md). No toolchain, schema,
+CI/CD, signing-account, store, publication or paid-service changes were made.
+Human content/recording/rights and legal approvals, physical-device acceptance,
+independent review and the later pilot/store packages remain incomplete.
