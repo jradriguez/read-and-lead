@@ -14,12 +14,16 @@ export function WorkshopScreen({
   parts = 0,
   reducedMotion = false,
   error = "",
+  replays = [],
+  onReplay,
 }: {
   onStart: () => void;
   onParent: () => void;
   parts?: number;
   reducedMotion?: boolean;
   error?: string;
+  replays?: { id: string; title: string }[];
+  onReplay?: (id: string) => void;
 }) {
   const { width } = useWindowDimensions();
   const wide = width > 700;
@@ -129,6 +133,19 @@ export function WorkshopScreen({
       <Text style={ui.small}>
         Developer preview · Teaching content awaits review
       </Text>
+      {replays.map((lesson) => (
+        <Pressable
+          key={lesson.id}
+          accessibilityRole="button"
+          accessibilityLabel={`Replay ${lesson.title}`}
+          style={[ui.button, ui.secondary]}
+          onPress={() => onReplay?.(lesson.id)}
+        >
+          <Text style={[ui.buttonText, ui.secondaryText]}>
+            ↻ {lesson.title}
+          </Text>
+        </Pressable>
+      ))}
     </ScrollView>
   );
 }

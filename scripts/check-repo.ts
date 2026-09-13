@@ -10,7 +10,7 @@ export function checkRepo(root: string): string[] {
   const errors = files
     .filter(
       (f) =>
-        /(^|\/)(outputs|recordings|private|\.auth|learner-data)\/|(^|\/)\.env($|\.)|\.(sqlite.*|db.*|p12|mobileprovision|keystore|jks)$/.test(
+        /(^|\/)(outputs|recordings|private|\.auth|learner-data)\/|^assets\/draft\/|^src\/audio\/draft-sources\.ts$|(^|\/)\.env($|\.)|\.(sqlite.*|db.*|p12|mobileprovision|keystore|jks)$/.test(
           f,
         ) && !f.endsWith(".env.example"),
     )

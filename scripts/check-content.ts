@@ -4,6 +4,7 @@ import { validateCatalog } from "../src/content/validate";
 import { reviewPayload } from "../src/content/review";
 import { resolve } from "node:path";
 import type { Catalog } from "../src/content/types";
+import { renderAudioSources } from "./audio-sources";
 export function checkContent(
   root: string,
   catalog: Catalog,
@@ -44,6 +45,16 @@ export function checkContent(
     }
   }
   if (release) {
+    try {
+      const map = resolve(root, "src/audio/draft-sources.ts");
+      if (
+        lstatSync(map).isSymbolicLink() ||
+        readFileSync(map, "utf8") !== renderAudioSources(catalog)
+      )
+        errors.push("AUDIO_MAP_MISMATCH");
+    } catch {
+      errors.push("AUDIO_MAP_MISSING");
+    }
     const digest = createHash("sha256")
       .update(reviewPayload(catalog))
       .digest("hex");

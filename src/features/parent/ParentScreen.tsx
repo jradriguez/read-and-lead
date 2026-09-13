@@ -14,7 +14,10 @@ import {
 import { gateActive } from "./gate";
 import { ui } from "../../ui/tokens";
 export type ParentProps = {
-  repository: ProgressRepository;
+  repository: ProgressRepository | null;
+  storageError?: string;
+  onRetry?: () => Promise<void>;
+  onRecover?: () => Promise<void>;
   onExit: () => void;
   audioEnabled: boolean;
   reducedMotion: boolean;
@@ -24,6 +27,9 @@ export type ParentProps = {
 };
 export function ParentScreen({
   repository,
+  storageError = "",
+  onRetry,
+  onRecover,
   onExit,
   audioEnabled,
   reducedMotion,
@@ -40,6 +46,7 @@ export function ParentScreen({
   const lock = useRef(false);
   useEffect(() => {
     let alive = true;
+    if (!repository) return;
     void repository
       .summary("local-learner")
       .then((s) => {
@@ -83,12 +90,18 @@ export function ParentScreen({
     lock.current = true;
     setBusy(true);
     try {
-      await repository.reset("local-learner");
+      if (repository) await repository.reset("local-learner");
+      else if (onRecover) await onRecover();
+      else throw new Error("RECOVERY_UNAVAILABLE");
       setProgress(emptySummary());
       setConfirm(false);
       setMessage("Progress reset.");
     } catch {
-      setMessage("Progress could not be deleted. Please try again.");
+      setMessage(
+        repository
+          ? "Progress could not be deleted. Please try again."
+          : "Reset could not finish. Data may have been deleted; try loading again.",
+      );
     } finally {
       lock.current = false;
       setBusy(false);
@@ -104,32 +117,70 @@ export function ParentScreen({
       }}
     >
       <Text style={ui.title}>Small steps, real practice</Text>
-      <Text style={ui.body}>Responses so far</Text>
-      <View style={ui.panel}>
-        {(["independent", "assisted", "incorrect", "skipped"] as const).map(
-          (key) => (
-            <View
-              key={key}
-              style={[ui.row, { justifyContent: "space-between" }]}
-            >
-              <Text style={ui.body}>{key[0].toUpperCase() + key.slice(1)}</Text>
-              <Text style={ui.title}>{progress[key]}</Text>
-            </View>
-          ),
-        )}
-      </View>
-      <Text style={ui.small}>
-        These are practice counts, not a reading level or a mastery assessment.
-        A completed lesson earns one workshop part.
-      </Text>
-      <Text style={ui.body}>
-        Patterns practised:{" "}
-        {progress.completedLessonIds.includes("first-words")
-          ? "m, short a, s, t"
-          : progress.completedLessonIds.length
-            ? "m, short a, s"
-            : "No completed lessons yet"}
-      </Text>
+      {!repository ? (
+        <View style={ui.panel}>
+          <Text style={ui.body}>
+            {storageError || "Local progress is still loading."}
+          </Text>
+          <Text style={ui.small}>
+            Your saved data has not been reset. Retry first. Reset permanently
+            deletes all local progress; it cannot restore older data.
+          </Text>
+          <Pressable
+            accessibilityRole="button"
+            disabled={busy || !onRetry}
+            style={ui.button}
+            onPress={() => {
+              if (!allowed() || lock.current || !onRetry) return;
+              lock.current = true;
+              setBusy(true);
+              void onRetry()
+                .catch(() =>
+                  setMessage(
+                    "Progress is still unavailable. Your data has not been reset.",
+                  ),
+                )
+                .finally(() => {
+                  lock.current = false;
+                  setBusy(false);
+                });
+            }}
+          >
+            <Text style={ui.buttonText}>Retry loading progress</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <>
+          <Text style={ui.body}>Responses so far</Text>
+          <View style={ui.panel}>
+            {(["independent", "assisted", "incorrect", "skipped"] as const).map(
+              (key) => (
+                <View
+                  key={key}
+                  style={[ui.row, { justifyContent: "space-between" }]}
+                >
+                  <Text style={ui.body}>
+                    {key[0].toUpperCase() + key.slice(1)}
+                  </Text>
+                  <Text style={ui.title}>{progress[key]}</Text>
+                </View>
+              ),
+            )}
+          </View>
+          <Text style={ui.small}>
+            These are practice counts, not a reading level or a mastery
+            assessment. A completed lesson earns one workshop part.
+          </Text>
+          <Text style={ui.body}>
+            Patterns practised:{" "}
+            {progress.completedLessonIds.includes("first-words")
+              ? "m, short a, s, t"
+              : progress.completedLessonIds.length
+                ? "m, short a, s"
+                : "No completed lessons yet"}
+          </Text>
+        </>
+      )}
       <View style={ui.panel}>
         <View style={[ui.row, { justifyContent: "space-between" }]}>
           <Text style={ui.body}>Audio</Text>
@@ -196,6 +247,7 @@ export function ParentScreen({
       ) : (
         <Pressable
           accessibilityRole="button"
+          disabled={busy || (!repository && !onRecover)}
           onPress={() => {
             if (allowed()) setConfirm(true);
           }}

@@ -21,7 +21,8 @@ NODE_OPTIONS=--dns-result-order=ipv4first npx expo start --go --localhost
 Open `exp://127.0.0.1:8081` in **Expo Go SDK 57 on the local iOS simulator**.
 That loopback address is for the simulator on this Mac, not a physical iPad.
 Local draft audio files and their generated import map are ignored by Git. Run the
-audio command after a fresh clone before typechecking or bundling. The clips are
+audio command after a fresh clone before bundling. Code checks run on any supported
+Node 24 host without generated audio; the tracked declaration provides types only. The clips are
 only placeholders for adult functional review: synthetic phoneme pronunciation is
 not reliable and redistribution rights have not been established.
 
@@ -60,4 +61,7 @@ See [implementation status](docs/implementation-status.md),
 [original plan](docs/implementation-plan.md), and [reuse inventory](docs/reuse-inventory.md).
 
 Original app code has no public redistribution license yet; template and dependency
-licenses remain applicable. No remote repository or store submission has been created.
+licenses remain applicable. The public development repository is
+[jradriguez/read-and-lead](https://github.com/jradriguez/read-and-lead).
+See [contributing](CONTRIBUTING.md) and [GitHub setup](docs/github-setup.md).
+No store submission has been created.

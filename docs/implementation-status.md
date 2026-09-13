@@ -21,7 +21,8 @@ boxes in the original approved implementation plan, which remains a design refer
 - Shared SQL statements live in schema.ts so Expo and Node execute identical bytes,
   avoiding divergent .sql imports/bundler rules. The initial schema is version 1.
 - Audio is generated locally into ignored files for adult testing. None is approved
-  or included in Git. A fresh clone runs `npm run draft:audio` before bundling.
+  or included in Git. A fresh clone runs `npm run draft:audio` before bundling; portable code checks
+  require no generated audio. The release gate verifies exact native import paths.
 - `validate:code` is a separate development gate. `validate` still includes strict
   release content validation and fails while human review is pending.
 - Audio and animation preferences are session-only. Learning progress persists.
@@ -49,3 +50,13 @@ The native runtime also verifies the semantic catalog digest using expo-crypto b
 opening local progress in non-development builds. This small native dependency avoids
 shipping a handwritten cryptographic implementation. File-byte verification remains
 in the release CLI, before bundling.
+
+## Review fixes
+
+The parent gate remains accessible when storage initialization fails. Recovery
+offers a non-destructive retry, a newer-version warning when applicable, and an
+explicit confirmed reset/reopen operation. Native close failure prevents deletion.
+Completed lessons have individual replay controls and keep existing rewards.
+Release content validation rejects missing or modified native audio import maps.
+These behaviors have regression coverage; native recovery and physical-device
+acceptance remain separate checks. See [GitHub setup](github-setup.md).

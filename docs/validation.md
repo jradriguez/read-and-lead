@@ -1,6 +1,6 @@
 # Validation checkpoint — 2026-09-12
 
-- `npm run validate:code`: passed (ESLint, strict TypeScript, 36 unit tests, 9 UI
+- `npm run validate:code`: passed (ESLint, strict TypeScript, 37 unit tests, 17 component
   tests and tracked-file repository boundary checks).
 - `npm run content:check:draft`: passed against the generated local voice files.
 - `npm run validate`: code checks passed; strict content stage failed as expected:
@@ -28,3 +28,16 @@ application assertion. Full logs and generated bundles remain in ignored outputs
 
 See device-validation.md for exactly which simulator interactions were observed and
 which physical, offline, drag, audio-quality and backup checks remain open.
+
+## Independent review follow-up
+
+The initial review requested fixes to parent storage recovery, completed-lesson
+replay, native audio-map binding and fresh-clone typechecking. Regression tests
+reproduced the missing recovery/replay controls and missing audio-map gate before
+fixes. The updated code gate passes all 54 tests. Workflow YAML passes actionlint.
+
+The updated Expo Go iPhone simulator rendered the workshop, arithmetic gate and
+parent counts/preferences without blank screens or observed text overflow. Its
+parent data was synthetic. This does not verify corrupted-database recovery on a
+physical device; that path has component/native-adapter boundary coverage and
+remains on the native acceptance checklist. Drag acceptance is still pending.

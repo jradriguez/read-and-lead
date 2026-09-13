@@ -1,6 +1,9 @@
 import { digestStringAsync, CryptoDigestAlgorithm } from "expo-crypto";
 import { verifyRuntimeReview } from "./src/content/runtime-review";
-import { openNativeProgress } from "./src/progress/native";
+import {
+  openNativeProgress,
+  resetUnavailableNativeProgress,
+} from "./src/progress/native";
 import { nativeAudio } from "./src/audio/native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AccessibilityInfo, AppState, ScrollView, Text } from "react-native";
@@ -26,8 +29,10 @@ async function loadNative(): Promise<Dependencies> {
 }
 export default function App({
   load = loadNative,
+  recover = resetUnavailableNativeProgress,
 }: {
   load?: () => Promise<Dependencies>;
+  recover?: () => Promise<void>;
 }) {
   const [screen, setScreen] = useState<
     "workshop" | "lesson" | "gate" | "parent"
@@ -36,6 +41,8 @@ export default function App({
   const loading = useRef<Promise<Dependencies> | null>(null);
   const [summary, setSummary] = useState(emptySummary);
   const [error, setError] = useState("");
+  const [storageError, setStorageError] = useState("");
+  const [activeLessonId, setActiveLessonId] = useState(catalog.lessons[0].id);
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [motion, setMotion] = useState(false);
   const [systemMotion, setSystemMotion] = useState(false);
@@ -45,11 +52,17 @@ export default function App({
     if (!loading.current) loading.current = load();
     try {
       const d = await loading.current;
-      setDependencies(d);
       setSummary(await d.repository.summary("local-learner"));
+      setDependencies(d);
+      setStorageError("");
       return d;
     } catch (e) {
       loading.current = null;
+      setStorageError(
+        e instanceof Error && e.message === "NEWER_SCHEMA"
+          ? "This data needs a newer app version. Update the app to keep it."
+          : "Local progress could not be opened. Retry before considering a reset.",
+      );
       throw e;
     }
   }, [dependencies, load]);
@@ -79,23 +92,44 @@ export default function App({
     return () => sub.remove();
   }, [dependencies]);
   useEffect(() => {
-    if (dependencies)
+    let alive = true;
+    if (dependencies && screen === "workshop")
       void dependencies.repository
         .summary("local-learner")
-        .then(setSummary)
-        .catch(() =>
-          setError("Progress could not be loaded. Please try again."),
-        );
+        .then((value) => {
+          if (alive) setSummary(value);
+        })
+        .catch(() => {
+          if (alive)
+            setError("Progress could not be loaded. Please try again.");
+        });
+    return () => {
+      alive = false;
+    };
   }, [dependencies, screen]);
   useEffect(() => {
     void ensure().catch(() =>
       setError("Local progress could not be loaded. Tap to retry."),
     );
   }, [ensure]);
-  const enter = (next: "lesson" | "gate") => {
+  const enter = (replayId?: string) => {
     setError("");
     void ensure()
-      .then(() => setScreen(next))
+      .then(async (d) => {
+        const latest = await d.repository.summary("local-learner");
+        const next = replayId
+          ? catalog.lessons.find(
+              (l) =>
+                l.id === replayId && latest.completedLessonIds.includes(l.id),
+            )
+          : (catalog.lessons.find(
+              (l) => !latest.completedLessonIds.includes(l.id),
+            ) ?? catalog.lessons[0]);
+        if (!next) return;
+        setSummary(latest);
+        setActiveLessonId(next.id);
+        setScreen("lesson");
+      })
       .catch(() =>
         setError(
           "Local progress is unavailable. Tap again to retry. Your saved data has not been reset.",
@@ -113,9 +147,7 @@ export default function App({
     [audioEnabled, dependencies],
   );
   const home = useCallback(() => setScreen("workshop"), []);
-  const lesson =
-    catalog.lessons.find((l) => !summary.completedLessonIds.includes(l.id)) ??
-    catalog.lessons[0];
+  const lesson = catalog.lessons.find((l) => l.id === activeLessonId)!;
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {invalid.length ? (
@@ -142,9 +174,23 @@ export default function App({
         />
       ) : screen === "gate" ? (
         <ParentGate onOpen={() => setScreen("parent")} onExit={home} />
-      ) : screen === "parent" && dependencies ? (
+      ) : screen === "parent" ? (
         <ParentScreen
-          repository={dependencies.repository}
+          repository={dependencies?.repository ?? null}
+          storageError={storageError}
+          onRetry={async () => {
+            await ensure();
+          }}
+          onRecover={
+            !dependencies && storageError
+              ? async () => {
+                  if (loading.current) await loading.current.catch(() => {});
+                  await recover();
+                  loading.current = null;
+                  await ensure();
+                }
+              : undefined
+          }
           onExit={home}
           audioEnabled={audioEnabled}
           reducedMotion={motion || systemMotion}
@@ -156,8 +202,12 @@ export default function App({
         />
       ) : (
         <WorkshopScreen
-          onStart={() => enter("lesson")}
-          onParent={() => enter("gate")}
+          onStart={() => enter()}
+          onParent={() => setScreen("gate")}
+          replays={catalog.lessons.filter((l) =>
+            summary.completedLessonIds.includes(l.id),
+          )}
+          onReplay={enter}
           parts={summary.completedLessonIds.length}
           reducedMotion={motion || systemMotion}
           error={error}

@@ -12,5 +12,6 @@ The release content check must reject unreviewed content and stale digests. Neve
 approve an asset based only on an automated test. The parent arithmetic gate is
 friction, not authentication or legal consent.
 
-Report issues privately to the repository owner through an already trusted channel.
+Use [private vulnerability reporting](https://github.com/jradriguez/read-and-lead/security/advisories/new)
+for security reports, or an already trusted private channel if GitHub is unavailable.
 Do not open a public issue containing child information, device databases or secrets.

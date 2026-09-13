@@ -1,0 +1,18 @@
+name: Prototype bug
+description: Report a reproducible issue with synthetic data only.
+body:
+  - type: markdown
+    attributes:
+      value: Do not include child information, recordings, databases or secrets. Report security vulnerabilities privately using the Security tab.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps and observed behavior
+      description: Include expected behavior and minimal steps with synthetic data.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: App commit/version, device model, OS and Expo Go or standalone build. Do not include device identifiers.

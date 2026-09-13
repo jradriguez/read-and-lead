@@ -31,7 +31,9 @@ A literacy reviewer should check:
 Approval procedure (performed by an authorized human reviewer):
 
 1. Supply final recordings under assets/audio and update the bundled native import
-   map and catalog paths/creator/rights/SHA-256 fields. Remove local draft imports.
+   catalog paths/creator/rights/SHA-256 fields. Run `npx tsx scripts/create-audio-map.ts`
+   to regenerate the ignored native import map from those exact paths. This replaces
+   local draft imports without granting content approval. Do not edit the map by hand.
 2. Review the entire pack and runtime instructions. Set asset reviewed flags only
    after actual listening and rights review.
 3. Calculate SHA-256 of `reviewPayload(catalog)` from `src/content/review.ts`. This
@@ -42,4 +44,6 @@ Approval procedure (performed by an authorized human reviewer):
 
 Do not auto-sign an agent-authored lesson as reviewed. The runtime rejects draft
 review states and stale semantic digests in non-development builds; the release CLI checks actual
-files, path/symlink boundaries, hashes and digest equality. No family test has run.
+files, path/symlink boundaries, hashes, digest equality and the exact generated
+native import map. Run the release gate immediately before bundling; a type
+declaration alone supplies no audio and cannot pass this gate. No family test has run.

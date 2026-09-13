@@ -16,6 +16,10 @@ test("repository checker rejects tracked runtime data while allowing manifests",
     writeFileSync(join(root, "progress.sqlite"), "synthetic");
     execFileSync("git", ["-C", root, "add", "."]);
     assert.ok(checkRepo(root).some((e) => e.startsWith("PRIVATE_PATH")));
+    mkdirSync(join(root, "assets/draft"), { recursive: true });
+    writeFileSync(join(root, "assets/draft/m.wav"), "synthetic");
+    execFileSync("git", ["-C", root, "add", "."]);
+    assert.ok(checkRepo(root).includes("PRIVATE_PATH:assets/draft/m.wav"));
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
