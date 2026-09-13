@@ -39,6 +39,7 @@ export default function App({
   >("workshop");
   const [dependencies, setDependencies] = useState<Dependencies | null>(null);
   const loading = useRef<Promise<Dependencies> | null>(null);
+  const recovering = useRef<Promise<void> | null>(null);
   const [summary, setSummary] = useState(emptySummary);
   const [error, setError] = useState("");
   const [storageError, setStorageError] = useState("");
@@ -48,6 +49,7 @@ export default function App({
   const [systemMotion, setSystemMotion] = useState(false);
   const invalid = catalogErrors(__DEV__);
   const ensure = useCallback(async () => {
+    if (recovering.current) await recovering.current;
     if (dependencies) return dependencies;
     if (!loading.current) loading.current = load();
     try {
@@ -184,9 +186,17 @@ export default function App({
           onRecover={
             !dependencies && storageError
               ? async () => {
-                  if (loading.current) await loading.current.catch(() => {});
-                  await recover();
-                  loading.current = null;
+                  if (!recovering.current) {
+                    recovering.current = (async () => {
+                      if (loading.current)
+                        await loading.current.catch(() => {});
+                      await recover();
+                      loading.current = null;
+                    })().finally(() => {
+                      recovering.current = null;
+                    });
+                  }
+                  await recovering.current;
                   await ensure();
                 }
               : undefined

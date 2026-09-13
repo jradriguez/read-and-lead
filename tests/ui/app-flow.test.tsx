@@ -1,4 +1,5 @@
 import {
+  act,
   render,
   screen,
   fireEvent,
@@ -27,6 +28,49 @@ test("workshop opens a lesson after loading local dependencies", async () => {
   await fireEvent.press(screen.getByTestId("start-lesson"));
   await waitFor(() => expect(screen.getByTestId("lesson-screen")).toBeTruthy());
   expect(screen.getByText("Meet the sounds")).toBeTruthy();
+});
+
+test("leaving parent recovery cannot open the database before recovery finishes", async () => {
+  let release!: () => void;
+  let recovered = false;
+  const repository: ProgressRepository = {
+    async record() {},
+    async reset() {},
+    async prune() {},
+    async summary() {
+      return emptySummary();
+    },
+  };
+  const load = jest.fn(async () => {
+    if (!recovered) throw new Error("corrupt");
+    return { repository, audio: { async play() {}, stop() {} } };
+  });
+  await render(
+    <App
+      load={load}
+      recover={async () => {
+        await new Promise<void>((resolve) => {
+          release = resolve;
+        });
+        recovered = true;
+      }}
+    />,
+  );
+  await openParents();
+  await fireEvent.press(screen.getByRole("button", { name: "Reset progress" }));
+  await fireEvent.press(
+    screen.getByRole("button", { name: "Delete local progress" }),
+  );
+  await fireEvent.press(
+    screen.getByRole("button", { name: "Back to workshop" }),
+  );
+  await fireEvent.press(screen.getByTestId("start-lesson"));
+  expect(load).toHaveBeenCalledTimes(1);
+  await act(async () => {
+    release();
+  });
+  await waitFor(() => expect(screen.getByTestId("lesson-screen")).toBeTruthy());
+  expect(load).toHaveBeenCalledTimes(2);
 });
 
 async function openParents() {
