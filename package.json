@@ -41,6 +41,7 @@
     "content:check": "tsx scripts/check-content.ts --release",
     "content:check:draft": "tsx scripts/check-content.ts",
     "repo:check": "tsx scripts/check-repo.ts",
+    "publication:check": "tsx scripts/check-repo.ts --publication && gitleaks git --staged --redact",
     "validate:code": "npm run lint && npm run typecheck && npm run test:unit && npm run test:ui && npm run repo:check",
     "validate": "npm run validate:code && npm run content:check",
     "security:check": "npm audit --audit-level=high && gitleaks git --redact && gitleaks dir . --redact",

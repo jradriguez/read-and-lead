@@ -101,3 +101,54 @@ launch gates, not an active managed-response service. Rehearse with synthetic da
 5. Verify the fix and affected content/device gates, retain the tested source and
    artifact hashes, obtain release authorization, then verify the shipped update.
    Record cause, scope and follow-up without public personal-data details.
+
+## Public Git and private professional work
+
+This repository is public. Source, draft curriculum and plans already tracked are
+visible intellectual property, even though LICENSE.md grants no redistribution
+license for original work. Ignore rules prevent accidental staging of selected
+new files; they do not remove history, PR refs, forks, downloaded copies or public
+commit identities. Decide the confidentiality boundary before adding new material.
+Do not assume GitHub secret scanning recognizes business IP or personal data.
+
+Use `private/` for local contractor/counsel records and `outputs/private/` for
+redacted local audit evidence. Both are ignored and prohibited by `repo:check`.
+Sensitive originals are better kept outside the checkout in access-controlled
+storage with an agreed retention/backup policy. Ignoring a folder is not encryption.
+Only public-safe templates, sanitized findings and approved distribution assets
+belong in tracked files; final media still needs content and rights approval.
+
+The exclusions adapt the committed Atlas, AI-OS and Stag and Stone workflows to
+this app: credentials, private folders, browser/session state, raw recordings,
+contracts/quotes, local agent state, exports, archives and native artifacts. Keep
+public project MEMORY.md, source, sanitized docs and final licensed asset paths
+trackable; do not copy another repository’s blanket asset or memory exclusions.
+Do not widen Gitleaks allowlists to accommodate a finding.
+
+`repo:check` rejects prohibited indexed paths even after `git add -f`. It also
+checks indexed text for home-directory paths and common personal-email providers,
+reporting category/path without matching values. The index matters: a redacted
+working file does not repair already-staged bytes. These checks do not detect all
+PII, confidential IP, images, archives or arbitrary-domain email addresses.
+
+Immediately before a publication-bound commit, run `npm run publication:check`.
+It adds effective author/committer GitHub noreply checks and a staged Gitleaks scan.
+Use the verified noreply address from the owner’s GitHub settings or an existing
+verified GitHub-authored commit. Never invent the numeric account prefix. A noreply
+address hides personal email, not the public author name/account association.
+This is a required workflow command, not an installed pre-commit hook. Rerun it if
+staged files or identity change; it does not inspect historical commit metadata.
+
+For a historical audit, inspect all advertised remote branch and PR refs in a
+separate read-only mirror, all reachable commit identities, unique file versions
+and public PR text. Scan history with default Gitleaks rules and no repository
+path allowlist. Record inventory counts, tools, reference revisions and limitations
+privately. Review filename/content findings without copying private matches into
+public notes. Secret scanners skip or do not understand some formats and do not
+establish a complete personal-data audit.
+
+If exposure is found, preserve a redacted private commit/path register. Rotate an
+exposed credential through an authorized process before cleanup. Future redaction,
+visibility changes and shared-history rewriting are separate operations; none
+recalls copies already obtained. Do not publish an incident report containing the
+sensitive value, silently force-push history, or change repository visibility.
