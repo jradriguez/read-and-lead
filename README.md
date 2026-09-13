@@ -29,7 +29,7 @@ not reliable and redistribution rights have not been established.
 A custom development client uses `npm start`, `npm run ios`, or `npm run android`
 after compatible native tools are installed. Xcode 26.4+ and CocoaPods are required
 for iOS builds. Android requires the SDK, JDK and emulator/device toolchain.
-See [toolchain](docs/toolchain.md) for observed versions and build blockers.
+See [toolchain](docs/toolchain.md) for installed versions and native build commands.
 
 ## Check the code and release readiness
 
@@ -50,11 +50,12 @@ with children. See [content review](docs/content-review.md).
 
 ## Evidence and next work
 
-An Expo Go iPad simulator session completed the first lesson using tap controls,
-saved one part, and displayed the landscape workshop. The iPhone simulator rendered
-the workshop and parent area. Drag completion, physical-device use, a standalone
-offline build and Android runtime behavior remain unverified. Expo Go does not apply
-this app's native backup-exclusion plugin and is not release/privacy evidence.
+Local iOS simulator and Android debug builds completed both draft lessons using
+tap controls, retained earned parts across restarts, and rejected an empty parent
+gate answer in ordered Maestro tests. Native privacy configuration and dependency
+evidence are recorded locally. Physical-device use, drag completion, reviewed
+audio, standalone offline release and no-egress acceptance remain unverified.
+Debug clients use Metro; passing these checks does not approve child use or release.
 
 See [implementation status](docs/implementation-status.md),
 [device validation](docs/device-validation.md), [design](docs/design.md),
