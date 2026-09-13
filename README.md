@@ -65,3 +65,11 @@ licenses remain applicable. The public development repository is
 [jradriguez/read-and-lead](https://github.com/jradriguez/read-and-lead).
 See [contributing](CONTRIBUTING.md) and [GitHub setup](docs/github-setup.md).
 No store submission has been created.
+
+## Working in this repository
+
+Start with [AGENTS.md](AGENTS.md) for required reading, task-specific references,
+and the M1 scope boundary. [CONTRIBUTING.md](CONTRIBUTING.md) owns validation and
+the one-initial-commit workflow. Use current implementation status to choose work;
+load historical plans only for the relevant task. Instruction provenance is in
+[the reuse inventory](docs/reuse-inventory.md).
