@@ -1,4 +1,4 @@
-# Contributing to Read and Lead
+# Contributing to Read to Lead
 
 This file owns branch, commit, validation, and review workflow. Start with
 [AGENTS.md](AGENTS.md) for required reading and scope; [agent policy](AI_AGENT_POLICY.md)

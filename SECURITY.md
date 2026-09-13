@@ -1,4 +1,4 @@
-# Read and Lead security and privacy policy
+# Read to Lead security and privacy policy
 
 This file owns data protection, untrusted-input handling, and private reporting
 across application code, authoring, tools, tests, and review artifacts. See

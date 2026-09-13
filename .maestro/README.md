@@ -31,7 +31,7 @@ Do not run another Maestro command against a device while its test is active.
 The shared startup helper enters the local Metro URL when the launcher is visible,
 dismisses only Expo development onboarding/menu, and waits for the actual workshop.
 It handles the iOS manual-URL disclosure and denies the AOSP keyboard's optional
-contacts request if present. The test does not add permissions to Read and Lead,
+contacts request if present. The test does not add permissions to Read to Lead,
 change app gates, contact a cloud test service or approve draft lessons.
 
 The initial native runs exposed launcher/deep-link, keyboard-dismissal and developer

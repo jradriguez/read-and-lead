@@ -1,9 +1,11 @@
-# Read and Lead product context
+# Read to Lead product context
 
 This file owns product identity, priorities, and scope decisions. The detailed
 [design](docs/design.md) defines requirements; [implementation status](docs/implementation-status.md)
-tracks delivery. Read and Lead is a working application name, not an established
-legal entity, cleared trademark, or approved store listing.
+tracks delivery. **Read to Lead** is the owner-requested provisional display name.
+The [name review](docs/product-name-review.md) found material conflicts in literacy
+products and app listings. Final adoption needs clearance or a new name; neither
+this spelling nor **Read 2 Lead** is established as legally available.
 
 ## Vision
 
@@ -15,8 +17,11 @@ curiosity and confidence without pressure to keep playing.
 
 The design targets roughly ages 4–7, with placement by skill readiness. Use English
 content and US English model recordings, prioritize iPad, and retain phone/Android
-layouts. Use **Read and Lead** in display copy and **read-and-lead** for repository
-and package names. Use the [vocabulary](docs/context.md) for learning concepts.
+layouts. Use **Read to Lead** in current display copy. Keep **read-and-lead** for
+the existing checkout, GitHub repository, npm package and Expo slug while naming
+is unresolved. Preserve native app identifiers and stored progress. A later final
+identity change needs a scoped migration; this is not a new legal entity or an
+approved store listing. Use the [vocabulary](docs/context.md) for learning concepts.
 
 ## Scope decisions
 

@@ -1,7 +1,12 @@
-# Read and Lead
+# Read to Lead
 
 An English reading adventure set in a robot workshop. This repository contains an
 **adult development prototype**, not an approved child learning product.
+
+**Read to Lead is provisional.** A [name review](docs/product-name-review.md)
+found existing literacy products and app listings using this name or close variants.
+Final branding is blocked pending clearance or a new name. The GitHub repository,
+local directory and technical app identifiers retain their existing names.
 
 Implemented: two cumulative draft mini-lessons, sound matching, ordered word building,
 tap placement, drag handling, a robot reward, local SQLite progress, and a gated parent
@@ -60,6 +65,13 @@ Debug clients use Metro; passing these checks does not approve child use or rele
 See [implementation status](docs/implementation-status.md),
 [device validation](docs/device-validation.md), [design](docs/design.md),
 [original plan](docs/implementation-plan.md), and [reuse inventory](docs/reuse-inventory.md).
+
+The [product excellence roadmap](docs/product-excellence-roadmap.md) accounts for
+[merged PR #11](https://github.com/jradriguez/read-and-lead/pull/11) and prioritizes
+responsive letter placement, reviewed narration, a polished workshop mission and
+physical-device acceptance. Its [learning and experience research](docs/learning-and-experience-research.md)
+records teaching evidence and comparison apps; [development tools and workflows](docs/development-tools-and-workflows.md)
+records the installed Codex plugins, dependency decisions and specialist assignments.
 
 Original app code has no public redistribution license yet; template and dependency
 licenses remain applicable. The public development repository is

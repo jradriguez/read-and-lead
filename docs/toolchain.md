@@ -68,6 +68,12 @@ unrelated simulators or erase actual learner data. No cleanup was performed.
 
 ### Native build reproduction
 
+The paths and `ReadandLead` scheme below record PR #11's tested artifacts. The
+[provisional rename](product-name-review.md) changes `expo.name` to Read to Lead;
+fresh prebuilds may derive a different workspace/scheme/product name. Inspect the
+generated project before adapting these commands. Existing binaries were not
+rebuilt for the rename, and their input hashes do not certify the new configuration.
+
 The tested sandbox is `outputs/native-build-EYvdgD`, containing the app inputs and
 local draft audio plus a link to this checkout's node_modules. Original ignored
 native workspaces were preserved. All 49 captured app input hashes matched this
