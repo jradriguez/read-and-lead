@@ -66,6 +66,12 @@ licenses remain applicable. The public development repository is
 See [contributing](CONTRIBUTING.md) and [GitHub setup](docs/github-setup.md).
 No store submission has been created.
 
+For platform, privacy, child-safety and commercial release planning, see the
+[mobile requirements research](docs/mobile-requirements-research.md) and
+[readiness implementation plan](docs/mobile-readiness-plan.md). These distinguish
+current evidence, store rules, legal-review questions and proposed release gates;
+they do not establish approval to use the prototype with children or publish it.
+
 ## Working in this repository
 
 Start with [AGENTS.md](AGENTS.md) for the instruction map. The project guidance
