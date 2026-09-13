@@ -86,10 +86,12 @@ scripts/native-tools.sh xcodebuild \
   -derivedDataPath outputs/native-ios-derived CODE_SIGNING_ALLOWED=NO -jobs 4 build
 ```
 
-In the sandbox's `android` directory, use the wrapper's absolute repository path:
+For Android, start from the repository root and retain it before entering the sandbox:
 
 ```sh
-/Users/joel/Workspace/projects/read-and-lead/scripts/native-tools.sh \
+read_lead_repo="$PWD"
+cd outputs/native-build-EYvdgD/android
+"$read_lead_repo/scripts/native-tools.sh" \
   ./gradlew :app:assembleDebug --no-daemon --max-workers=4 \
   -PreactNativeArchitectures=arm64-v8a
 ```
