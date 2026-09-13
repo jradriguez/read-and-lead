@@ -1,6 +1,6 @@
 # Validation checkpoint — 2026-09-12
 
-- `npm run validate:code`: passed (ESLint, strict TypeScript, 37 unit tests, 18 component
+- `npm run validate:code`: passed (ESLint, strict TypeScript, 37 unit tests, 19 component
   tests and tracked-file repository boundary checks).
 - `npm run content:check:draft`: passed against the generated local voice files.
 - `npm run validate`: code checks passed; strict content stage failed as expected:
@@ -34,7 +34,7 @@ which physical, offline, drag, audio-quality and backup checks remain open.
 The initial review requested fixes to parent storage recovery, completed-lesson
 replay, native audio-map binding and fresh-clone typechecking. Regression tests
 reproduced the missing recovery/replay controls and missing audio-map gate before
-fixes. The updated code gate passes all 55 tests. Workflow YAML passes actionlint.
+fixes. The updated code gate passes all 56 tests. Workflow YAML passes actionlint.
 
 The updated Expo Go iPhone simulator rendered the workshop, arithmetic gate and
 parent counts/preferences without blank screens or observed text overflow. Its
@@ -46,3 +46,8 @@ A clean temporary clone passed `npm ci` and `npm run validate:code` without any
 local voice files. A second review found a reset/startup race across navigation;
 a deferred-recovery regression reproduced it. App initialization now waits for the
 shared recovery operation before reopening storage, and the regression passes.
+
+The first GitHub run passed prototype tests, secret scanning and the CodeQL job,
+but the CodeQL alert check flagged Math.random-derived session identifiers.
+Session IDs now use expo-crypto UUIDs, separate from choice shuffling. A fixed-clock
+regression verifies distinct session/attempt IDs across lesson re-entry.

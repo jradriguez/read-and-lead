@@ -33,6 +33,7 @@ function setup(record: ProgressRepository["record"]) {
       onComplete={() => {}}
       onExit={() => {}}
       reducedMotion
+      random={() => 0.5}
     />,
   );
 }
@@ -50,6 +51,30 @@ test("hinted tap placement saves an assisted response", async () => {
   await waitFor(() => expect(screen.getByText("You built it!")).toBeTruthy());
   expect(attempts).toHaveLength(1);
   expect(attempts[0].outcome).toBe("assisted");
+});
+
+test("separate lessons get distinct UUID sessions even with a fixed clock and shuffle", async () => {
+  const attempts: Attempt[] = [];
+  const clock = jest.spyOn(Date, "now").mockReturnValue(1000);
+  try {
+    const first = await setup(async (a) => {
+      attempts.push(a);
+    });
+    await fireEvent.press(screen.getByRole("button", { name: "Skip for now" }));
+    await first.unmount();
+    await setup(async (a) => {
+      attempts.push(a);
+    });
+    await fireEvent.press(screen.getByRole("button", { name: "Skip for now" }));
+    expect(attempts).toHaveLength(2);
+    expect(attempts[0].sessionId).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+    );
+    expect(attempts[0].sessionId).not.toBe(attempts[1].sessionId);
+    expect(attempts[0].id).not.toBe(attempts[1].id);
+  } finally {
+    clock.mockRestore();
+  }
 });
 test("failed save keeps activity available and retry reuses the same event ID", async () => {
   const attempts: Attempt[] = [];

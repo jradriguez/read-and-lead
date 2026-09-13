@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { randomUUID } from "expo-crypto";
 import { AppState, Pressable, ScrollView, Text, View } from "react-native";
 import type { Catalog, Lesson } from "../../content/types";
 import type { AudioController } from "../../audio/controller";
@@ -32,7 +33,7 @@ export function LessonScreen({
   random = Math.random,
 }: LessonProps) {
   const [session, setSession] = useState(() =>
-    startSession(lesson.id, `${Date.now()}-${random()}`),
+    startSession(lesson.id, randomUUID()),
   );
   const [intro, setIntro] = useState(lesson.introducedPatternIds.length > 0);
   const [slots, setSlots] = useState<(string | null)[]>(() =>
