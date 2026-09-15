@@ -1,5 +1,11 @@
 import { useRef } from "react";
-import { Pressable, Text, View, useWindowDimensions } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import type { Pattern } from "../../content/types";
 import { LetterTile } from "./LetterTile";
 import { dropIndex, type Bounds } from "./placement";
@@ -46,49 +52,62 @@ export function WordBuilder({
     });
   };
   return (
-    <View style={{ gap: 32, alignItems: "center" }}>
-      <View style={[ui.row, { justifyContent: "center", gap: 12 }]}>
-        {slots.map((value, i) => (
-          <View
-            key={i}
-            ref={(r) => {
-              refs.current[i] = r;
-            }}
-            collapsable={false}
-          >
-            <Pressable
-              testID={`slot-${i}`}
-              accessibilityRole="button"
-              accessibilityLabel={`Slot ${i + 1}${value ? `, ${choices.find((c) => c.id === value)?.grapheme}` : ", empty"}`}
-              disabled={disabled}
-              onPress={() => {
-                if (selected) onPlace(selected, i);
+    <View style={{ gap: 24, alignItems: "center", width: "100%" }}>
+      <View style={s.slotTray}>
+        <View style={[ui.row, { justifyContent: "center", gap: 12 }]}>
+          {slots.map((value, i) => (
+            <View
+              key={i}
+              ref={(r) => {
+                refs.current[i] = r;
               }}
-              style={{
-                width: slotWidth,
-                height: 92,
-                backgroundColor: value ? "white" : "#E8EFF3",
-                borderRadius: 18,
-                borderWidth: 3,
-                borderStyle: value ? "solid" : "dashed",
-                borderColor: color.line,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              collapsable={false}
             >
-              <Text
-                style={{ fontSize: 48, fontWeight: "600", color: color.ink }}
+              <Pressable
+                testID={`slot-${i}`}
+                accessibilityRole="button"
+                accessibilityLabel={`Slot ${i + 1}${value ? `, ${choices.find((c) => c.id === value)?.grapheme}` : ", empty"}`}
+                disabled={disabled}
+                accessibilityState={{ disabled }}
+                onPress={() => {
+                  if (selected) onPlace(selected, i);
+                }}
+                style={({ pressed }) => [
+                  {
+                    width: slotWidth,
+                    minHeight: 102,
+                    paddingVertical: 10,
+                    backgroundColor: value ? color.paper : color.sky,
+                    borderRadius: 18,
+                    borderWidth: 3,
+                    borderStyle: value ? "solid" : "dashed",
+                    borderColor: value ? color.blue : color.muted,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                  pressed && { backgroundColor: color.yellow },
+                ]}
               >
-                {choices.find((c) => c.id === value)?.grapheme ?? ""}
-              </Text>
-            </Pressable>
-          </View>
-        ))}
+                <Text
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  style={{
+                    fontSize: 48,
+                    fontWeight: "600",
+                    color: color.ink,
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  {choices.find((c) => c.id === value)?.grapheme ?? ""}
+                </Text>
+                <View pointerEvents="none" style={s.slotMark} />
+              </Pressable>
+            </View>
+          ))}
+        </View>
       </View>
-      <View
-        key={`${width}:${height}`}
-        style={[ui.row, { justifyContent: "center", gap: 14 }]}
-      >
+      <View key={`${width}:${height}`} style={[ui.row, s.tileTray]}>
         {choices.map((p) => (
           <LetterTile
             key={p.id}
@@ -107,3 +126,29 @@ export function WordBuilder({
     </View>
   );
 }
+const s = StyleSheet.create({
+  slotTray: {
+    padding: 12,
+    borderRadius: 24,
+    backgroundColor: color.metal,
+    borderTopWidth: 4,
+    borderColor: color.line,
+  },
+  slotMark: {
+    position: "absolute",
+    bottom: 9,
+    width: 18,
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: color.muted,
+  },
+  tileTray: {
+    justifyContent: "center",
+    gap: 14,
+    padding: 12,
+    backgroundColor: color.blueLight,
+    borderRadius: 24,
+    borderBottomWidth: 4,
+    borderColor: color.line,
+  },
+});

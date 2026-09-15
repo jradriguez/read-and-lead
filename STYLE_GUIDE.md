@@ -55,3 +55,14 @@ Separate implemented behavior from design intent and recommendations. Cite the
 source or evidence when a claim needs support. Summarize what changed, why,
 validation results, and remaining risks. Keep PR descriptions focused on the final
 change and useful reviewer evidence, not the conversation or each intermediate step.
+
+### Workshop surfaces
+
+The workshop/lesson controls use `WorkshopButton` for a consistent raised edge,
+pressed feedback, action icon, and explicit disabled appearance. Yellow marks the
+primary build/check action; white controls support replay and navigation. Keep the
+workbench's recessed slots visually distinct from loose letter tiles, and retain
+the selection mark as well as the color change. Progress lights mean activities
+finished, never a skill rating. Use the smaller workshop scene on phones so the
+first build action remains visible at default text size. Keep instructional letters
+on one line and fit them within their tiles/slots at larger text settings.

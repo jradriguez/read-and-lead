@@ -76,3 +76,25 @@ change's results. Generated native configuration and Expo Go layout checks do no
 close standalone, transfer, network or physical-device acceptance. The
 [native setup](toolchain.md#authorized-native-build-setup) is authorized and installed;
 human literacy/audio/rights and legal decisions remain open. No M1 child-use or store-release gate has been marked complete.
+
+## Tactile workshop refresh — 2026-09-14
+
+The adult prototype now has a layered native-shape workshop, a compact phone scene,
+chunky action buttons with pressed/disabled states, recessed word slots, and a
+visible mark on selected letter tiles. The next mission title comes from the same
+catalog/completion state used by lesson entry. Earned parts have accessible collected
+and uncollected labels; completed lessons retain individual replay controls.
+
+Lesson progress lights count finished activities, including assisted/skipped work;
+they do not report accuracy or mastery. The lesson workbench emphasizes the letter
+choices and check action, with support/skip controls below. Development notices
+remain visible at the bottom of the screens. Existing lesson evaluation, tap/drag
+placement rules, persistence, audio, parent gates, and release checks remain intact.
+
+The design uses the existing sky/paper/ink/blue/yellow/mint palette, system type,
+and original native shapes. It interprets tactile machinery as an interaction cue;
+no third-party screenshot, branding, audio, or artwork is bundled. No dependency,
+service, native configuration, or curriculum expansion was needed. See the
+[validation record](validation.md#tactile-workshop-refresh--2026-09-14) for actual checks.
+Human art/content review, complete navigation narration, physical drag and device
+acceptance remain open; this refresh does not close those roadmap items.
