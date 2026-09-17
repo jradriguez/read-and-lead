@@ -149,6 +149,28 @@ test("empty word slots cannot be recorded as a reading error", async () => {
   await setup(async () => {
     saves++;
   });
-  await fireEvent.press(screen.getByTestId("check-answer"));
+  const check = screen.getByRole("button", { name: "Check answer" });
+  expect(check.props.accessibilityState.disabled).toBe(true);
+  expect(screen.getByRole("progressbar").props.accessibilityValue.now).toBe(0);
+  await fireEvent.press(check);
   expect(saves).toBe(0);
+  await fireEvent.press(screen.getByTestId("tile-short-a"));
+  await fireEvent.press(screen.getByTestId("slot-0"));
+  expect(
+    screen.getByRole("button", { name: "Check answer" }).props
+      .accessibilityState.disabled,
+  ).toBe(true);
+  await fireEvent.press(screen.getByTestId("tile-m"));
+  await fireEvent.press(screen.getByTestId("slot-1"));
+  expect(
+    screen.getByRole("button", { name: "Check answer" }).props
+      .accessibilityState.disabled,
+  ).toBe(false);
+  await fireEvent.press(screen.getByTestId("check-answer"));
+  await waitFor(() =>
+    expect(screen.getByRole("progressbar").props.accessibilityValue.now).toBe(
+      1,
+    ),
+  );
+  expect(saves).toBe(1);
 });

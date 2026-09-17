@@ -121,3 +121,37 @@ hashes matched the isolated build copy); this
 follow-up changes tooling, tests, npm test routing and documentation. Debug builds
 require Metro and do not establish offline/no-egress release behavior. No release
 archive/AAB or physical-device testing was performed. Child/store gates remain blocked.
+
+## Tactile workshop refresh — 2026-09-14
+
+The visual change implements the workshop presentation portion of the excellence
+roadmap: original native-shape scenery, consistent tactile buttons, mission context,
+letter/slot trays, and accessible activity/part progress. The installed Frontend
+Design skill informed the palette, hierarchy and visual critique. Typography uses
+system fonts and existing React Native controls; no media/service/runtime dependency
+was added. The reference image was inspiration only and is not stored in the repo.
+
+| Check | Result / scope |
+| --- | --- |
+| `npm run validate:code` | Passed: lint, strict types, 51 unit tests, 22 component tests and repository boundaries |
+| Focused workshop/lesson tests | Passed: empty collection, next mission/replay callback, selected/disabled controls, activity progress, ordered placement, failed-save retry and duplicate-submit protection |
+| `npm run content:check:draft` | Passed against the existing local draft media |
+| `npm run security:check` | Passed: zero npm audit vulnerabilities and no Gitleaks findings |
+| `git diff --check` | Passed |
+| iPad Pro 11-inch (M5), iOS 26.5, Expo Go 57.0.9 | Initial portrait run passed: workshop, sound introduction/matching, two/three-slot word placement, full first-lesson completion, celebration and return with previously collected parts retained. Final single-line letter sizing was subsequently verified on phone |
+| iPhone 17 Pro, iOS 26.5, Expo Go 57.0.9 | Final default-size run passed: workshop start visible, sound matching, two/three-slot word placement, full first lesson, celebration, return with one collected part and the next mission shown; controls reachable by scrolling |
+| Same phone, extra-extra-extra-large system text | Introduction and sound-match flow passed; letters stayed legible, text wrapped and controls remained reachable. Original default size restored afterward |
+| iPad landscape automation | Unverified: rotation/relaunch runs returned to the Expo launcher or workshop without reaching the expected lesson; a later portrait tap also missed after rotation. The cause is not established. Failed artifacts retained; a successful orientation command is not landscape acceptance |
+| Physical devices, Android, VoiceOver/TalkBack, drag, standalone offline release | Not run for this presentation change; existing acceptance gaps remain open |
+
+The first phone scene pushed the build action below the viewport. A compact scene
+and smaller phone heading now keep it visible at default size. A redundant activity
+badge was removed and support controls grouped below the check action to reduce
+scrolling. Larger-text letter labels fit a single line within each tile/slot.
+
+Evidence is local under `outputs/visual-refresh/`, including Maestro flows,
+screenshots, failed launcher/rotation runs and check logs. These are synthetic adult
+simulator exercises. The Expo development overlay appears in captures and is not
+app navigation. No child observations, private source image or generated speech
+were added to Git. The strict release gate was not rerun for this UI-only change;
+reviewed narration/art/content and applicable native acceptance remain required.
