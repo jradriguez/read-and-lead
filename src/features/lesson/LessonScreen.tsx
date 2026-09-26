@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { randomUUID } from "expo-crypto";
 import {
-  AppState,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -18,7 +17,8 @@ import { startSession, reduceSession } from "../../learning/session";
 import { placeTile } from "./placement";
 import { WordBuilder } from "./WordBuilder";
 import { LetterTile } from "./LetterTile";
-import { Robot } from "../../ui/Robot";
+import { MissionTestBench } from "../../ui/MissionTestBench";
+import { useNarration } from "../../audio/useNarration";
 import { WorkshopButton } from "../../ui/WorkshopButton";
 import { WorkshopIcon } from "../../ui/WorkshopIcon";
 import { LessonProgress } from "./LessonProgress";
@@ -54,7 +54,8 @@ export function LessonScreen({
   const [selected, setSelected] = useState<string | null>(null);
   const [feedback, setFeedback] = useState("");
   const [saveError, setSaveError] = useState(false);
-  const [audioError, setAudioError] = useState(false);
+  const [feedbackCue, setFeedbackCue] = useState<string[]>([]);
+  const [tested, setTested] = useState(false);
   const [busy, setBusy] = useState(false);
   const lock = useRef(false);
   const sequence = useRef(0);
@@ -67,30 +68,41 @@ export function LessonScreen({
   const [choiceIds, setChoiceIds] = useState(() =>
     shuffle(activity.choices, random),
   );
+  const testKind = lesson.id === "first-words" ? "seat" : "power";
+  const soundModels = activity.answer.map(
+    (id) => catalog.patterns.find((p) => p.id === id)!.modelAudioId,
+  );
+  const instructions = [
+    activity.kind === "sound-match" ? "guide-sound" : "guide-word",
+    activity.promptAudioId,
+    "guide-check",
+  ];
+  const firstOfKind = !lesson.activities
+    .slice(0, session.activityIndex)
+    .some((previous) => previous.kind === activity.kind);
+  const cues = busy
+    ? []
+    : saveError
+      ? ["guide-save-error"]
+      : intro
+        ? ["guide-intro"]
+        : session.phase === "complete"
+          ? [`guide-${testKind}-${tested ? "done" : "ready"}`]
+          : session.phase === "demonstrate"
+            ? ["guide-together", ...soundModels, activity.promptAudioId]
+            : [
+                ...feedbackCue,
+                ...(firstOfKind ? [instructions[0]] : []),
+                activity.promptAudioId,
+              ];
+  const narration = useNarration(audio, cues);
+  const play = (id: string) => narration.play([id]);
   useEffect(() => {
     alive.current = true;
-    const sub = AppState.addEventListener("change", (s) => {
-      if (s !== "active") audio.stop();
-    });
     return () => {
       alive.current = false;
-      sub.remove();
-      audio.stop();
     };
-  }, [audio]);
-  const play = (id: string) => {
-    setAudioError(false);
-    void audio.play(id).catch(() => {
-      if (alive.current) setAudioError(true);
-    });
-  };
-  useEffect(() => {
-    if (intro || session.phase === "complete") return;
-    setAudioError(false);
-    void audio.play(activity.promptAudioId).catch(() => {
-      if (alive.current) setAudioError(true);
-    });
-  }, [activity.id, activity.promptAudioId, intro, session.phase, audio]);
+  }, []);
   const nextActivity = (next: Session) => {
     setSession(next);
     setSelected(null);
@@ -129,6 +141,15 @@ export function LessonScreen({
             ? "We can practise that another time."
             : "You built it!",
         );
+      setFeedbackCue([
+        event.attempt.outcome === "incorrect"
+          ? "guide-again"
+          : event.attempt.outcome === "skipped"
+            ? "guide-skipped"
+            : activity.kind === "sound-match"
+              ? "guide-found"
+              : "guide-built",
+      ]);
       nextActivity(event.next);
     } catch {
       if (alive.current) setSaveError(true);
@@ -163,6 +184,7 @@ export function LessonScreen({
             activityCount: lesson.activities.length,
           },
     );
+    narration.stop();
     pending.current = {
       attempt: {
         id: `${session.sessionId}-${sequence.current++}`,
@@ -180,11 +202,12 @@ export function LessonScreen({
     void save();
   };
   const hint = () => {
+    if (pending.current) return;
     setSession((s) => reduceSession(s, { type: "hint" }));
     setFeedback(
       `Try ${activity.answer.map((id) => catalog.patterns.find((p) => p.id === id)?.grapheme).join(" · ")}.`,
     );
-    play(activity.promptAudioId);
+    narration.play(["guide-show", ...soundModels, activity.promptAudioId]);
   };
   const choices = choiceIds.map((id) =>
     catalog.patterns.find((p) => p.id === id)!,
@@ -238,7 +261,7 @@ export function LessonScreen({
         {button(
           "Workshop",
           () => {
-            audio.stop();
+            narration.stop();
             onExit();
           },
           true,
@@ -294,10 +317,30 @@ export function LessonScreen({
             {button("Ready to build", () => {
               setIntro(false);
             })}
+            {button("Hear instructions", () => narration.play(cues), true)}
           </>
         ) : session.phase === "complete" ? (
           <>
-            <Robot mood="celebrate" reducedMotion={reducedMotion} />
+            <MissionTestBench
+              kind={testKind}
+              tested={tested}
+              reducedMotion={reducedMotion}
+            />
+            <Text style={[ui.body, s.center]} accessibilityLiveRegion="polite">
+              {tested
+                ? testKind === "seat"
+                  ? "Sam sat on the mat."
+                  : "The workbench lights are on."
+                : "Your mission is finished. Try your invention, or stop here."}
+            </Text>
+            {!tested
+              ? button(
+                  testKind === "seat" ? "Test the seat" : "Test the lights",
+                  () => setTested(true),
+                  false,
+                  "test-mission",
+                )
+              : null}
             {lesson.connectedText ? (
               <>
                 <Text style={[ui.title, { fontSize: 48, textAlign: "center" }]}>
@@ -310,8 +353,16 @@ export function LessonScreen({
                 )}
               </>
             ) : null}
-            <Text style={ui.body}>A new part for your workshop.</Text>
-            {button("Back to workshop", onComplete, false, "finish-lesson")}
+            {button(
+              "Done for now",
+              () => {
+                narration.stop();
+                onComplete();
+              },
+              false,
+              "finish-lesson",
+            )}
+            {button("Hear instructions", () => narration.play(cues), true)}
           </>
         ) : (
           <>
@@ -322,7 +373,12 @@ export function LessonScreen({
             </Text>
             {button(
               "Hear it again",
-              () => play(activity.promptAudioId),
+              () =>
+                narration.play(
+                  session.phase === "demonstrate"
+                    ? [...soundModels, activity.promptAudioId]
+                    : [activity.promptAudioId],
+                ),
               true,
               "replay-audio",
             )}
@@ -343,6 +399,7 @@ export function LessonScreen({
               <>
                 {activity.kind === "word-build" ? (
                   <WordBuilder
+                    key={activity.id}
                     choices={choices}
                     slots={slots}
                     selected={selected}
@@ -383,6 +440,14 @@ export function LessonScreen({
                 </View>
               </>
             )}
+            {button(
+              "Hear instructions",
+              () =>
+                narration.play(
+                  session.phase === "demonstrate" ? cues : instructions,
+                ),
+              true,
+            )}
           </>
         )}
         {feedback && session.phase !== "complete" ? (
@@ -390,7 +455,7 @@ export function LessonScreen({
             {feedback}
           </Text>
         ) : null}
-        {audioError ? (
+        {narration.error ? (
           <Text accessibilityRole="alert" style={ui.error}>
             Audio is unavailable. Ask a grown-up to model this sound, or try
             replay.

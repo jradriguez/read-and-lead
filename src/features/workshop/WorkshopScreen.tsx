@@ -9,8 +9,13 @@ import { WorkshopScene } from "../../ui/WorkshopScene";
 import { WorkshopButton } from "../../ui/WorkshopButton";
 import { WorkshopIcon } from "../../ui/WorkshopIcon";
 import { color, ui } from "../../ui/tokens";
+import type { AudioController } from "../../audio/controller";
+import { useNarration } from "../../audio/useNarration";
+const silentAudio: AudioController = { async play() {}, stop() {} };
 export function WorkshopScreen({
   onStart,
+  audio = silentAudio,
+  finished = false,
   onParent,
   parts = 0,
   reducedMotion = false,
@@ -20,6 +25,8 @@ export function WorkshopScreen({
   nextLessonTitle = "Wake up the workshop",
 }: {
   onStart: () => void;
+  audio?: AudioController;
+  finished?: boolean;
   onParent: () => void;
   parts?: number;
   reducedMotion?: boolean;
@@ -28,6 +35,12 @@ export function WorkshopScreen({
   onReplay?: (id: string) => void;
   nextLessonTitle?: string;
 }) {
+  const cues = [finished ? "guide-workshop-done" : "guide-workshop"];
+  const narration = useNarration(audio, cues);
+  const leave = (action: () => void) => {
+    narration.stop();
+    action();
+  };
   const { width, fontScale } = useWindowDimensions();
   const wide = width >= 760 && fontScale < 1.5;
   return (
@@ -56,7 +69,7 @@ export function WorkshopScreen({
         <WorkshopButton
           label="Grown-ups"
           accessibilityLabel="Parent area"
-          onPress={onParent}
+          onPress={() => leave(onParent)}
           tone="quiet"
         />
       </View>
@@ -80,18 +93,34 @@ export function WorkshopScreen({
           </Text>
           <View style={[s.missionLabel, !wide && { alignSelf: "center" }]}>
             <WorkshopIcon name="part" ink={color.mintDark} />
-            <Text style={s.missionText}>{nextLessonTitle}</Text>
+            <Text style={s.missionText}>
+              {finished
+                ? "Your missions are finished. You can stop here."
+                : nextLessonTitle}
+            </Text>
           </View>
           <WorkshopButton
             testID="start-lesson"
-            label="Let’s build"
+            label={finished ? "Build again" : "Let’s build"}
             accessibilityLabel="Start lesson"
-            onPress={onStart}
+            onPress={() => leave(onStart)}
             icon="play"
             tone="yellow"
           />
+          <WorkshopButton
+            label="Hear instructions"
+            icon="sound"
+            tone="quiet"
+            onPress={() => narration.play(cues)}
+          />
         </View>
       </View>
+      {narration.error ? (
+        <Text accessibilityRole="alert" style={ui.error}>
+          Audio is unavailable. Try Hear instructions, or ask a grown-up for
+          help.
+        </Text>
+      ) : null}
       {error ? (
         <Text accessibilityRole="alert" style={ui.error}>
           {error}
@@ -138,7 +167,7 @@ export function WorkshopScreen({
                 accessibilityLabel={`Replay ${lesson.title}`}
                 icon="replay"
                 tone="quiet"
-                onPress={() => onReplay?.(lesson.id)}
+                onPress={() => leave(() => onReplay?.(lesson.id))}
               />
             ))}
           </View>

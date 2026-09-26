@@ -1,4 +1,4 @@
-# Implementation status — 2026-09-12
+# Implementation status — updated 2026-09-25
 
 The repository foundation and adult simulator prototype are implemented. **M1 is not
 ready for family use or public release.** This record supersedes unchecked progress
@@ -10,8 +10,8 @@ boxes in the original approved implementation plan, which remains a design refer
 | 2. Content contract | Cumulative patterns, word/answer checks, prereq cycles, connected text, asset bytes/path checks and review digests | Human literacy review, human phoneme recordings, asset rights |
 | 3. Learning engine | Ordered evaluation, hints, supported retry, demonstration and skip; deterministic unit tests | Child usability observation after review |
 | 4. Local progress | Shared real SQLite queries; rollback, serialization, duplicate saves, pruning and reset tests; both native lessons and one/two-part persistence across restart on iOS/Android | Physical backup exclusion and error recovery |
-| 5. Touch and audio | Tap builds and automatic prompt transitions; audio cancellation tests; bounded native playback adapter; gesture/drop implementation | Drag could not be verified through the available simulator automation; playback quality, interruption and physical gesture checks |
-| 6. Workshop and parent controls | First-lesson reward in simulator; parent gate/phone screen; reset cancellation/error UI tests; OS reduced motion | Full navigation narration; persistent preferences if required; both-lesson replay and confirmed native reset |
+| 5. Touch and audio | Tap builds; shared-value drag tracking with stale-drop guards; iPad simulator valid/invalid drop checks; ordered bundled narration and cancellation tests | Physical drag, performance measurement, final voice quality and device interruption checks |
+| 6. Workshop and parent controls | Both-lesson simulator test scenes, optional finish and replay; draft navigation narration; parent gate/reset error tests; reduced motion | Human narration/interaction review; persistent preferences if required; confirmed native reset |
 | 7. Native/offline handoff | Expo Go iPad portrait/landscape and phone screenshots; native source/config generation; native tools/debug builds and verified both-lesson/restart/gate smoke flows | Standalone offline release and physical-device acceptance |
 
 ## Deliberate implementation adjustments
@@ -34,11 +34,12 @@ boxes in the original approved implementation plan, which remains a design refer
 
 ## Next bounded work
 
-1. Stabilize and verify drag on a real iPad or a native test driver with functioning
-   touch movement, then add a native regression flow. The current automation selected
-   a tile without producing pan callbacks; the cause is not established.
-2. Complete spoken navigation and curriculum/audio review. Replace development-only
-   speech with licensed recordings; validate its bound review digest.
+1. Verify drag on physical iPad/Android hardware and measure responsiveness. The
+   2026-09-25 iPad simulator run now places tiles through native pan; use the scoped
+   native drag flow and retain the tap alternative.
+2. Review the now-bundled navigation scripts, curriculum and test scenes with a
+   literacy specialist. Replace development-only speech with licensed recordings;
+   validate the bound review digest and exact runtime source.
 3. Use the installed native toolchain and custom development builds to complete
    backup/transfer and denied-save acceptance, then a reviewed offline release.
 4. Run the full first-lesson and second-lesson loops on physical iPad and Android
@@ -98,3 +99,27 @@ service, native configuration, or curriculum expansion was needed. See the
 [validation record](validation.md#tactile-workshop-refresh--2026-09-14) for actual checks.
 Human art/content review, complete navigation narration, physical drag and device
 acceptance remain open; this refresh does not close those roadmap items.
+
+
+## Purposeful workshop implementation — 2026-09-25
+
+The two existing lessons now end with an optional, learner-triggered test: illuminate
+workbench lights or let Sam settle onto a mat. Each uses one 550 ms native animation,
+with equivalent static reduced-motion state and an immediately available Done for
+now action. A finished workshop explicitly offers a stopping point. Test play does
+not alter assessment or award extra parts.
+
+Seventeen bundled draft cues cover entry, directions, feedback, support, save errors
+and endings. A screen-owned queue waits for each native clip to finish; replay,
+exit, saving, background and cue changes invalidate older work. Completed/cancelled
+players remove listeners and release native resources. A bounded timeout exposes
+stalled playback. Actual audio quality and physical interruptions still need review.
+
+Letter movement uses the already-installed Reanimated/Worklets stack. Placement
+rejects late measurements after disabled input, activity/layout rerender, unmount
+or a newer drop. A canceled pan cannot place a letter. Native tap and drag use the
+same slot-placement rules. No frame-time improvement is claimed without profiling.
+
+See [validation](validation.md#purposeful-workshop--2026-09-25) for measured scope.
+This implements a local, reviewable increment of the product roadmap; polished human
+art/audio, child independence, STEM depth and learning efficacy remain unverified.

@@ -1,4 +1,5 @@
 import type { Catalog } from "./types";
+import { narrationIds } from "./narration";
 
 export function validateCatalog(c: Catalog, release: boolean): string[] {
   const errors = new Set<string>();
@@ -15,6 +16,7 @@ export function validateCatalog(c: Catalog, release: boolean): string[] {
   const audio = (id: string) => {
     if (!assets.has(id)) fail("MISSING_AUDIO");
   };
+  narrationIds.forEach(audio);
   c.patterns.forEach((p) => audio(p.modelAudioId));
   c.words.forEach((w) => {
     audio(w.modelAudioId);

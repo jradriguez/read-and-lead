@@ -1,6 +1,11 @@
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 import { color } from "../../ui/tokens";
 export function LetterTile({
   id,
@@ -17,28 +22,62 @@ export function LetterTile({
   onDrop?: (x: number, y: number) => void;
   disabled?: boolean;
 }) {
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const x = useSharedValue(0);
+  const y = useSharedValue(0);
+  const active = useSharedValue(false);
+  const alive = useRef(true);
+  const disabledRef = useRef(disabled);
+  disabledRef.current = disabled;
   const dragged = useRef(false);
   const dropCallback = useRef(onDrop);
   dropCallback.current = onDrop;
   const draggable = !!onDrop;
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (disabled) {
+      x.value = 0;
+      y.value = 0;
+      active.value = false;
+    }
+  }, [disabled, x, y, active]);
+  const startDrag = useCallback(() => {
+    dragged.current = true;
+  }, []);
+  const finishDrop = useCallback((px: number, py: number) => {
+    if (alive.current && !disabledRef.current) dropCallback.current?.(px, py);
+  }, []);
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: x.value }, { translateY: y.value }],
+    zIndex: active.value ? 10 : 0,
+  }));
   const gesture = useMemo(
     () =>
       Gesture.Pan()
+        .withTestId(`drag-${id}`)
         .enabled(!disabled && draggable)
         .minDistance(12)
-        .runOnJS(true)
         .onStart(() => {
-          dragged.current = true;
+          active.value = true;
+          scheduleOnRN(startDrag);
         })
-        .onUpdate((e) => setOffset({ x: e.translationX, y: e.translationY }))
-        .onEnd((e) => {
-          dropCallback.current?.(e.absoluteX, e.absoluteY);
+        .onUpdate((e) => {
+          x.value = e.translationX;
+          y.value = e.translationY;
+        })
+        .onEnd((e, success) => {
+          if (success) scheduleOnRN(finishDrop, e.absoluteX, e.absoluteY);
         })
         .onFinalize(() => {
-          setOffset({ x: 0, y: 0 });
+          x.value = 0;
+          y.value = 0;
+          active.value = false;
         }),
-    [disabled, draggable],
+    [disabled, draggable, id, active, x, y, startDrag, finishDrop],
   );
   const tile = (
     <Pressable
@@ -62,7 +101,6 @@ export function LetterTile({
         selected && s.selected,
         disabled && { opacity: 0.5 },
         pressed && { backgroundColor: color.yellow },
-        { transform: [{ translateX: offset.x }, { translateY: offset.y }] },
       ]}
     >
       <Text numberOfLines={1} adjustsFontSizeToFit style={s.letter}>
@@ -73,7 +111,9 @@ export function LetterTile({
   );
   return onDrop ? (
     <GestureDetector gesture={gesture}>
-      <View style={{ zIndex: offset.x || offset.y ? 10 : 0 }}>{tile}</View>
+      <Animated.View collapsable={false} style={animatedStyle}>
+        {tile}
+      </Animated.View>
     </GestureDetector>
   ) : (
     tile
