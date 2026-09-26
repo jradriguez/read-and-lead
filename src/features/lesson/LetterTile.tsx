@@ -57,13 +57,18 @@ export function LetterTile({
       onPressIn={() => {
         dragged.current = false;
       }}
-      style={[
+      style={({ pressed }) => [
         s.tile,
         selected && s.selected,
+        disabled && { opacity: 0.5 },
+        pressed && { backgroundColor: color.yellow },
         { transform: [{ translateX: offset.x }, { translateY: offset.y }] },
       ]}
     >
-      <Text style={s.letter}>{label}</Text>
+      <Text numberOfLines={1} adjustsFontSizeToFit style={s.letter}>
+        {label}
+      </Text>
+      {selected ? <View pointerEvents="none" style={s.selectionMark} /> : null}
     </Pressable>
   );
   return onDrop ? (
@@ -77,15 +82,30 @@ export function LetterTile({
 const s = StyleSheet.create({
   tile: {
     width: 80,
-    height: 88,
+    minHeight: 96,
+    paddingVertical: 10,
     borderRadius: 19,
-    backgroundColor: "white",
+    backgroundColor: color.paper,
     borderWidth: 3,
-    borderBottomWidth: 7,
+    borderBottomWidth: 8,
     borderColor: color.line,
     alignItems: "center",
     justifyContent: "center",
   },
-  selected: { borderColor: color.blue, backgroundColor: "#E1ECFF" },
-  letter: { fontSize: 48, fontWeight: "600", color: color.ink },
+  selected: { borderColor: color.blue, backgroundColor: color.blueLight },
+  selectionMark: {
+    position: "absolute",
+    bottom: 5,
+    width: 20,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: color.blue,
+  },
+  letter: {
+    fontSize: 48,
+    fontWeight: "600",
+    color: color.ink,
+    width: "100%",
+    textAlign: "center",
+  },
 });
