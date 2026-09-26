@@ -44,6 +44,17 @@ appId: com.readandlead.prototype
 - tapOn:
     id: check-answer
 - assertVisible: "You built it!"
+- scrollUntilVisible:
+    element:
+      id: test-mission
+    direction: DOWN
+- tapOn:
+    id: test-mission
+- assertVisible: "The workbench lights are on."
+- scrollUntilVisible:
+    element:
+      id: finish-lesson
+    direction: DOWN
 - tapOn:
     id: finish-lesson
 - assertVisible: "1 of 2 robot parts collected"

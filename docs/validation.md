@@ -155,3 +155,48 @@ simulator exercises. The Expo development overlay appears in captures and is not
 app navigation. No child observations, private source image or generated speech
 were added to Git. The strict release gate was not rerun for this UI-only change;
 reviewed narration/art/content and applicable native acceptance remain required.
+
+## Purposeful workshop — 2026-09-25
+
+Scoped adult-prototype implementation: the two existing lessons gain ordered draft
+narration, optional light/seat test scenes and a natural finish. Tile motion uses
+installed shared-value animation; late measurements cannot place a tile after the
+input/activity becomes stale. The React Native best-practices and Expo native-UI
+skills informed implementation. No dependency, schema, native configuration,
+service, curriculum expansion or release approval was added.
+
+| Check | Result / scope |
+| --- | --- |
+| `npm run validate:code` | Passed: lint, strict types, 56 unit tests, 38 UI tests in ten suites and repository boundary check |
+| Regression evidence | Reproduced stale placement after inputs disabled, then fixed; added out-of-order/newer-drop, unmount/activity and canceled-pan cases. Reproduced new narration starting after a backgrounded save changed cues, then fixed; background mount, replay, stale errors and cancellation are covered |
+| Audio adapter | Boundary tests verify finish-event sequencing, stop settlement, listener/player disposal and stalled-player timeout. These do not establish pronunciation or audible onset performance |
+| Completion | Both reduced-motion scene states and optional finish are component-tested; Test does not record extra attempts/parts or automatically advance |
+| Draft media | `npm run draft:audio` generated all 26 local clips; `npm run content:check:draft` passed against actual files/hashes/imports |
+| Strict content | `npm run content:check` failed as expected: `UNAPPROVED_LESSON`, `UNAPPROVED_ASSET`, and `REVIEW_DIGEST` for both lessons. `npm run validate` was not rerun as a wrapper; its strict-content stage remains blocked |
+| Security | `npm run security:check` passed: zero npm audit vulnerabilities; no Gitleaks history/directory findings |
+| Native iPad | Ordered Maestro smoke passed both lessons, both Test actions, sentence, parent-gate rejection and one/two-part restart persistence. Focused valid drag placed m into slot 1; an outside drop preserved the slots; remaining tap placements advanced normally |
+| Repeatable drag helper | `npx tsx scripts/check-native-drag.ts DISPOSABLE_DEVICE` passed on the iPad simulator using current native ID bounds and a generated concrete swipe. Rejects ambiguous/disabled/filled/empty targets before touch input |
+| Native phone | iPhone 17e simulator portrait: initial workshop, introduction, word screen, supported/skip completion, light test and Done path passed at default and extra-extra-extra-large text. Text wrapped and actions remained reachable by scrolling |
+| Visual inspection | iPad workshop/word/seat and phone workshop/word/light captures inspected. An initial seat/mat overlap was corrected and the revised seat was visually rechecked. Original native assets rendered; no blank screen or observed horizontal text overflow in those captures |
+| Syntax/whitespace | Ordered Maestro smoke syntax and `git diff --check` passed |
+
+The simulations use iOS 26.5, Maestro 2.10.0, dedicated synthetic installs, the
+existing compatible custom debug binary and current Metro-served JS/media. The
+native dependency set did not change; no new native compilation is claimed. The
+full iPad smoke preceded the last background guard and seat-position adjustment;
+focused seat, final drag and larger-text phone checks plus code tests cover the
+subsequent edits. This is self-review, not an independent review.
+
+Local artifacts are under `outputs/purposeful-workshop/` and `outputs/native-drag-*`.
+Failed diagnostic attempts remain recorded: a large-text Expo onboarding dialog
+hid Continue (completed onboarding at default text, then reapplied large text);
+Fast Refresh returned a diagnostic lesson to its introduction; and Maestro rejected
+coordinate placeholders in a proposed drag flow. The retained helper generates
+literal coordinates from the current hierarchy and passed native execution. These
+failures were not counted as app passes or resolved by weakening app gates.
+
+Physical iPad/Android, VoiceOver/TalkBack, final human voice/rights review, actual
+interruption/audio-quality measurements, orientation acceptance, performance budgets,
+standalone first-launch offline/no-egress, child usability and learning efficacy are
+still unverified. No claim of Lingokids-level breadth or production quality follows
+from this increment. Synthetic phoneme clips remain unsuitable for teaching a child.

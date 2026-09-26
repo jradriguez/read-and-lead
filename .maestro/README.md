@@ -44,3 +44,28 @@ These checks prove only the exercised adult debug journeys. Physical touch/drag,
 assistive technology, audio quality/interruption, confirmed reset, backup/transfer,
 first launch without a network and release no-egress remain separate acceptance
 checks. No hard-coded parent answer or content-approval bypass is used.
+
+
+## Focused drag check
+
+Use the [native drag helper](../scripts/check-native-drag.ts) against an already-open
+word-building activity on a **disposable synthetic install**:
+
+```sh
+npx tsx scripts/check-native-drag.ts DISPOSABLE_DEVICE tile-m slot-0
+```
+
+Substitute the explicitly selected simulator UUID or `emulator-NNNN` identifier.
+The helper reads current native tile/slot bounds by ID, rejects ambiguous, disabled
+or populated targets, and generates a concrete Maestro swipe/assertion flow under
+ignored `outputs/native-drag-*`. This handles shuffled choices and avoids assuming
+fixed screen coordinates. The named tile and empty slot must both be visible; do
+not scroll, rotate or touch the device during the check. The helper performs one
+drag and verifies the resulting accessible slot label. It neither launches nor
+resets the app. Capture another hierarchy for every invocation. Unit/component
+checks additionally cover canceled pans, stale measurements and tap equivalence.
+
+The ordered smoke flow now tests the lights and seat before finishing each lesson.
+A separate component check verifies that finishing without testing is also allowed.
+The 2026-09-25 checks reuse the existing compatible native debug client with current
+source served by Metro; they are not new native compilation or release evidence.

@@ -41,6 +41,13 @@ appId: com.readandlead.prototype
 - assertVisible: "Sam sat."
 - scrollUntilVisible:
     element:
+      id: test-mission
+    direction: DOWN
+- tapOn:
+    id: test-mission
+- assertVisible: "Sam sat on the mat."
+- scrollUntilVisible:
+    element:
       id: finish-lesson
     direction: DOWN
 - tapOn:
