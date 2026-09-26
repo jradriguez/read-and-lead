@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { randomUUID } from "expo-crypto";
-import { AppState, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  AppState,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import type { Catalog, Lesson } from "../../content/types";
 import type { AudioController } from "../../audio/controller";
 import type { ProgressRepository } from "../../progress/repository";
@@ -11,6 +19,9 @@ import { placeTile } from "./placement";
 import { WordBuilder } from "./WordBuilder";
 import { LetterTile } from "./LetterTile";
 import { Robot } from "../../ui/Robot";
+import { WorkshopButton } from "../../ui/WorkshopButton";
+import { WorkshopIcon } from "../../ui/WorkshopIcon";
+import { LessonProgress } from "./LessonProgress";
 import { color, ui } from "../../ui/tokens";
 export type LessonProps = {
   lesson: Lesson;
@@ -32,6 +43,7 @@ export function LessonScreen({
   reducedMotion = false,
   random = Math.random,
 }: LessonProps) {
+  const { width } = useWindowDimensions();
   const [session, setSession] = useState(() =>
     startSession(lesson.id, randomUUID()),
   );
@@ -183,28 +195,43 @@ export function LessonScreen({
     secondary = false,
     id?: string,
   ) => (
-    <Pressable
+    <WorkshopButton
       testID={id}
-      accessibilityRole="button"
-      accessibilityLabel={label}
+      label={label}
       disabled={
         busy || (id === "check-answer" && slots.some((x) => x === null))
       }
       onPress={action}
-      style={[ui.button, secondary && ui.secondary, busy && { opacity: 0.5 }]}
-    >
-      <Text style={[ui.buttonText, secondary && ui.secondaryText]}>
-        {label}
-      </Text>
-    </Pressable>
+      tone={secondary ? "quiet" : "yellow"}
+      icon={
+        label === "Workshop"
+          ? "home"
+          : label.startsWith("Hear")
+            ? "sound"
+            : id === "check-answer"
+              ? "check"
+              : !secondary
+                ? "play"
+                : undefined
+      }
+    />
   );
+  const completed =
+    session.phase === "complete"
+      ? lesson.activities.length
+      : session.activityIndex;
   return (
     <ScrollView
       testID="lesson-screen"
       style={ui.page}
       contentContainerStyle={[
         ui.content,
-        { paddingTop: 54, paddingBottom: 40 },
+        { gap: 16 },
+        {
+          paddingTop: 60,
+          paddingBottom: 40,
+          paddingHorizontal: width < 420 ? 18 : 28,
+        },
       ]}
     >
       <View style={[ui.row, { justifyContent: "space-between" }]}>
@@ -216,15 +243,21 @@ export function LessonScreen({
           },
           true,
         )}
-        <Text style={ui.small}>
-          {Math.min(session.activityIndex + 1, lesson.activities.length)} /{" "}
-          {lesson.activities.length}
-        </Text>
+        <LessonProgress
+          completed={completed}
+          total={lesson.activities.length}
+        />
       </View>
-      <View style={[ui.panel, { alignItems: "center" }]}>
-        <Text style={[ui.small, { color: color.red }]}>
-          Adult developer preview · Unreviewed teaching material
-        </Text>
+      <View style={s.missionHeader}>
+        <WorkshopIcon name="part" ink={color.mintDark} />
+        <Text style={[ui.small, s.missionTitle]}>{lesson.title}</Text>
+      </View>
+      <View style={[s.workbench, { paddingHorizontal: width < 420 ? 16 : 28 }]}>
+        <View pointerEvents="none" style={s.benchRim}>
+          <View style={s.screw} />
+          <View style={s.rimLine} />
+          <View style={s.screw} />
+        </View>
         <Text
           accessibilityRole="header"
           style={[ui.title, { textAlign: "center" }]}
@@ -241,7 +274,7 @@ export function LessonScreen({
         </Text>
         {intro ? (
           <>
-            <View style={[ui.row, { justifyContent: "center" }]}>
+            <View style={[ui.row, s.letterTray]}>
               {lesson.introducedPatternIds.map((id) => {
                 const p = catalog.patterns.find((p) => p.id === id)!;
                 return (
@@ -255,7 +288,9 @@ export function LessonScreen({
                 );
               })}
             </View>
-            <Text style={ui.body}>Tap each letter. Listen to its sound.</Text>
+            <Text style={[ui.body, s.center]}>
+              Tap each letter. Listen to its sound.
+            </Text>
             {button("Ready to build", () => {
               setIntro(false);
             })}
@@ -265,7 +300,7 @@ export function LessonScreen({
             <Robot mood="celebrate" reducedMotion={reducedMotion} />
             {lesson.connectedText ? (
               <>
-                <Text style={[ui.title, { fontSize: 48 }]}>
+                <Text style={[ui.title, { fontSize: 48, textAlign: "center" }]}>
                   {lesson.connectedText}
                 </Text>
                 {button(
@@ -280,7 +315,7 @@ export function LessonScreen({
           </>
         ) : (
           <>
-            <Text style={ui.small}>
+            <Text style={[ui.body, s.center]}>
               {activity.kind === "sound-match"
                 ? "Listen, then choose a letter."
                 : "Listen, then put the sounds in order."}
@@ -319,7 +354,7 @@ export function LessonScreen({
                     disabled={busy || saveError}
                   />
                 ) : (
-                  <View style={[ui.row, { justifyContent: "center" }]}>
+                  <View style={[ui.row, s.letterTray]}>
                     {choices.map((p) => (
                       <LetterTile
                         key={p.id}
@@ -332,22 +367,26 @@ export function LessonScreen({
                     ))}
                   </View>
                 )}
-                <View style={[ui.row, { justifyContent: "center" }]}>
+                {button("Check answer", () => submit(), false, "check-answer")}
+                <View style={[ui.row, { justifyContent: "center", gap: 12 }]}>
                   {button("Show me", hint, true)}
-                  {button(
-                    "Check answer",
-                    () => submit(),
-                    false,
-                    "check-answer",
-                  )}
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Skip for now"
+                    disabled={busy}
+                    accessibilityState={{ disabled: busy }}
+                    onPress={() => submit(true)}
+                    style={({ pressed }) => [s.skip, pressed && ui.pressed]}
+                  >
+                    <Text style={s.skipText}>Skip for now</Text>
+                  </Pressable>
                 </View>
-                {button("Skip for now", () => submit(true), true)}
               </>
             )}
           </>
         )}
         {feedback && session.phase !== "complete" ? (
-          <Text accessibilityLiveRegion="polite" style={ui.body}>
+          <Text accessibilityLiveRegion="polite" style={[ui.body, s.feedback]}>
             {feedback}
           </Text>
         ) : null}
@@ -368,6 +407,9 @@ export function LessonScreen({
           </>
         ) : null}
       </View>
+      <Text style={[ui.small, s.preview]}>
+        Adult developer preview · Unreviewed teaching material
+      </Text>
     </ScrollView>
   );
 }
@@ -379,3 +421,77 @@ function shuffle(values: string[], random: () => number): string[] {
   }
   return result;
 }
+
+const s = StyleSheet.create({
+  missionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  missionTitle: { fontWeight: "600", flexShrink: 1 },
+  workbench: {
+    backgroundColor: color.paper,
+    borderWidth: 2,
+    borderBottomWidth: 7,
+    borderColor: color.line,
+    borderRadius: 32,
+    paddingTop: 22,
+    paddingBottom: 26,
+    gap: 16,
+    width: "100%",
+    maxWidth: 880,
+    alignSelf: "center",
+    alignItems: "center",
+  },
+  benchRim: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+  },
+  screw: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 3,
+    borderColor: color.line,
+    backgroundColor: color.paper,
+  },
+  rimLine: {
+    flex: 1,
+    height: 3,
+    backgroundColor: color.metal,
+    borderRadius: 2,
+  },
+  center: { textAlign: "center" },
+  letterTray: {
+    justifyContent: "center",
+    padding: 14,
+    borderRadius: 26,
+    backgroundColor: color.blueLight,
+    borderBottomWidth: 4,
+    borderColor: color.line,
+    maxWidth: "100%",
+  },
+  skip: {
+    minHeight: 56,
+    padding: 14,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  skipText: {
+    fontSize: 17,
+    lineHeight: 24,
+    color: color.muted,
+    textDecorationLine: "underline",
+  },
+  feedback: {
+    textAlign: "center",
+    backgroundColor: color.mintLight,
+    borderRadius: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+  },
+  preview: { textAlign: "center", fontSize: 13 },
+});

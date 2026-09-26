@@ -234,6 +234,13 @@ export default function App({
           )}
           onReplay={enter}
           parts={summary.completedLessonIds.length}
+          nextLessonTitle={
+            (
+              catalog.lessons.find(
+                (l) => !summary.completedLessonIds.includes(l.id),
+              ) ?? catalog.lessons[0]
+            ).title
+          }
           reducedMotion={motion || systemMotion}
           error={error}
         />
