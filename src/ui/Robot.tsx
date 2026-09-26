@@ -33,15 +33,18 @@ export function Robot({
       <View style={s.antenna} />
       <View style={s.tip} />
       <View style={s.head}>
+        <View style={s.highlight} />
         <View style={s.face}>
-          <View style={s.eye} />
-          <View style={s.eye} />
+          <View style={[s.eye, mood === "celebrate" && s.happyEye]} />
+          <View style={[s.eye, mood === "celebrate" && s.happyEye]} />
           <View style={[s.smile, mood === "celebrate" && { height: 14 }]} />
         </View>
         <View style={s.bolt} />
       </View>
       <View style={s.body}>
-        <View style={s.badge} />
+        <View style={s.badge}>
+          <View style={s.badgeLight} />
+        </View>
         <View style={s.line} />
         <View style={s.line} />
       </View>
@@ -78,7 +81,8 @@ const s = StyleSheet.create({
     height: 132,
     borderRadius: 40,
     backgroundColor: color.yellow,
-    borderWidth: 4,
+    borderWidth: 3,
+    borderBottomWidth: 7,
     borderColor: color.ink,
     alignItems: "center",
     justifyContent: "center",
@@ -94,6 +98,23 @@ const s = StyleSheet.create({
     paddingTop: 17,
   },
   eye: { width: 17, height: 23, backgroundColor: color.paper, borderRadius: 9 },
+  happyEye: {
+    height: 15,
+    backgroundColor: "transparent",
+    borderTopWidth: 5,
+    borderColor: color.paper,
+    marginTop: 4,
+  },
+  highlight: {
+    position: "absolute",
+    top: 8,
+    left: 30,
+    width: 90,
+    height: 7,
+    borderRadius: 5,
+    backgroundColor: color.paper,
+    opacity: 0.6,
+  },
   smile: {
     position: "absolute",
     bottom: 13,
@@ -110,7 +131,7 @@ const s = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "#D89E31",
+    backgroundColor: color.yellowDark,
   },
   body: {
     width: 132,
@@ -130,6 +151,14 @@ const s = StyleSheet.create({
     backgroundColor: color.mint,
     borderRadius: 13,
     marginBottom: 6,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  badgeLight: {
+    width: 10,
+    height: 10,
+    backgroundColor: color.paper,
+    borderRadius: 5,
   },
   line: { width: 35, height: 3, backgroundColor: color.sky, marginTop: 4 },
   arm: {

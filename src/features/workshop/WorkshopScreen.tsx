@@ -1,12 +1,13 @@
 import {
-  Pressable,
   ScrollView,
   Text,
   View,
   StyleSheet,
   useWindowDimensions,
 } from "react-native";
-import { Robot } from "../../ui/Robot";
+import { WorkshopScene } from "../../ui/WorkshopScene";
+import { WorkshopButton } from "../../ui/WorkshopButton";
+import { WorkshopIcon } from "../../ui/WorkshopIcon";
 import { color, ui } from "../../ui/tokens";
 export function WorkshopScreen({
   onStart,
@@ -16,6 +17,7 @@ export function WorkshopScreen({
   error = "",
   replays = [],
   onReplay,
+  nextLessonTitle = "Wake up the workshop",
 }: {
   onStart: () => void;
   onParent: () => void;
@@ -24,81 +26,70 @@ export function WorkshopScreen({
   error?: string;
   replays?: { id: string; title: string }[];
   onReplay?: (id: string) => void;
+  nextLessonTitle?: string;
 }) {
-  const { width } = useWindowDimensions();
-  const wide = width > 700;
+  const { width, fontScale } = useWindowDimensions();
+  const wide = width >= 760 && fontScale < 1.5;
   return (
     <ScrollView
       testID="workshop"
       style={ui.page}
       contentContainerStyle={[
         ui.content,
-        { paddingTop: 54, paddingBottom: 40 },
+        {
+          paddingTop: 60,
+          paddingBottom: 40,
+          paddingHorizontal: width < 420 ? 18 : 28,
+        },
       ]}
     >
-      <View style={[ui.row, { justifyContent: "space-between" }]}>
-        <Text accessibilityRole="header" style={[ui.title, { fontSize: 26 }]}>
-          Read to Lead
-        </Text>
-        <Pressable
-          accessibilityRole="button"
+      <View style={[ui.row, s.header]}>
+        <View style={s.brand}>
+          <View accessible={false} style={s.brandMark}>
+            <View style={s.brandEye} />
+            <View style={s.brandEye} />
+          </View>
+          <Text accessibilityRole="header" style={s.brandTitle}>
+            Read to Lead
+          </Text>
+        </View>
+        <WorkshopButton
+          label="Grown-ups"
           accessibilityLabel="Parent area"
           onPress={onParent}
-          style={[ui.button, ui.secondary]}
-        >
-          <Text style={[ui.small, { fontWeight: "700" }]}>Grown-ups</Text>
-        </Pressable>
+          tone="quiet"
+        />
       </View>
-      <View style={[s.workshop, { flexDirection: wide ? "row" : "column" }]}>
-        <View
-          style={{
-            flex: 1,
-            gap: 22,
-            alignItems: wide ? "flex-start" : "center",
-          }}
-        >
+      <View style={[s.workshop, wide && s.workshopWide]}>
+        <View style={[s.scene, wide && s.sceneWide]}>
+          <WorkshopScene reducedMotion={reducedMotion} compact={width < 600} />
+        </View>
+        <View style={[s.mission, wide && s.missionWide]}>
           <Text
+            accessibilityRole="header"
             style={[
-              ui.title,
-              { fontSize: wide ? 56 : 38, textAlign: wide ? "left" : "center" },
+              s.title,
+              !wide && s.center,
+              width < 600 && { fontSize: 32, lineHeight: 36 },
             ]}
           >
             Little sounds.{"\n"}Big inventions.
           </Text>
-          <Text
-            style={[
-              ui.body,
-              { maxWidth: 360, textAlign: wide ? "left" : "center" },
-            ]}
-          >
+          <Text style={[ui.body, !wide && s.center]}>
             Help your robot bring the workshop to life.
           </Text>
-          <Pressable
+          <View style={[s.missionLabel, !wide && { alignSelf: "center" }]}>
+            <WorkshopIcon name="part" ink={color.mintDark} />
+            <Text style={s.missionText}>{nextLessonTitle}</Text>
+          </View>
+          <WorkshopButton
             testID="start-lesson"
-            accessibilityRole="button"
+            label="Let’s build"
             accessibilityLabel="Start lesson"
             onPress={onStart}
-            style={[
-              ui.button,
-              { backgroundColor: color.yellow, minWidth: 240 },
-            ]}
-          >
-            <Text style={[ui.buttonText, { color: color.ink, fontSize: 25 }]}>
-              ▶ Let’s build
-            </Text>
-          </Pressable>
-        </View>
-        <View
-          style={[
-            s.robotStage,
-            { width: wide ? 300 : Math.min(300, width - 112) },
-          ]}
-        >
-          <View style={s.window}>
-            <View style={s.windowBar} />
-          </View>
-          <Robot reducedMotion={reducedMotion} />
-          <View style={s.bench} />
+            icon="play"
+            tone="yellow"
+          />
         </View>
       </View>
       {error ? (
@@ -106,95 +97,171 @@ export function WorkshopScreen({
           {error}
         </Text>
       ) : null}
-      <View style={[ui.row, { justifyContent: "space-between" }]}>
-        <View>
-          <Text style={[ui.title, { fontSize: 25 }]}>Your workshop</Text>
+      <View style={[s.collection, !wide && { alignItems: "flex-start" }]}>
+        <View style={s.collectionCopy}>
+          <Text accessibilityRole="header" style={s.sectionTitle}>
+            Your workshop
+          </Text>
           <Text style={ui.small}>{parts} of 2 robot parts collected</Text>
         </View>
-        <View style={ui.row}>
+        <View style={s.parts}>
           {[0, 1].map((i) => (
             <View
               key={i}
-              style={[
-                s.part,
-                {
-                  backgroundColor: parts > i ? color.mint : "transparent",
-                  borderStyle: parts > i ? "solid" : "dashed",
-                },
-              ]}
+              accessible
+              accessibilityLabel={`Robot part ${i + 1}, ${parts > i ? "collected" : "not collected yet"}`}
+              style={[s.part, parts > i && s.collected]}
             >
-              <Text style={{ fontSize: 27, color: color.ink }}>
-                {parts > i ? "✓" : "+"}
-              </Text>
+              <WorkshopIcon
+                name="part"
+                ink={parts > i ? color.mintDark : color.muted}
+              />
+              {parts > i ? (
+                <View style={s.partCheck}>
+                  <WorkshopIcon name="check" ink={color.mintDark} />
+                </View>
+              ) : null}
             </View>
           ))}
         </View>
       </View>
-      <Text style={ui.small}>
+      {replays.length > 0 ? (
+        <View style={s.replays}>
+          <Text accessibilityRole="header" style={s.sectionTitle}>
+            Build again
+          </Text>
+          <View style={s.replayRow}>
+            {replays.map((lesson) => (
+              <WorkshopButton
+                key={lesson.id}
+                label={lesson.title}
+                accessibilityLabel={`Replay ${lesson.title}`}
+                icon="replay"
+                tone="quiet"
+                onPress={() => onReplay?.(lesson.id)}
+              />
+            ))}
+          </View>
+        </View>
+      ) : null}
+      <Text style={[ui.small, s.preview]}>
         Developer preview · Teaching content awaits review
       </Text>
-      {replays.map((lesson) => (
-        <Pressable
-          key={lesson.id}
-          accessibilityRole="button"
-          accessibilityLabel={`Replay ${lesson.title}`}
-          style={[ui.button, ui.secondary]}
-          onPress={() => onReplay?.(lesson.id)}
-        >
-          <Text style={[ui.buttonText, ui.secondaryText]}>
-            ↻ {lesson.title}
-          </Text>
-        </Pressable>
-      ))}
     </ScrollView>
   );
 }
 const s = StyleSheet.create({
+  header: { justifyContent: "space-between", gap: 12 },
+  brand: { flexDirection: "row", alignItems: "center", gap: 12 },
+  brandMark: {
+    width: 42,
+    height: 36,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: color.yellowDark,
+    backgroundColor: color.yellow,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7,
+  },
+  brandEye: {
+    width: 5,
+    height: 9,
+    borderRadius: 4,
+    backgroundColor: color.ink,
+  },
+  brandTitle: {
+    flexShrink: 1,
+    fontSize: 24,
+    fontWeight: "800",
+    color: color.ink,
+    letterSpacing: -0.7,
+  },
   workshop: {
     backgroundColor: color.paper,
     borderRadius: 36,
-    padding: 32,
-    gap: 20,
-    alignItems: "center",
-    minHeight: 430,
-  },
-  robotStage: {
-    width: 300,
-    height: 360,
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  window: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    width: 130,
-    height: 130,
-    borderRadius: 65,
-    backgroundColor: color.sky,
-    borderWidth: 8,
-    borderColor: "#C9DBE7",
-  },
-  windowBar: {
-    width: 7,
-    height: "100%",
-    backgroundColor: color.paper,
-    alignSelf: "center",
-  },
-  bench: {
-    height: 18,
-    width: "100%",
-    backgroundColor: "#A27345",
-    borderRadius: 7,
-    marginTop: 4,
-  },
-  part: {
-    width: 62,
-    height: 62,
-    borderRadius: 20,
     borderWidth: 2,
-    borderColor: color.ink,
+    borderBottomWidth: 6,
+    borderColor: color.line,
+    padding: 14,
+    gap: 20,
+  },
+  workshopWide: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 32,
+    padding: 22,
+  },
+  scene: { width: "100%" },
+  sceneWide: { width: "48%" },
+  mission: { gap: 18, padding: 8 },
+  missionWide: { flex: 1, paddingVertical: 22, paddingRight: 6 },
+  title: {
+    fontSize: 42,
+    lineHeight: 47,
+    letterSpacing: -1.3,
+    fontWeight: "800",
+    color: color.ink,
+  },
+  center: { textAlign: "center" },
+  missionLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingVertical: 6,
+  },
+  missionText: {
+    fontSize: 17,
+    lineHeight: 24,
+    fontWeight: "600",
+    color: color.muted,
+    flexShrink: 1,
+  },
+  collection: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 20,
+    paddingHorizontal: 6,
+  },
+  collectionCopy: { gap: 4 },
+  sectionTitle: {
+    fontSize: 23,
+    lineHeight: 30,
+    fontWeight: "800",
+    color: color.ink,
+  },
+  parts: { flexDirection: "row", gap: 12 },
+  part: {
+    width: 72,
+    height: 64,
+    borderWidth: 2,
+    borderStyle: "dashed",
+    borderColor: color.muted,
+    borderRadius: 19,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: color.paper,
   },
+  collected: {
+    backgroundColor: color.mintLight,
+    borderColor: color.mintDark,
+    borderStyle: "solid",
+  },
+  partCheck: {
+    position: "absolute",
+    right: -7,
+    top: -9,
+    width: 26,
+    height: 26,
+    backgroundColor: color.paper,
+    borderRadius: 13,
+    transform: [{ scale: 0.65 }],
+  },
+  replays: { gap: 12, paddingHorizontal: 6 },
+  replayRow: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
+  preview: { textAlign: "center", fontSize: 13 },
 });
