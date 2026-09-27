@@ -1,4 +1,9 @@
-export type Player = { play(): void; stop(): void; dispose(): void };
+export type Player = {
+  play(): void | Promise<void>;
+  stop(): void;
+  dispose(): void;
+};
+// Resolves at the end of a clip (or cancellation), allowing ordered spoken cues.
 export type AudioController = { play(id: string): Promise<void>; stop(): void };
 export function createAudioController(
   load: (id: string) => Promise<Player>,
@@ -32,10 +37,15 @@ export function createAudioController(
       }
       current = player;
       try {
-        player.play();
+        await player.play();
       } catch (e) {
-        stop();
+        if (mine === generation) stop();
         throw e;
+      } finally {
+        if (mine === generation && current === player) {
+          current = undefined;
+          release(player);
+        }
       }
     },
   };

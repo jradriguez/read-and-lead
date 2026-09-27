@@ -227,6 +227,10 @@ export default function App({
         />
       ) : (
         <WorkshopScreen
+          audio={audio}
+          finished={catalog.lessons.every((l) =>
+            summary.completedLessonIds.includes(l.id),
+          )}
           onStart={() => enter()}
           onParent={() => setScreen("gate")}
           replays={catalog.lessons.filter((l) =>

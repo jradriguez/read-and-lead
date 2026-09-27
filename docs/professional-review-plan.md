@@ -117,10 +117,13 @@ binary, markets, publisher or store account.
 
 ## Recommended continuation
 
-This task implements publication safeguards and this handoff reference. The next
-bounded product task remains EX-02 letter placement, with reproduced behavior and
-native evidence. Prepare complete spoken-navigation copy for literacy review
-before more lessons. Reuse PR #11’s native setup and existing renderer.
+The 2026-09-25 local implementation adds guarded letter placement, iPad simulator
+pan evidence, seventeen draft guidance cues and optional light/seat test scenes.
+The next production input is the complete [review packet](content-review.md#workshop-narration-and-test-scene--2026-09-25):
+26 clip scripts plus runtime instructions, the two lessons and the original scene
+art. Have the literacy reviewer resolve Sam's identity, spoken directions and
+mat/seat meaning before commissioning final recordings or expanding the library.
+The existing human listening/rights/device gates remain in force.
 
 Measure the roadmap’s responsiveness/accessibility targets, clear instruction,
 reliable recovery and natural ending. Use [IES foundational reading guidance](https://ies.ed.gov/ncee/wwc/PracticeGuide/21/Published),

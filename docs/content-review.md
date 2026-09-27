@@ -24,8 +24,10 @@ A literacy reviewer should check:
   short-a model and stop consonant /t/. No letter-name proxy for phoneme assessment.
 - Cumulative patterns are sufficient for every displayed word. Model Sam as a name,
   its capital S, the space between words and the full stop in “Sam sat.” orally.
-- Every instructional step can be followed without reading UI labels. The current
-  prototype has game prompts but does not yet narrate every navigation instruction.
+- Every instructional step can be followed without reading UI labels. The draft now
+  includes workshop entry, sound introduction, placement/check/help, retry,
+  demonstration, save failure and test/finish guidance. Check the actual control
+  order and discoverability; narrated labels alone do not establish independence.
 - Replace temporary audio with recordings whose speaker permission and distribution
   license explicitly cover the product. Listen on actual tablets, including replay,
   interruptions and quiet playback; validate the sound, not just the transcript.
@@ -51,3 +53,36 @@ review states and stale semantic digests in non-development builds; the release 
 files, path/symlink boundaries, hashes, digest equality and the exact generated
 native import map. Run the release gate immediately before bundling; a type
 declaration alone supplies no audio and cannot pass this gate. No family test has run.
+
+
+## Workshop narration and test scene — 2026-09-25
+
+The adult pack has **26 draft clips: nine existing models/prompts and 17 navigation,
+feedback and completion cues**. `src/content/narration.ts` lists required guidance
+IDs; the catalog validator rejects a missing guidance asset. All clips use the
+existing catalog file/hash/rights/review fields and remain unapproved. Run
+`npm run draft:audio` on the development Mac after script changes, then
+`npm run content:check:draft`. Generated synthetic speech and its import map stay
+ignored. Do not distribute them as approved production recordings.
+
+Automatic guidance is short: first activity of each kind receives a direction and
+its prompt; later activities receive feedback and their prompt. **Hear it again**
+repeats the model; **Hear instructions** also explains check/help/skip. Show me and
+the demonstration sequence model each answer sound in order. Replay, navigation,
+saving and backgrounding cancel queued speech. Foregrounding does not automatically
+resume it. No music, effects, autoplay video or idle-animation loops were added.
+
+The new scenes provisionally identify the robot as Sam. Review that identity, the
+mat/seat meaning, capital S, and the wording of `Sam sat.` before approval. The seat
+and lights are optional cause-and-effect play after the lesson has been recorded;
+Test does not earn another attempt, part or mastery credit. Done for now remains
+available without testing. Reduced motion shows the same final state immediately.
+These scenes are not a STEM curriculum or an independent reading assessment.
+
+For production, review every line of `content/audio-scripts.json`, the runtime copy
+in both screens and the new scene descriptions. Use one consistent human narrator,
+short phrasing and clearly modeled phonemes. Review final exported files in the
+full sequence, including fast replay, a skipped activity, failed-save retry,
+background interruption and sound disabled. The source revision and final runtime
+copy must accompany the existing semantic-pack digest, which binds catalog/media
+content but does not hash the application source itself.

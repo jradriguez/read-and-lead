@@ -31,3 +31,30 @@ test("collected parts, next mission and replay stay distinct and accessible", as
   );
   expect(replay).toHaveBeenCalledWith("first");
 });
+
+test("a finished workshop offers a natural stopping point and cancels speech before replay", async () => {
+  const calls: string[] = [];
+  const audio = {
+    async play(id: string) {
+      calls.push(id);
+    },
+    stop() {
+      calls.push("stop");
+    },
+  };
+  await render(
+    <WorkshopScreen
+      onStart={() => calls.push("start")}
+      onParent={() => {}}
+      finished
+      parts={2}
+      audio={audio}
+    />,
+  );
+  expect(
+    screen.getByText("Your missions are finished. You can stop here."),
+  ).toBeTruthy();
+  expect(calls).toContain("guide-workshop-done");
+  await fireEvent.press(screen.getByRole("button", { name: "Start lesson" }));
+  expect(calls.slice(-2)).toEqual(["stop", "start"]);
+});

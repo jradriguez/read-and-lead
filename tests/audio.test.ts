@@ -32,7 +32,7 @@ test("late loading of A cannot start over newer prompt B", async () => {
   resolveA(a);
   await first;
   assert.deepEqual(a.events, ["stop", "dispose"]);
-  assert.deepEqual(b.events, ["play"]);
+  assert.deepEqual(b.events, ["play", "stop", "dispose"]);
   audio.stop();
   assert.deepEqual(b.events, ["play", "stop", "dispose"]);
 });
@@ -61,5 +61,66 @@ test("failed loading is visible and next replay is still possible", async () => 
   });
   await assert.rejects(audio.play("x"));
   await audio.play("x");
-  assert.deepEqual(p.events, ["play"]);
+  assert.deepEqual(p.events, ["play", "stop", "dispose"]);
+});
+
+test("play resolves only when playback finishes and releases once", async () => {
+  let finish!: () => void;
+  const p = player();
+  const audio = createAudioController(async () => ({
+    ...p,
+    play() {
+      p.events.push("play");
+      return new Promise<void>((resolve) => {
+        finish = resolve;
+      });
+    },
+  }));
+  let ended = false;
+  const playing = audio.play("x").then(() => {
+    ended = true;
+  });
+  await Promise.resolve();
+  assert.equal(ended, false);
+  finish();
+  await playing;
+  assert.equal(ended, true);
+  audio.stop();
+  assert.deepEqual(p.events, ["play", "stop", "dispose"]);
+});
+
+test("a late playback rejection cannot stop the newer player", async () => {
+  let rejectA!: (error: Error) => void;
+  let finishB!: () => void;
+  const a = player(),
+    b = player();
+  const audio = createAudioController(async (id) =>
+    id === "a"
+      ? {
+          ...a,
+          play: () =>
+            new Promise<void>((_, reject) => {
+              rejectA = reject;
+            }),
+        }
+      : {
+          ...b,
+          play: () =>
+            new Promise<void>((resolve) => {
+              finishB = resolve;
+            }),
+        },
+  );
+  const first = audio.play("a");
+  const rejected = assert.rejects(first, /late/);
+  await Promise.resolve();
+  const second = audio.play("b");
+  await Promise.resolve();
+  rejectA(new Error("late"));
+  await rejected;
+  assert.deepEqual(b.events, []);
+  finishB();
+  await second;
+  assert.deepEqual(a.events, ["stop", "dispose"]);
+  assert.deepEqual(b.events, ["stop", "dispose"]);
 });

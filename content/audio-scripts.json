@@ -7,5 +7,22 @@
   "sam": "Build the name, Sam. Sam.",
   "mat": "Build the word, mat. Mat.",
   "sat": "Build the word, sat. Sat.",
-  "sentence": "Sam sat."
+  "sentence": "Sam sat.",
+  "guide-workshop": "Welcome to the workshop. Help Sam build. Tap the yellow play button to begin. Tap the speaker to hear this again.",
+  "guide-workshop-done": "Your workshop missions are finished. You can stop here, or choose a mission to build again.",
+  "guide-intro": "Meet the sounds. Tap each letter to hear its sound. When you are ready, tap Ready to build. You can go back to the workshop at any time.",
+  "guide-sound": "Listen, then choose the letter for this sound.",
+  "guide-word": "Tap a letter, then a space. You can also drag a letter into a space. Put the sounds in order.",
+  "guide-check": "When you are ready, tap Check answer. Tap Show me for help, or Skip for now to move on.",
+  "guide-again": "Let us listen and try again.",
+  "guide-together": "Let us build this one together. Listen to the sounds, then tap Continue together.",
+  "guide-show": "Listen to the sounds in order.",
+  "guide-found": "You found the sound.",
+  "guide-built": "You put the sounds together.",
+  "guide-skipped": "We can practise that another time.",
+  "guide-power-ready": "The workshop is ready. Tap Test the lights to turn on the workbench lights. Or tap Done for now to finish.",
+  "guide-power-done": "The workbench lights are on. You finished this mission. Tap Done for now when you are ready to stop.",
+  "guide-seat-ready": "Sam has a mat for the seat. Tap Test the seat to see Sam sit. Or tap Done for now to finish.",
+  "guide-seat-done": "Sam sat on the mat. You finished this mission. You can hear the sentence, or tap Done for now to finish.",
+  "guide-save-error": "Your progress could not be saved. Tap Retry save, or ask a grown-up for help."
 }

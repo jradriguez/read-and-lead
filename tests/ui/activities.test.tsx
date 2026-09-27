@@ -174,3 +174,57 @@ test("empty word slots cannot be recorded as a reading error", async () => {
   );
   expect(saves).toBe(1);
 });
+
+test.each(["first-sounds", "first-words"])(
+  "%s offers an optional test and an immediate finish without extra assessment credit",
+  async (id) => {
+    const catalog = makeCatalog();
+    const base = catalog.lessons.find((l) => l.id === id)!;
+    const record = jest.fn(async () => {});
+    const complete = jest.fn();
+    await render(
+      <LessonScreen
+        lesson={{
+          ...base,
+          introducedPatternIds: [],
+          activities: [base.activities[0]],
+        }}
+        catalog={catalog}
+        repository={{
+          record,
+          async summary() {
+            return emptySummary();
+          },
+          async reset() {},
+          async prune() {},
+        }}
+        audio={{ async play() {}, stop() {} }}
+        onComplete={complete}
+        onExit={() => {}}
+        reducedMotion
+      />,
+    );
+    await fireEvent.press(screen.getByRole("button", { name: "Skip for now" }));
+    expect(
+      screen.getByRole("button", { name: "Done for now" }).props
+        .accessibilityState.disabled,
+    ).toBe(false);
+    expect(record).toHaveBeenCalledTimes(1);
+    const before =
+      id === "first-words"
+        ? "Sam is ready to try the seat."
+        : "The workbench lights are off.";
+    const after =
+      id === "first-words"
+        ? "Sam is sitting on the mat."
+        : "The workbench lights are on.";
+    expect(screen.getByLabelText(before)).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("test-mission"));
+    expect(screen.getByLabelText(after)).toBeTruthy();
+    expect(screen.queryByTestId("test-mission")).toBeNull();
+    expect(record).toHaveBeenCalledTimes(1);
+    expect(complete).not.toHaveBeenCalled();
+    await fireEvent.press(screen.getByTestId("finish-lesson"));
+    expect(complete).toHaveBeenCalledTimes(1);
+  },
+);
