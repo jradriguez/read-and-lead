@@ -3,8 +3,9 @@
 Research: 2026-09-12. Re-scoped: **2026-09-13 UTC**, after merged PR #11.
 Status: **evidence-backed proposal and durable product target for Read to Lead**.
 The owner requested research, a stored roadmap and useful development plugins.
-The research installed development tools and produced the plan; the premium mission
-below is not implemented or validated. The current revision also applies the owner's
+The research installed development tools and produced the plan. The 2026-09-25
+adult prototype implements the first bounded test-scene/narration/drag increment;
+the complete premium experience and its acceptance targets remain unvalidated. The current revision also applies the owner's
 provisional display rename. Existing [design](design.md) and
 [implementation status](implementation-status.md) remain the product baseline and
 delivery record. The [mobile readiness plan](mobile-readiness-plan.md) owns legal,
@@ -72,16 +73,17 @@ standalone offline release, physical-device performance or child readiness.
 | Product evidence | Design and engineering prototype | No child usability, independent learning outcome, willingness-to-pay or competitive native benchmark evidence yet |
 
 Current app dependencies already include Reanimated 4.5.1 and Worklets 0.10.1.
-[LetterTile](../src/features/lesson/LetterTile.tsx) routes pan updates to JavaScript
-and sets React state each movement. The first performance task should move visual
-tracking to shared values while preserving one semantic placement path. Review
-asynchronous slot measurements in [WordBuilder](../src/features/lesson/WordBuilder.tsx)
-for stale activity/layout callbacks. Reproduce and test the failure before claiming
-either change fixes native gesture recognition.
+At the research baseline, [LetterTile](../src/features/lesson/LetterTile.tsx) routed
+pan updates to JavaScript and set React state each movement. The 2026-09-25 increment
+moves visual tracking to shared values and guards asynchronous slot measurements.
+The disabled-input regression was reproduced before fixing it; native iPad simulator
+pan placement was subsequently observed. This does not establish the cause of every
+earlier driver failure or a measured performance improvement. See
+[implementation status](implementation-status.md#purposeful-workshop-implementation--2026-09-25).
 
 ## First premium mission: Sam's Test Bench
 
-This is a **draft art/interaction brief**, using the existing `m/a/s/t`, `mat` and
+This remains a **draft art/interaction brief**, using the existing `m/a/s/t`, `mat` and
 `Sam sat.` material. No new curriculum is approved by this document. Resolve who
 Sam is and whether each instruction/meaning is clear during human content review.
 
@@ -291,3 +293,15 @@ records and public-use sources; it did not establish legal name availability.
 Native smoke/build evidence from PR #11 remains in [validation](validation.md) and
 [device validation](device-validation.md). No new physical-device benchmark,
 competitor playthrough, human content approval or child test is part of this change.
+
+
+## Implementation boundary — 2026-09-25
+
+The local implementation delivers shared-value dragging, guarded drop callbacks,
+ordered draft guidance, optional light/seat test scenes and explicit stopping. The
+screen uses native shapes and installed animation libraries; no renderer dependency
+or media service was added. The full brief still needs human art/audio/instruction
+review, an understandable prediction/meaning sequence, physical/accessibility
+acceptance and the stated learning/technical measurements. Do not mark these
+outcomes complete from simulator success. Production handoff lives in
+[content review](content-review.md#workshop-narration-and-test-scene--2026-09-25).

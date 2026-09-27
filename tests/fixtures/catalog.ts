@@ -1,4 +1,5 @@
 import type { Catalog } from "../../src/content/types";
+import { narrationIds } from "../../src/content/narration";
 export function makeCatalog(): Catalog {
   const patterns = ["m", "short-a", "s", "t"].map((id) => ({
     id,
@@ -8,6 +9,7 @@ export function makeCatalog(): Catalog {
   return {
     patterns,
     assets: [
+      ...narrationIds,
       "m",
       "short-a",
       "s",

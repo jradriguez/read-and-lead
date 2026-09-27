@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -26,6 +26,14 @@ export function WordBuilder({
   disabled: boolean;
 }) {
   const refs = useRef<(View | null)[]>([]);
+  const revision = useRef(0);
+  // A drop belongs to the rendered activity and layout that requested it.
+  useLayoutEffect(() => {
+    revision.current++;
+    return () => {
+      revision.current++;
+    };
+  });
   const { width, height } = useWindowDimensions();
   const slotWidth = Math.max(
     56,
@@ -35,14 +43,15 @@ export function WordBuilder({
     ),
   );
   const drop = (id: string, x: number, y: number) => {
+    if (disabled || !choices.some((choice) => choice.id === id)) return;
+    const currentRefs = slots.map((_, i) => refs.current[i]);
+    if (currentRefs.some((ref) => !ref)) return;
+    const mine = ++revision.current;
     const bounds: Bounds[] = [];
     let remaining = slots.length;
-    refs.current.forEach((ref, i) => {
-      if (!ref) {
-        remaining--;
-        return;
-      }
-      ref.measureInWindow((bx, by, w, h) => {
+    currentRefs.forEach((ref, i) => {
+      ref!.measureInWindow((bx, by, w, h) => {
+        if (mine !== revision.current) return;
         bounds[i] = { x: bx, y: by, width: w, height: h };
         if (--remaining === 0) {
           const index = dropIndex(x, y, bounds);

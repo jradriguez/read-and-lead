@@ -1,0 +1,20 @@
+// Every runtime cue must be bundled and pass the same review as lesson audio.
+export const narrationIds = [
+  "guide-workshop",
+  "guide-workshop-done",
+  "guide-intro",
+  "guide-sound",
+  "guide-word",
+  "guide-check",
+  "guide-again",
+  "guide-together",
+  "guide-show",
+  "guide-found",
+  "guide-built",
+  "guide-skipped",
+  "guide-power-ready",
+  "guide-power-done",
+  "guide-seat-ready",
+  "guide-seat-done",
+  "guide-save-error",
+] as const;

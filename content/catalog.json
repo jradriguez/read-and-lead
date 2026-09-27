@@ -332,6 +332,142 @@
       "creator": "Local macOS system speech, development only",
       "rights": "Pending: no redistribution permission established",
       "reviewed": false
+    },
+    {
+      "id": "guide-workshop",
+      "file": "draft/guide-workshop.wav",
+      "sha256": "5f2c4e0d6d11300c02cfcea1510a481a3e427cec8dac955c60cfe21886c49010",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-workshop-done",
+      "file": "draft/guide-workshop-done.wav",
+      "sha256": "f5badff0d4204fe7d47ec4276368b2f3020a483b18fab21c5afd62367a7c8b50",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-intro",
+      "file": "draft/guide-intro.wav",
+      "sha256": "69b26f8b29e29265cdcb580d0bbe3a73ca33d41134e661327ce516227d4c51bf",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-sound",
+      "file": "draft/guide-sound.wav",
+      "sha256": "41b1ea6e8775caa37d0bc9ffb8f30a78c27fd27e12f86cb2ad8da415ae42f4d2",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-word",
+      "file": "draft/guide-word.wav",
+      "sha256": "140759506c64e8a07c7ba351ea43b1a919d45b950e9cd48a1ad8b1f6408232c0",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-check",
+      "file": "draft/guide-check.wav",
+      "sha256": "19cf4e1b3ff92e22ba3b24c5c65f63dfc8a20f8f11e14835233e0f3cc67e5c4b",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-again",
+      "file": "draft/guide-again.wav",
+      "sha256": "3f12191ddd24eebb89c543fedcc0fd1bb6305bf63e692510750f7d453571dc0b",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-together",
+      "file": "draft/guide-together.wav",
+      "sha256": "e8c3c70addabbfbf6222e1617a6b61485f07de9093b182bd47c3ed851a7ad44e",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-show",
+      "file": "draft/guide-show.wav",
+      "sha256": "ae2d18a25ddd26f3c8c3db628eda91d187e1221c23face14556bedb2512e51dd",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-found",
+      "file": "draft/guide-found.wav",
+      "sha256": "da1655afa0bc6242b123d90e76d9713dbbdac356890c0b66c90d4ebf61bf448e",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-built",
+      "file": "draft/guide-built.wav",
+      "sha256": "a484e3f4fc436a6d245291ea5ef84879b20b056ab46d398123e1ccee2154d794",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-skipped",
+      "file": "draft/guide-skipped.wav",
+      "sha256": "dcb3d9d1e30947bb14b63eb6fb6ec834ab4fccc59659a38230b4550df8fa34e2",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-power-ready",
+      "file": "draft/guide-power-ready.wav",
+      "sha256": "8cf382f9202e76cd2ea5c40c79e5d6857f430e908b6a619e0f40b9c19aca42f6",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-power-done",
+      "file": "draft/guide-power-done.wav",
+      "sha256": "384b356095063c036a50c05191ac176df5786b17ae2d74ba587b29f79dc30a18",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-seat-ready",
+      "file": "draft/guide-seat-ready.wav",
+      "sha256": "8472d2ea7ddd8c1511ad5c92ac29ed4585b33f5ffb128cf8e3d26d3a6e9d9a9b",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-seat-done",
+      "file": "draft/guide-seat-done.wav",
+      "sha256": "9d6387550460efb7b5376fc80450e6e3a16155e856880b801cae30691cea2873",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
+    },
+    {
+      "id": "guide-save-error",
+      "file": "draft/guide-save-error.wav",
+      "sha256": "0505ebf393e147555f28fcf2b847a461330a833b8225fdab11f3d671d52f932e",
+      "creator": "Local synthetic development voice",
+      "rights": "pending - adult development only",
+      "reviewed": false
     }
   ]
 }

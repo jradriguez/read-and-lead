@@ -80,3 +80,9 @@ test("draft content and media cannot enter release", () => {
   assert.ok(errors.includes("UNAPPROVED_LESSON"));
   assert.ok(errors.includes("UNAPPROVED_ASSET"));
 });
+
+test("spoken guidance is required even when lesson prompts are present", () => {
+  const c = makeCatalog();
+  c.assets = c.assets.filter((asset) => asset.id !== "guide-intro");
+  assert.ok(validateCatalog(c, false).includes("MISSING_AUDIO"));
+});
