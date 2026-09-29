@@ -27,6 +27,7 @@ repeat or broaden checks only after relevant changes or unresolved failures.
 | Point / affected scope | Required checks |
 | --- | --- |
 | Every change | `npm run validate:code`, `git diff --check` |
+| Dependency manifests or lockfiles | Clean `npm ci`, `npm ls --all`, and `CI=1 npx expo install --check`; see [dependency maintenance](docs/toolchain.md#dependency-maintenance) |
 | Before commit/review and authorized push | Above, plus `npm run security:check`; inspect staged content and run `git diff --cached --check` before committing |
 | Immediately before a publication-bound local commit | `npm run publication:check` on the exact index and identity; use the verified GitHub noreply address for both author and committer |
 | Markdown instructions | Verify local links, npm command references, policy consistency, and document ownership |
