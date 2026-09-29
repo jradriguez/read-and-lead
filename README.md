@@ -45,8 +45,8 @@ npm run content:check
 npm run security:check
 ```
 
-`validate:code` covers ESLint, strict types, unit tests, UI tests and repository
-boundaries. `content:check:draft` checks the local draft catalog and actual asset
+`validate:code` covers offline Expo compatibility, ESLint, strict types, unit tests,
+UI tests and repository boundaries. `content:check:draft` checks the local draft catalog and actual asset
 files. `content:check` is the strict release gate and **currently fails intentionally**
 for unreviewed lessons, unapproved audio rights and missing human review digests.
 `validate` includes that release gate and is therefore not green yet.
