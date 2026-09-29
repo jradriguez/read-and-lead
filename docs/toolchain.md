@@ -26,6 +26,39 @@ Versioned references: [Expo 57](https://docs.expo.dev/versions/v57.0.0/),
 Development prerequisites are not evidence that an application was compiled,
 signed, installed on a physical device, or accepted by a store.
 
+## Dependency maintenance
+
+Maintain Expo SDK 57 and Node 24 as coordinated stacks. The 2026-09-29 alignment
+uses Expo 57.0.26, expo-asset 57.0.18, React 19.2.3 and React types ~19.2.4.
+Keep Jest 29 with matching types and jest-expo 57; TypeScript 6.0 with the current
+typescript-eslint peer range; Reanimated 4.5.1 with Worklets 0.10.1. The lockfile
+records exact resolutions. These constraints must be revisited during an SDK or
+toolchain migration, not bypassed with `--force` or `--legacy-peer-deps`.
+
+Dependabot's npm `lockfile-only` strategy updates resolutions within the manifest's
+existing constraints. It does not propose widening those constraints or changing
+exact pins. Supported minor/patch updates remain eligible where ranges permit;
+SDK, React, Jest, TypeScript and Node-major migrations need a coordinated manual
+manifest update. Keep reviewing security alerts and `npm run security:check`;
+an urgent fix outside a constraint requires a reviewed compatible migration.
+CodeQL action steps are grouped into one GitHub Actions version-update PR so
+initialization and analysis stay on the same action version. Other actions retain
+their existing update policy.
+
+After a clean `npm ci`, `npm run validate:code` runs `deps:check`. This compares
+installed packages with the installed Expo package's bundled native-version map,
+without network access or automatic fixes. Its offline warning is expected: the
+bundled map omits some development tools and cannot contain newer remote guidance.
+Normal npm peer resolution, strict types and UI tests remain required. For every
+dependency change, additionally run `npm ls --all` and
+`CI=1 npx expo install --check` online to check the current Expo recommendations,
+including Jest and React types. Do not add validation exclusions to pass a gate.
+
+The superseded TypeScript 7, Jest 30 and Reanimated 4.6 proposals are held until
+their lint/Expo peers support them. Passing Jest 30 unit tests alone does not
+establish that the Expo test stack is supported. Compatibility checks also do not
+replace native builds, device acceptance or the human content/rights release gate.
+
 ## Authorized native build setup
 
 The owner authorized the concrete setup proposal with “ok, implement it”. Installed
