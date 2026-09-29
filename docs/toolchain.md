@@ -41,7 +41,9 @@ exact pins. Supported minor/patch updates remain eligible where ranges permit;
 SDK, React, Jest, TypeScript and Node-major migrations need a coordinated manual
 manifest update. Keep reviewing security alerts and `npm run security:check`;
 an urgent fix outside a constraint requires a reviewed compatible migration.
-GitHub Actions updates retain their existing policy.
+CodeQL action steps are grouped into one GitHub Actions version-update PR so
+initialization and analysis stay on the same action version. Other actions retain
+their existing update policy.
 
 After a clean `npm ci`, `npm run validate:code` runs `deps:check`. This compares
 installed packages with the installed Expo package's bundled native-version map,
